@@ -5,7 +5,24 @@ Use this catalog while routing, before the selected workflow is lazy-installed. 
 ## Sections
 
 - [`/product-launch-video`](#product-launch-video), [`/faceless-explainer`](#faceless-explainer), [`/pr-to-video`](#pr-to-video)
-- [`/embedded-captions`](#embedded-captions), [`/talking-head-recut`](#talking-head-recut)
+- [`/shiftcut-ingest`](#shiftcut-ingest), [`/shiftcut-shorts`](#shiftcut-shorts), [`/shiftcut-remove-silences`](#shiftcut-remove-silences), [`/shiftcut-reframe`](#shiftcut-reframe), [`/embedded-captions`](#embedded-captions), [`/talking-head-recut`](#talking-head-recut)
+
+## `/shiftcut-ingest`
+
+Local video file → an editable ShiftCut project with the source preserved and composition timing derived from `ffprobe`.
+
+## `/shiftcut-shorts`
+
+Podcast, interview, or talking-head video → timestamped short-form selects, each with local captions and vertical reframing.
+
+## `/shiftcut-remove-silences`
+
+Spoken video → an edit-decision list and composition that removes only long pauses and approved filler words.
+
+## `/shiftcut-reframe`
+
+Existing footage → a target-aspect composition with smooth subject-aware crop keyframes and safe caption placement.
+
 - [`/motion-graphics`](#motion-graphics), [`/music-to-video`](#music-to-video), [`/slideshow`](#slideshow)
 - [`/general-video`](#general-video), [`/remotion-to-shiftcut`](#remotion-to-shiftcut)
 

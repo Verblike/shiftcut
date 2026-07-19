@@ -22,14 +22,14 @@ ShiftCut **renders video from HTML** — a composition is an HTML file whose DOM
 
 Apply the first matching row; do not evaluate lower state rows:
 
-| State                                                                                                                         | Action                                                                                                                                                                                                      |
-| ----------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Explicit port of existing Remotion source to ShiftCut                                                                      | Read the `/remotion-to-shiftcut` section of `references/workflow-catalog.md`, then route directly to that workflow. Skip the intent layer.                                                               |
-| Specific operation on an existing ShiftCut project: inspect, diagnose, validate, preview, render, publish, or batch-render | Perform only that operation. Skip intent and workflow routing; load `/shiftcut-cli` and any required domain skills.                                                                                      |
-| Specific edit to an existing project                                                                                          | Make the edit. Do not run the intent layer.                                                                                                                                                                 |
-| `BRIEF.md` exists                                                                                                             | Read `workflow` and `flow`. Execute that workflow; `flow: companion` always executes in `/general-video`. Ask no brief questions.                                                                           |
+| State                                                                                                                      | Action                                                                                                                                                                                                      |
+| -------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Explicit port of existing Remotion source to ShiftCut                                                                      | Read the `/remotion-to-shiftcut` section of `references/workflow-catalog.md`, then route directly to that workflow. Skip the intent layer.                                                                  |
+| Specific operation on an existing ShiftCut project: inspect, diagnose, validate, preview, render, publish, or batch-render | Perform only that operation. Skip intent and workflow routing; load `/shiftcut-cli` and any required domain skills.                                                                                         |
+| Specific edit to an existing project                                                                                       | Make the edit. Do not run the intent layer.                                                                                                                                                                 |
+| `BRIEF.md` exists                                                                                                          | Read `workflow` and `flow`. Execute that workflow; `flow: companion` always executes in `/general-video`. Ask no brief questions.                                                                           |
 | No brief, but `shiftcut.json` or `STORYBOARD.md` exists                                                                    | Resume from project files and recorded preferences. Infer the owning workflow from existing artifacts. If it cannot be determined uniquely, ask one routing-only question; do not run the intent interview. |
-| Fresh creation                                                                                                                | Run the intent layer (§ 4), then route once using the rules below.                                                                                                                                          |
+| Fresh creation                                                                                                             | Run the intent layer (§ 4), then route once using the rules below.                                                                                                                                          |
 
 Continue with source adapters in § 2. A direct or resumed workflow route skips §§ 3–4 and proceeds to workflow installation in § 5. A specific operation or edit skips §§ 3–5 and loads only the domain skills it needs from § 6.
 
@@ -62,18 +62,22 @@ A GitHub PR URL is not a website source. A named or adopted recipe already carri
 
 Use the first matching row. Match the requested **deliverable**, not a word or file type mentioned in passing.
 
-| Priority | Request                                                                                                            | Workflow                   |
-| -------- | ------------------------------------------------------------------------------------------------------------------ | -------------------------- |
-| 1        | Explicitly port an existing Remotion source                                                                        | `/remotion-to-shiftcut` |
-| 2        | Author a presentation, pitch deck, or navigable interactive deck                                                   | `/slideshow`               |
-| 3        | Add plain captions or subtitles to existing talking-head footage without changing it                               | `/embedded-captions`       |
-| 4        | Add designed graphic overlays to existing talking-head, interview, or podcast footage without changing the footage | `/talking-head-recut`      |
-| 5        | Build a beat-synced video from a music track, with no narration or website capture                                 | `/music-to-video`          |
-| 6        | Create an explicitly short, unnarrated, motion-first unit, typically under 10s                                     | `/motion-graphics`         |
-| 7        | Explain a GitHub pull request or code change from a PR reference                                                   | `/pr-to-video`             |
-| 8        | Market or showcase a website, product site, app, or company from a URL or site-specific brief                      | `/product-launch-video`    |
-| 9        | Explain a topic, article, or notes with invented visuals and no product or site capture                            | `/faceless-explainer`      |
-| 10       | Any other custom video or composition                                                                              | `/general-video`           |
+| Priority | Request                                                                                                            | Workflow                    |
+| -------- | ------------------------------------------------------------------------------------------------------------------ | --------------------------- |
+| 1        | Explicitly port an existing Remotion source                                                                        | `/remotion-to-shiftcut`     |
+| 2        | Author a presentation, pitch deck, or navigable interactive deck                                                   | `/slideshow`                |
+| 3        | Import an existing video into an editable local project                                                            | `/shiftcut-ingest`          |
+| 4        | Cut a podcast or interview into several short clips                                                                | `/shiftcut-shorts`          |
+| 5        | Remove silent pauses or filler words from spoken footage                                                           | `/shiftcut-remove-silences` |
+| 6        | Reframe existing footage for a different aspect ratio                                                              | `/shiftcut-reframe`         |
+| 7        | Add plain captions or subtitles to existing talking-head footage without changing it                               | `/embedded-captions`        |
+| 8        | Add designed graphic overlays to existing talking-head, interview, or podcast footage without changing the footage | `/talking-head-recut`       |
+| 5        | Build a beat-synced video from a music track, with no narration or website capture                                 | `/music-to-video`           |
+| 6        | Create an explicitly short, unnarrated, motion-first unit, typically under 10s                                     | `/motion-graphics`          |
+| 7        | Explain a GitHub pull request or code change from a PR reference                                                   | `/pr-to-video`              |
+| 8        | Market or showcase a website, product site, app, or company from a URL or site-specific brief                      | `/product-launch-video`     |
+| 9        | Explain a topic, article, or notes with invented visuals and no product or site capture                            | `/faceless-explainer`       |
+| 10       | Any other custom video or composition                                                                              | `/general-video`            |
 
 Before finalizing the route, read the matching section of `references/workflow-catalog.md`. It is the canonical input/output/trigger contract available before lazy-installed workflow skills are present. If the candidate does not satisfy that entry, continue routing instead of forcing the match.
 
@@ -81,7 +85,7 @@ Before finalizing the route, read the matching section of `references/workflow-c
 
 - A short animated title, logo sting, stat hit, chart hit, map hit, or standalone lower-third is `/motion-graphics` when it is unnarrated and motion is the message. A static title card, narrated sequence, longer montage, or custom loop is `/general-video`.
 - An explicitly short motion graphic may use a URL, tweet, article, or screenshot as source material. A generic “make a video from this site” request is `/product-launch-video`.
-- Existing footage with captions routes to `/embedded-captions`; footage with designed information cards routes to `/talking-head-recut`. Retiming, reordering, recoloring, reframing, or remixing footage is a custom edit and falls through to `/general-video`.
+- Existing footage headed for shorts, silence removal, or aspect-ratio conversion routes to `/shiftcut-shorts`, `/shiftcut-remove-silences`, or `/shiftcut-reframe` first. Plain captions route to `/embedded-captions`; designed information cards route to `/talking-head-recut`.
 - A music file selects `/music-to-video` only when its beat grid drives the piece. Music used as a bed does not override the subject-matched route.
 - “I want a storyboard” changes the review process, not the workflow. With no other routing signal, use `/general-video`. A confirmed sketched board may itself be the requested deliverable; the review loop defines that stop point.
 - Specialized narrative workflows support up to about 3 minutes and are strongest around 30–90s. Route a clearly longer piece to `/general-video`. Length never overrides an explicit port, deck, caption, overlay, or music-driven deliverable.
@@ -98,7 +102,7 @@ These reads are mandatory when their condition matches; do not replace them with
 | The route is known, before asking route-specific questions  | Its section in `references/route-briefs.md`                |
 | Triage judged the request unformed, before any concept work | `references/pitch-round.md`                                |
 | Offering optional capabilities or collecting supplied media | The route-filtered rows in `references/capability-menu.md` |
-| Deriving `flow`, `storyboard`, mode, or canonical fields    | `../shiftcut-core/references/brief-contract.md`         |
+| Deriving `flow`, `storyboard`, mode, or canonical fields    | `../shiftcut-core/references/brief-contract.md`            |
 
 **1 — Memory before questions.** Two reads, both mandatory, before anything is asked:
 
@@ -151,15 +155,15 @@ Use the bare name without `/`. If the command fails, surface the error; do not r
 
 ## 6. Load domain skills on demand
 
-| Need                                                                                                                | Skill                    |
-| ------------------------------------------------------------------------------------------------------------------- | ------------------------ |
-| Composition structure, timing attributes, tracks, variables, determinism                                            | `/shiftcut-core`      |
-| Motion rules, scene blueprints, transitions, runtime adapters                                                       | `/shiftcut-animation` |
+| Need                                                                                                             | Skill                 |
+| ---------------------------------------------------------------------------------------------------------------- | --------------------- |
+| Composition structure, timing attributes, tracks, variables, determinism                                         | `/shiftcut-core`      |
+| Motion rules, scene blueprints, transitions, runtime adapters                                                    | `/shiftcut-animation` |
 | Seek-safe GSAP, CSS, Anime.js, WAAPI, FLIP, paths, masks, SVG, 3D keyframes, or `shiftcut keyframes` diagnostics | `/shiftcut-keyframes` |
-| Design specs, concept, palette, typography, narration, beat planning                                                | `/shiftcut-creative`  |
-| Images, icons, logos, audio, captions, grades, LUTs, reusable media                                                 | `/media-use`             |
-| Init, lint, check, snapshots, compare, batch render, Studio, render, publish, or diagnostics                        | `/shiftcut-cli`       |
-| Registry blocks and components                                                                                      | `/shiftcut-registry`  |
-| Figma assets, tokens, components, or storyboard frames as reconstructed motion                                      | `/figma`                 |
+| Design specs, concept, palette, typography, narration, beat planning                                             | `/shiftcut-creative`  |
+| Images, icons, logos, audio, captions, grades, LUTs, reusable media                                              | `/media-use`          |
+| Init, lint, check, snapshots, compare, batch render, Studio, render, publish, or diagnostics                     | `/shiftcut-cli`       |
+| Registry blocks and components                                                                                   | `/shiftcut-registry`  |
+| Figma assets, tokens, components, or storyboard frames as reconstructed motion                                   | `/figma`              |
 
 Domain skills never take ownership of the end-to-end deliverable. Load only what the active workflow needs.
