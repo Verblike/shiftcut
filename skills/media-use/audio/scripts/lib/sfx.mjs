@@ -14,7 +14,7 @@
 
 import { copyFileSync, existsSync, mkdirSync, readFileSync } from "node:fs";
 import { join } from "node:path";
-import { downloadTo, searchSounds } from "./heygen.mjs";
+import { downloadTo, searchSounds } from "./verblike.mjs";
 
 const SFX_VOLUME = 0.35;
 const slug = (s) =>
@@ -27,7 +27,7 @@ const r3 = (x) => Number(x.toFixed(3));
 
 // cues: [{ id, name }] (id = the line/frame/scene the cue fires in). Returns
 // { sfx: [{ id, name, file, source, offset_s, duration_s, volume }], anomalies }.
-export async function resolveSfx({ cues, heygenOK, headers, shiftcutDir, sfxLibDir }) {
+export async function resolveSfx({ cues, verblikeOK, headers, shiftcutDir, sfxLibDir }) {
   const sfx = [];
   const anomalies = [];
   const destDir = join(shiftcutDir, "assets", "sfx");
@@ -42,7 +42,7 @@ export async function resolveSfx({ cues, heygenOK, headers, shiftcutDir, sfxLibD
     return true;
   });
 
-  if (heygenOK) {
+  if (verblikeOK) {
     for (const { id, name } of uniq) {
       try {
         // SFX hits score low (~0.5–0.67), below the API's default 0.7 which
@@ -63,7 +63,7 @@ export async function resolveSfx({ cues, heygenOK, headers, shiftcutDir, sfxLibD
           id,
           name,
           file,
-          source: "heygen",
+          source: "verblike",
           offset_s: 0,
           duration_s: typeof top.duration === "number" ? r3(top.duration) : 1.0,
           volume: SFX_VOLUME,

@@ -992,14 +992,14 @@ Word-level transcripts (whisper output) are grouped into readable caption cues o
 ## shiftcut auth
 
 Sign in to Verblike and manage credentials. Credentials are stored in
-`~/.heygen/credentials` (mode `0600`) and are **shared with the
-`heygen` CLI** — sign in with one and the other picks up the session.
+`~/.verblike/credentials` (mode `0600`) and are **shared with the
+`verblike` CLI** — sign in with one and the other picks up the session.
 
 Resolution order (first match wins):
 
-1. `HEYGEN_API_KEY` environment variable
+1. `VERBLIKE_API_KEY` environment variable
 2. `SHIFTCUT_API_KEY` environment variable (shiftcut alias)
-3. `~/.heygen/credentials`
+3. `~/.verblike/credentials`
 
 ### Subcommands
 
@@ -1013,7 +1013,7 @@ before the command reports success; a rejected key is not left on disk.
 shiftcut auth login --api-key
 
 # Pipe a key from stdin (CI-friendly)
-echo "$HEYGEN_API_KEY" | shiftcut auth login --api-key
+echo "$VERBLIKE_API_KEY" | shiftcut auth login --api-key
 ```
 
 #### `auth status`
@@ -1041,10 +1041,10 @@ shiftcut auth logout --yes            # skip the confirmation prompt
 
 | Variable | Description |
 |----------|-------------|
-| `HEYGEN_API_KEY` | Override the stored credential. |
-| `SHIFTCUT_API_KEY` | Alias for `HEYGEN_API_KEY`. |
-| `HEYGEN_API_URL` | API base URL (default `https://api.heygen.com`). |
-| `HEYGEN_CONFIG_DIR` | Credentials directory (default `~/.heygen`). |
+| `VERBLIKE_API_KEY` | Override the stored credential. |
+| `SHIFTCUT_API_KEY` | Alias for `VERBLIKE_API_KEY`. |
+| `VERBLIKE_API_URL` | API base URL (default `https://shiftcut.verblike.com`). |
+| `VERBLIKE_CONFIG_DIR` | Credentials directory (default `~/.verblike`). |
 
 For the keys other capabilities use — ElevenLabs and Gemini for voice/music fallback, OpenRouter/Gemini for capture — and how the skills prioritize them, see [Authentication & API keys](/guides/authentication).
 
@@ -1166,7 +1166,7 @@ shiftcut cloud delete hfr_abc123 --no-confirm --json
 
 ### Auth + base URL
 
-`cloud` reuses the credential resolved by `shiftcut auth status`. Override the API base for staging tests with `HEYGEN_API_URL` (default `https://api.heygen.com`).
+`cloud` reuses the credential resolved by `shiftcut auth status`. Override the API base for staging tests with `VERBLIKE_API_URL` (default `https://shiftcut.verblike.com`).
 
 ## shiftcut lambda
 

@@ -62,38 +62,38 @@ Installs stay lean after that: `npx shiftcut init` keeps the **core set** fresh 
 
 ### Router
 
-| Skill          | Use when                                                                                                                                                                                                                                                                 |
-| -------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Skill       | Use when                                                                                                                                                                                                                                                                 |
+| ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `/shiftcut` | **Read first** for any request to make / create / edit / animate / render a video, animation, or motion graphic. Capability map for the domain skills, the intent layer that confirms every creation brief up front, and intent router for the creation workflows below. |
 
 ### Creation workflows
 
-| Skill                      | Use when                                                                                                                                                                                                                     |
-| -------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `/product-launch-video`    | Any **website** — marketing / launching / promoting a product (from its URL, a brief, or a script), or a site tour / showcase / social clip featuring the site's own visuals. Up to ~3 min (sweet spot 30-90s).              |
-| `/faceless-explainer`      | **Explaining a topic / concept** from arbitrary text — no product, no URL, no website capture; every visual is LLM-invented (typography / abstract / diagram / data-viz).                                                    |
-| `/pr-to-video`             | A **GitHub pull request** (PR URL, `owner/repo#N` ref, or "this PR") → changelog / feature-reveal / fix / refactor explainer, read via the `gh` CLI.                                                                         |
-| `/embedded-captions`       | Adding **captions / subtitles** to an existing talking-head video (footage untouched) — verbatim rail, embedded climax behind the subject, or pure-cinematic embed.                                                          |
-| `/talking-head-recut`      | Packaging an existing talking-head / interview / podcast video with **designed graphic overlays** — lower-thirds, data callouts, kinetic titles, pull-quotes, side panels, PiP.                                              |
-| `/motion-graphics`         | A short, **unnarrated, design-led motion graphic** (~under 10s) — kinetic type, stat / chart hit, logo sting, lower-third, animated tweet / headline. MP4 or transparent overlay.                                            |
-| `/music-to-video`          | A **music track** (audio file, or video to pull audio from) → a **beat-synced** video — lyric, slideshow, or kinetic promo; music drives pacing.                                                                             |
-| `/slideshow`               | A **presentation / pitch deck / interactive deck** — discrete slides, fragment reveals, branching, hotspot navigation, presenter mode. Output is a navigable deck, not a rendered video.                                     |
-| `/general-video`           | **Anything else** — longer or multi-scene pieces, brand / sizzle reel, title card, static loop, freeform composition. Input- and length-agnostic fallback, and the home of companion mode (co-create with the full toolbox). |
-| `/remotion-to-shiftcut` | **Porting an existing Remotion** (React) composition's source to ShiftCut HTML. One-way migration, not creation.                                                                                                          |
+| Skill                   | Use when                                                                                                                                                                                                                     |
+| ----------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `/product-launch-video` | Any **website** — marketing / launching / promoting a product (from its URL, a brief, or a script), or a site tour / showcase / social clip featuring the site's own visuals. Up to ~3 min (sweet spot 30-90s).              |
+| `/faceless-explainer`   | **Explaining a topic / concept** from arbitrary text — no product, no URL, no website capture; every visual is LLM-invented (typography / abstract / diagram / data-viz).                                                    |
+| `/pr-to-video`          | A **GitHub pull request** (PR URL, `owner/repo#N` ref, or "this PR") → changelog / feature-reveal / fix / refactor explainer, read via the `gh` CLI.                                                                         |
+| `/embedded-captions`    | Adding **captions / subtitles** to an existing talking-head video (footage untouched) — verbatim rail, embedded climax behind the subject, or pure-cinematic embed.                                                          |
+| `/talking-head-recut`   | Packaging an existing talking-head / interview / podcast video with **designed graphic overlays** — lower-thirds, data callouts, kinetic titles, pull-quotes, side panels, PiP.                                              |
+| `/motion-graphics`      | A short, **unnarrated, design-led motion graphic** (~under 10s) — kinetic type, stat / chart hit, logo sting, lower-third, animated tweet / headline. MP4 or transparent overlay.                                            |
+| `/music-to-video`       | A **music track** (audio file, or video to pull audio from) → a **beat-synced** video — lyric, slideshow, or kinetic promo; music drives pacing.                                                                             |
+| `/slideshow`            | A **presentation / pitch deck / interactive deck** — discrete slides, fragment reveals, branching, hotspot navigation, presenter mode. Output is a navigable deck, not a rendered video.                                     |
+| `/general-video`        | **Anything else** — longer or multi-scene pieces, brand / sizzle reel, title card, static loop, freeform composition. Input- and length-agnostic fallback, and the home of companion mode (co-create with the full toolbox). |
+| `/remotion-to-shiftcut` | **Porting an existing Remotion** (React) composition's source to ShiftCut HTML. One-way migration, not creation.                                                                                                             |
 
 ### Domain skills (loaded on demand)
 
 Atomic capabilities the creation workflows compose against — pull one when you need that specific layer.
 
-| Skill                    | Covers                                                                                                                                                                                                                                                                                                                                           |
-| ------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Skill                 | Covers                                                                                                                                                                                                                                                                                                                                           |
+| --------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `/shiftcut-core`      | The composition contract — `data-*` timing attributes, `class="clip"`, tracks, sub-compositions, variables, framework-owned media playback, determinism rules.                                                                                                                                                                                   |
 | `/shiftcut-animation` | All animation knowledge — atomic motion rules, scene blueprints, transitions, runtime adapters (GSAP / Lottie / Three.js / Anime.js / CSS / WAAPI / TypeGPU).                                                                                                                                                                                    |
-| `/shiftcut-keyframes` | Seek-safe keyframe authoring across runtimes — GSAP timelines, CSS keyframes, Anime.js, WAAPI, FLIP, paths, masks, SVG morph/draw, 3D depth — plus `shiftcut keyframes` diagnostics for rendered motion.                                                                                                                                      |
+| `/shiftcut-keyframes` | Seek-safe keyframe authoring across runtimes — GSAP timelines, CSS keyframes, Anime.js, WAAPI, FLIP, paths, masks, SVG morph/draw, 3D depth — plus `shiftcut keyframes` diagnostics for rendered motion.                                                                                                                                         |
 | `/shiftcut-creative`  | Non-animation creative direction — `frame.md` / `design.md`, palettes, typography, narration, beat planning, audio-reactive visuals, composition patterns.                                                                                                                                                                                       |
-| `/media-use`             | The media OS — resolve any media need (BGM, SFX, image, icon, logo, voice, color grade, LUT) into a frozen local file or paste-ready block + ledger record, generate via TTS/music/image models when the catalog misses, transcribe, caption, remove backgrounds, and reuse assets across projects. One shared audio engine + manifest tracking. |
-| `/shiftcut-cli`       | CLI dev loop — `init`, `lint`, `check`, `snapshot`, `preview`, `render`, `doctor`. All local; no cloud or publish commands.                                                                                                                                                                                                                       |
-| `/shiftcut-registry`  | Install and wire registry blocks and components into compositions via `shiftcut add`. Authoring a new block or component to contribute upstream.                                                                                                                                                                                              |
+| `/media-use`          | The media OS — resolve any media need (BGM, SFX, image, icon, logo, voice, color grade, LUT) into a frozen local file or paste-ready block + ledger record, generate via TTS/music/image models when the catalog misses, transcribe, caption, remove backgrounds, and reuse assets across projects. One shared audio engine + manifest tracking. |
+| `/shiftcut-cli`       | CLI dev loop — `init`, `lint`, `check`, `snapshot`, `preview`, `render`, `doctor`. All local; no cloud or publish commands.                                                                                                                                                                                                                      |
+| `/shiftcut-registry`  | Install and wire registry blocks and components into compositions via `shiftcut add`. Authoring a new block or component to contribute upstream.                                                                                                                                                                                                 |
 
 For visual design handoff workflows, see the [Claude Design guide](https://shiftcut.verblike.com/guides/claude-design) and [Open Design guide](https://shiftcut.verblike.com/guides/open-design).
 
@@ -135,51 +135,51 @@ The output is a `DESIGN.md` superset your whole toolchain can read. Atoms stay s
 <table>
   <tr>
     <td width="50%" align="center">
-      <a href="https://shiftcut.verblike.com/design/biennale-yellow"><img src="https://static.heygen.ai/shiftcut-oss/docs/images/design-templates/biennale-yellow.png" alt="Biennale Yellow" width="100%"></a>
+      <a href="https://shiftcut.verblike.com/design/biennale-yellow"><img src="https://static.verblike.ai/shiftcut-oss/docs/images/design-templates/biennale-yellow.png" alt="Biennale Yellow" width="100%"></a>
       <br><b><a href="https://shiftcut.verblike.com/design/biennale-yellow">Biennale Yellow</a></b>
     </td>
     <td width="50%" align="center">
-      <a href="https://shiftcut.verblike.com/design/blockframe"><img src="https://static.heygen.ai/shiftcut-oss/docs/images/design-templates/blockframe.png" alt="BlockFrame" width="100%"></a>
+      <a href="https://shiftcut.verblike.com/design/blockframe"><img src="https://static.verblike.ai/shiftcut-oss/docs/images/design-templates/blockframe.png" alt="BlockFrame" width="100%"></a>
       <br><b><a href="https://shiftcut.verblike.com/design/blockframe">BlockFrame</a></b>
     </td>
   </tr>
   <tr>
     <td width="50%" align="center">
-      <a href="https://shiftcut.verblike.com/design/blue-professional"><img src="https://static.heygen.ai/shiftcut-oss/docs/images/design-templates/blue-professional.png" alt="Blue Professional" width="100%"></a>
+      <a href="https://shiftcut.verblike.com/design/blue-professional"><img src="https://static.verblike.ai/shiftcut-oss/docs/images/design-templates/blue-professional.png" alt="Blue Professional" width="100%"></a>
       <br><b><a href="https://shiftcut.verblike.com/design/blue-professional">Blue Professional</a></b>
     </td>
     <td width="50%" align="center">
-      <a href="https://shiftcut.verblike.com/design/bold-poster"><img src="https://static.heygen.ai/shiftcut-oss/docs/images/design-templates/bold-poster.png" alt="Bold Poster" width="100%"></a>
+      <a href="https://shiftcut.verblike.com/design/bold-poster"><img src="https://static.verblike.ai/shiftcut-oss/docs/images/design-templates/bold-poster.png" alt="Bold Poster" width="100%"></a>
       <br><b><a href="https://shiftcut.verblike.com/design/bold-poster">Bold Poster</a></b>
     </td>
   </tr>
   <tr>
     <td width="50%" align="center">
-      <a href="https://shiftcut.verblike.com/design/broadside"><img src="https://static.heygen.ai/shiftcut-oss/docs/images/design-templates/broadside.png" alt="Broadside" width="100%"></a>
+      <a href="https://shiftcut.verblike.com/design/broadside"><img src="https://static.verblike.ai/shiftcut-oss/docs/images/design-templates/broadside.png" alt="Broadside" width="100%"></a>
       <br><b><a href="https://shiftcut.verblike.com/design/broadside">Broadside</a></b>
     </td>
     <td width="50%" align="center">
-      <a href="https://shiftcut.verblike.com/design/capsule"><img src="https://static.heygen.ai/shiftcut-oss/docs/images/design-templates/capsule.png" alt="Capsule" width="100%"></a>
+      <a href="https://shiftcut.verblike.com/design/capsule"><img src="https://static.verblike.ai/shiftcut-oss/docs/images/design-templates/capsule.png" alt="Capsule" width="100%"></a>
       <br><b><a href="https://shiftcut.verblike.com/design/capsule">Capsule</a></b>
     </td>
   </tr>
   <tr>
     <td width="50%" align="center">
-      <a href="https://shiftcut.verblike.com/design/cartesian"><img src="https://static.heygen.ai/shiftcut-oss/docs/images/design-templates/cartesian.png" alt="Cartesian" width="100%"></a>
+      <a href="https://shiftcut.verblike.com/design/cartesian"><img src="https://static.verblike.ai/shiftcut-oss/docs/images/design-templates/cartesian.png" alt="Cartesian" width="100%"></a>
       <br><b><a href="https://shiftcut.verblike.com/design/cartesian">Cartesian</a></b>
     </td>
     <td width="50%" align="center">
-      <a href="https://shiftcut.verblike.com/design/cobalt-grid"><img src="https://static.heygen.ai/shiftcut-oss/docs/images/design-templates/cobalt-grid.png" alt="Cobalt Grid" width="100%"></a>
+      <a href="https://shiftcut.verblike.com/design/cobalt-grid"><img src="https://static.verblike.ai/shiftcut-oss/docs/images/design-templates/cobalt-grid.png" alt="Cobalt Grid" width="100%"></a>
       <br><b><a href="https://shiftcut.verblike.com/design/cobalt-grid">Cobalt Grid</a></b>
     </td>
   </tr>
   <tr>
     <td width="50%" align="center">
-      <a href="https://shiftcut.verblike.com/design/coral"><img src="https://static.heygen.ai/shiftcut-oss/docs/images/design-templates/coral.png" alt="Coral" width="100%"></a>
+      <a href="https://shiftcut.verblike.com/design/coral"><img src="https://static.verblike.ai/shiftcut-oss/docs/images/design-templates/coral.png" alt="Coral" width="100%"></a>
       <br><b><a href="https://shiftcut.verblike.com/design/coral">Coral</a></b>
     </td>
     <td width="50%" align="center">
-      <a href="https://shiftcut.verblike.com/design/creative-mode"><img src="https://static.heygen.ai/shiftcut-oss/docs/images/design-templates/creative-mode.png" alt="Creative Mode" width="100%"></a>
+      <a href="https://shiftcut.verblike.com/design/creative-mode"><img src="https://static.verblike.ai/shiftcut-oss/docs/images/design-templates/creative-mode.png" alt="Creative Mode" width="100%"></a>
       <br><b><a href="https://shiftcut.verblike.com/design/creative-mode">Creative Mode</a></b>
     </td>
   </tr>
@@ -229,15 +229,15 @@ Preview instantly in the browser. Render locally or in Docker. The renderer seek
 
 ShiftCut is the open-source rendering engine, plus a growing set of tools around HTML-native video creation.
 
-| Piece                                           | Status              | What it does                                                                                      |
-| ----------------------------------------------- | ------------------- | ------------------------------------------------------------------------------------------------- |
-| CLI                                             | Available           | Scaffold, preview, lint, inspect, and render local video projects                                 |
-| Core / Engine / Producer                        | Available           | Parse compositions, drive headless Chrome, encode video, and mix audio                            |
-| Catalog                                         | Available           | Reusable blocks and components for transitions, overlays, captions, charts, maps, and effects     |
-| Agent skills                                    | Available           | Teach coding agents the video-production patterns that generic web docs miss                      |
-| Studio                                          | Available, evolving | Browser surface for previewing and editing compositions                                           |
-| [shiftcut.verblike.com](https://shiftcut.verblike.com/) | Available           | Docs, catalog, and showcase for ShiftCut projects |
-| [frame.md](https://shiftcut.verblike.com/design)  | Available           | Invert your design system for the camera — a DESIGN.md superset an agent can compose video from   |
+| Piece                                                   | Status              | What it does                                                                                    |
+| ------------------------------------------------------- | ------------------- | ----------------------------------------------------------------------------------------------- |
+| CLI                                                     | Available           | Scaffold, preview, lint, inspect, and render local video projects                               |
+| Core / Engine / Producer                                | Available           | Parse compositions, drive headless Chrome, encode video, and mix audio                          |
+| Catalog                                                 | Available           | Reusable blocks and components for transitions, overlays, captions, charts, maps, and effects   |
+| Agent skills                                            | Available           | Teach coding agents the video-production patterns that generic web docs miss                    |
+| Studio                                                  | Available, evolving | Browser surface for previewing and editing compositions                                         |
+| [shiftcut.verblike.com](https://shiftcut.verblike.com/) | Available           | Docs, catalog, and showcase for ShiftCut projects                                               |
+| [frame.md](https://shiftcut.verblike.com/design)        | Available           | Invert your design system for the camera — a DESIGN.md superset an agent can compose video from |
 
 ## Catalog
 
@@ -264,7 +264,7 @@ Browse the catalog at [shiftcut.verblike.com/catalog](https://shiftcut.verblike.
 
 ShiftCut is inspired by [Remotion](https://www.remotion.dev). Both tools render video with headless Chrome and FFmpeg. The main difference is the authoring model: Remotion's bet is React components; ShiftCut' bet is plain HTML that humans and agents can both write easily.
 
-|                          | **ShiftCut**                       | **Remotion**                            |
+|                          | **ShiftCut**                          | **Remotion**                            |
 | ------------------------ | ------------------------------------- | --------------------------------------- |
 | Authoring                | HTML + CSS + seekable animation       | React components                        |
 | Build step               | None; `index.html` plays as-is        | Bundler required                        |
@@ -288,14 +288,14 @@ Full documentation: [shiftcut.verblike.com/introduction](https://shiftcut.verbli
 
 ## Packages
 
-| Package                                                          | Description                                                       |
-| ---------------------------------------------------------------- | ----------------------------------------------------------------- |
+| Package                                                       | Description                                                       |
+| ------------------------------------------------------------- | ----------------------------------------------------------------- |
 | [`shiftcut`](packages/cli)                                    | CLI for creating, previewing, linting, and rendering compositions |
 | [`@shiftcut/core`](packages/core)                             | Types, parsers, generators, linter, runtime, and frame adapters   |
 | [`@shiftcut/engine`](packages/engine)                         | Seekable page-to-video capture engine using Puppeteer and FFmpeg  |
 | [`@shiftcut/producer`](packages/producer)                     | Full rendering pipeline for capture, encode, and audio mix        |
 | [`@shiftcut/studio`](packages/studio)                         | Browser-based composition editor UI                               |
-| [`@shiftcut/player`](packages/player)                         | Embeddable `<shiftcut-player>` web component                   |
+| [`@shiftcut/player`](packages/player)                         | Embeddable `<shiftcut-player>` web component                      |
 | [`@shiftcut/shader-transitions`](packages/shader-transitions) | WebGL shader transitions for compositions                         |
 
 ## Community

@@ -1,46 +1,46 @@
-export type HyperframePickerBoundingBox = {
+export type ShiftCutPickerBoundingBox = {
   x: number;
   y: number;
   width: number;
   height: number;
 };
 
-export type HyperframePickerElementInfo = {
+export type ShiftCutPickerElementInfo = {
   id: string | null;
   tagName: string;
   selector: string;
   label: string;
-  boundingBox: HyperframePickerBoundingBox;
+  boundingBox: ShiftCutPickerBoundingBox;
   textContent: string | null;
   src: string | null;
   dataAttributes: Record<string, string>;
 };
 
-export type HyperframePickerApi = {
+export type ShiftCutPickerApi = {
   enable: () => void;
   disable: () => void;
   isActive: () => boolean;
-  getHovered: () => HyperframePickerElementInfo | null;
-  getSelected: () => HyperframePickerElementInfo | null;
+  getHovered: () => ShiftCutPickerElementInfo | null;
+  getSelected: () => ShiftCutPickerElementInfo | null;
   getCandidatesAtPoint: (
     clientX: number,
     clientY: number,
     limit?: number,
-  ) => HyperframePickerElementInfo[];
+  ) => ShiftCutPickerElementInfo[];
   pickAtPoint: (
     clientX: number,
     clientY: number,
     index?: number,
-  ) => HyperframePickerElementInfo | null;
+  ) => ShiftCutPickerElementInfo | null;
   pickManyAtPoint: (
     clientX: number,
     clientY: number,
     indexes?: number[],
-  ) => HyperframePickerElementInfo[];
+  ) => ShiftCutPickerElementInfo[];
 };
 
 declare global {
   interface Window {
-    __HF_PICKER_API?: HyperframePickerApi;
+    __HF_PICKER_API?: ShiftCutPickerApi;
   }
 }

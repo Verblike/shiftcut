@@ -45,20 +45,6 @@ var __dirname = __hf_dirname(__filename);`,
     "esbuild",
     "giget",
     "postcss",
-    // aws-lambda transitively pulls @aws-sdk/* + @smithy/* which include
-    // .browser.js conditional exports esbuild can't bundle cleanly into
-    // a node binary. Keep it external; the lambda subverb files dynamic-
-    // import it only when the user runs `shiftcut lambda *`, so the
-    // CLI's cold start doesn't load it. Runtime resolution comes from
-    // @shiftcut/aws-lambda being a `dependencies` entry in package.json.
-    "@shiftcut/aws-lambda",
-    "@shiftcut/aws-lambda/sdk",
-    // Same treatment for the GCP adapter: the cloudrun subverb files
-    // dynamic-import `@shiftcut/gcp-cloud-run/sdk` only when the user runs
-    // `shiftcut cloudrun *`. Keep it external; runtime resolution comes
-    // from the `dependencies`/workspace entry, not the bundled CLI.
-    "@shiftcut/gcp-cloud-run",
-    "@shiftcut/gcp-cloud-run/sdk",
   ],
   noExternal: [
     "@shiftcut/core",
@@ -81,18 +67,6 @@ var __dirname = __hf_dirname(__filename);`,
   esbuildOptions(options) {
     options.alias = {
       "@shiftcut/producer": resolve(__dirname, "../producer/src/index.ts"),
-      // esbuild's alias map treats `@shiftcut/producer` as a file path
-      // and would otherwise resolve `@shiftcut/producer/distributed`
-      // to `../producer/src/index.ts/distributed` (treating the file as a
-      // directory). Adding an explicit alias for every subpath we import
-      // avoids the prefix-substitution misfire.
-      "@shiftcut/producer/distributed": resolve(__dirname, "../producer/src/distributed.ts"),
-      // Same reason: the lambda CLI imports `@shiftcut/aws-lambda/sdk`,
-      // which would resolve to `../aws-lambda/src/index.ts/sdk` without
-      // an explicit subpath alias. The SDK subpath has its own barrel.
-      "@shiftcut/aws-lambda/sdk": resolve(__dirname, "../aws-lambda/src/sdk/index.ts"),
-      // Same for the GCP adapter's SDK subpath barrel.
-      "@shiftcut/gcp-cloud-run/sdk": resolve(__dirname, "../gcp-cloud-run/src/sdk/index.ts"),
       // hf#677 follow-up: the shader-blend worker imports from
       // `@shiftcut/engine/shader-transitions` (subpath export) — a
       // standalone TS file with zero internal imports that survives the

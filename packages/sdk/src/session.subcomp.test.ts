@@ -633,19 +633,19 @@ describe("getRootElements", () => {
 
 describe("serialize({ stripRuntime })", () => {
   const RUNTIME_SCRIPT =
-    '<script data-shiftcut-preview-runtime="1" src="https://cdn.jsdelivr.net/npm/@shiftcut/core/dist/hyperframe.runtime.iife.js"></script>';
+    '<script data-shiftcut-preview-runtime="1" src="https://cdn.jsdelivr.net/npm/@shiftcut/core/dist/shiftcut.runtime.iife.js"></script>';
 
   it("keeps the embedded runtime script by default", async () => {
     const html = `<!DOCTYPE html><html><head>${RUNTIME_SCRIPT}</head><body><div data-hf-id="hf-a"></div></body></html>`;
     const comp = await openComposition(html);
-    expect(comp.serialize()).toContain("hyperframe.runtime");
+    expect(comp.serialize()).toContain("shiftcut.runtime");
   });
 
   it("strips the embedded runtime script when stripRuntime is true", async () => {
     const html = `<!DOCTYPE html><html><head>${RUNTIME_SCRIPT}</head><body><div data-hf-id="hf-a"></div></body></html>`;
     const comp = await openComposition(html);
     const out = comp.serialize({ stripRuntime: true });
-    expect(out).not.toContain("hyperframe.runtime");
+    expect(out).not.toContain("shiftcut.runtime");
     expect(out).toContain('data-hf-id="hf-a"');
   });
 

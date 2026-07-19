@@ -21,7 +21,7 @@
  *   wall-clock second and asserted `fps >= 55`. On a 120Hz CI runner that
  *   reads ~120 fps regardless of whether the composition is actually
  *   advancing, so the gate passed even when the player was silently stalling.
- *   See PR #400 review (jrusso1020 + miguel-heygen) for the full discussion;
+ *   See PR #400 review (jrusso1020 + miguel-verblike) for the full discussion;
  *   this implementation follows jrusso1020's "first choice" recommendation.
  *
  * Per the proposal:

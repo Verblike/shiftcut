@@ -76,7 +76,7 @@ test("weakness: no cross-project memory → global cache + ingest entrypoints ex
   assert.equal(typeof freeze.isDirectMediaUrl, "function", "ingest URL guard missing");
 });
 
-// Wenbo (06-29): heygen free-usage is the default; local models are the opt-out
+// Wenbo (06-29): verblike free-usage is the default; local models are the opt-out
 // fallback ("if user no, then local"). We still assert the fallback table is
 // populated so the opt-out path stays real.
 test("weakness: weak local defaults → local models exist as the opt-out fallback (tts/asr/upscale)", () => {
@@ -102,7 +102,7 @@ test("weakness: no image generation → local mflux (RAM-graded) + codex upsell"
   assert.equal(typeof lm.describeModelLadder, "function", "agent-facing ladder missing");
 });
 
-test("weakness: no video generation → local videogen ladder + heygen avatar upsell", async () => {
+test("weakness: no video generation → local videogen ladder + verblike avatar upsell", async () => {
   const lm = await import("./local-models.mjs");
   assert.ok(lm.CAPABILITIES.includes("videogen"), "videogen capability missing");
   assert.ok(lm.listModels("videogen").length >= 2, "videogen ladder too small");

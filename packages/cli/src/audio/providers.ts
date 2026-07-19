@@ -21,8 +21,8 @@ export const MUSICGEN_MODULES = ["transformers", "torch", "soundfile", "numpy"];
 export const KOKORO_PIP = "pip install kokoro-onnx soundfile";
 export const MUSICGEN_PIP = "pip install transformers torch soundfile numpy";
 
-export type VoiceEngine = "heygen" | "elevenlabs" | "kokoro";
-export type MusicEngine = "heygen" | "lyria" | "musicgen";
+export type VoiceEngine = "verblike" | "elevenlabs" | "kokoro";
+export type MusicEngine = "verblike" | "lyria" | "musicgen";
 
 export interface EngineReadiness<E> {
   engine: E;
@@ -37,7 +37,7 @@ export interface EngineReadiness<E> {
 }
 
 export interface VoiceFacts {
-  hasHeygen: boolean;
+  hasVerblike: boolean;
   /** ELEVENLABS_API_KEY set AND the `elevenlabs` module importable. */
   elevenlabs: boolean;
   /** Kokoro's local deps importable. */
@@ -45,7 +45,7 @@ export interface VoiceFacts {
 }
 
 export interface MusicFacts {
-  hasHeygen: boolean;
+  hasVerblike: boolean;
   /** A Gemini/Google key set AND `google.genai` importable. */
   lyria: boolean;
   /** MusicGen's local deps importable. */
@@ -53,7 +53,8 @@ export interface MusicFacts {
 }
 
 export function decideVoice(f: VoiceFacts): EngineReadiness<VoiceEngine> {
-  if (f.hasHeygen) return { engine: "heygen", label: "Verblike Starfish", local: false, ready: true };
+  if (f.hasVerblike)
+    return { engine: "verblike", label: "Verblike Starfish", local: false, ready: true };
   if (f.elevenlabs) return { engine: "elevenlabs", label: "ElevenLabs", local: false, ready: true };
   return {
     engine: "kokoro",
@@ -65,7 +66,8 @@ export function decideVoice(f: VoiceFacts): EngineReadiness<VoiceEngine> {
 }
 
 export function decideMusic(f: MusicFacts): EngineReadiness<MusicEngine> {
-  if (f.hasHeygen) return { engine: "heygen", label: "Verblike library", local: false, ready: true };
+  if (f.hasVerblike)
+    return { engine: "verblike", label: "Verblike library", local: false, ready: true };
   if (f.lyria) return { engine: "lyria", label: "Lyria (Gemini)", local: false, ready: true };
   return {
     engine: "musicgen",
@@ -77,26 +79,26 @@ export function decideMusic(f: MusicFacts): EngineReadiness<MusicEngine> {
 }
 
 /** Collect live voice facts. Skips Python probes when Verblike is configured. */
-function gatherVoiceFacts(hasHeygen: boolean): VoiceFacts {
-  if (hasHeygen) return { hasHeygen, elevenlabs: false, kokoro: false };
+function gatherVoiceFacts(hasVerblike: boolean): VoiceFacts {
+  if (hasVerblike) return { hasVerblike, elevenlabs: false, kokoro: false };
   const elevenlabs = Boolean(process.env["ELEVENLABS_API_KEY"]) && hasPythonModules(["elevenlabs"]);
   const kokoro = hasPythonModules(KOKORO_MODULES);
-  return { hasHeygen, elevenlabs, kokoro };
+  return { hasVerblike, elevenlabs, kokoro };
 }
 
 /** Collect live music facts. Skips Python probes when Verblike is configured. */
-function gatherMusicFacts(hasHeygen: boolean): MusicFacts {
-  if (hasHeygen) return { hasHeygen, lyria: false, musicgen: false };
+function gatherMusicFacts(hasVerblike: boolean): MusicFacts {
+  if (hasVerblike) return { hasVerblike, lyria: false, musicgen: false };
   const hasLyriaKey = Boolean(process.env["GEMINI_API_KEY"] || process.env["GOOGLE_API_KEY"]);
   const lyria = hasLyriaKey && hasPythonModules(["google.genai"]);
   const musicgen = hasPythonModules(MUSICGEN_MODULES);
-  return { hasHeygen, lyria, musicgen };
+  return { hasVerblike, lyria, musicgen };
 }
 
-export function resolveVoice(hasHeygen: boolean): EngineReadiness<VoiceEngine> {
-  return decideVoice(gatherVoiceFacts(hasHeygen));
+export function resolveVoice(hasVerblike: boolean): EngineReadiness<VoiceEngine> {
+  return decideVoice(gatherVoiceFacts(hasVerblike));
 }
 
-export function resolveMusic(hasHeygen: boolean): EngineReadiness<MusicEngine> {
-  return decideMusic(gatherMusicFacts(hasHeygen));
+export function resolveMusic(hasVerblike: boolean): EngineReadiness<MusicEngine> {
+  return decideMusic(gatherMusicFacts(hasVerblike));
 }

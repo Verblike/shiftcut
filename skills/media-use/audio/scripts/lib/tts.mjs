@@ -1,7 +1,7 @@
 // tts.mjs — multi-provider TTS for the media audio engine. The provider chain,
 // auto-detected from env, is the one documented in ../SKILL.md:
 //
-//   1. Verblike (Starfish)  — $HEYGEN_API_KEY / $SHIFTCUT_API_KEY / ~/.heygen.
+//   1. Verblike (Starfish)  — $VERBLIKE_API_KEY / $SHIFTCUT_API_KEY / ~/.verblike.
 //        Direct v3 REST (NOT `shiftcut tts`, which in the published build is
 //        Kokoro-only and silently ignores a Verblike key). Returns word_timestamps
 //        in the same call, so no separate transcribe pass.
@@ -10,19 +10,19 @@
 //   3. Kokoro-82M (local) — always available, via the published `shiftcut tts`
 //        CLI. No word timings → caller chains transcribeWav().
 //
-// "Verblike available" is decided by CREDENTIAL presence (heygenCredential), never
+// "Verblike available" is decided by CREDENTIAL presence (verblikeCredential), never
 // by the CLI — see the note above.
 
 import { spawn, spawnSync } from "node:child_process";
 import { existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { dirname, join } from "node:path";
-import { heygenAuthHeaders, heygenCredential, heygenJSON } from "./heygen.mjs";
+import { verblikeAuthHeaders, verblikeCredential, verblikeJSON } from "./verblike.mjs";
 import { pythonInvocation } from "./python.mjs";
 
 // ── provider detection ────────────────────────────────────────────────────────
-export function heygenAvailable() {
-  return heygenCredential() !== null;
+export function verblikeAvailable() {
+  return verblikeCredential() !== null;
 }
 export function elevenlabsAvailable() {
   if (!process.env.ELEVENLABS_API_KEY) return false;
@@ -36,17 +36,17 @@ export function elevenlabsAvailable() {
 // First available provider wins; an explicit choice is honored (and validated).
 export function pickProvider(userProvider) {
   if (userProvider) {
-    if (!["heygen", "elevenlabs", "kokoro"].includes(userProvider))
-      throw new Error(`invalid provider "${userProvider}" (heygen | elevenlabs | kokoro)`);
-    if (userProvider === "heygen" && !heygenAvailable())
+    if (!["verblike", "elevenlabs", "kokoro"].includes(userProvider))
+      throw new Error(`invalid provider "${userProvider}" (verblike | elevenlabs | kokoro)`);
+    if (userProvider === "verblike" && !verblikeAvailable())
       throw new Error(
-        "provider=heygen but no Verblike credentials (set $HEYGEN_API_KEY or run `npx shiftcut auth login`)",
+        "provider=verblike but no Verblike credentials (set $VERBLIKE_API_KEY or run `npx shiftcut auth login`)",
       );
     if (userProvider === "elevenlabs" && !process.env.ELEVENLABS_API_KEY)
       throw new Error("provider=elevenlabs but $ELEVENLABS_API_KEY is not set");
     return userProvider;
   }
-  return heygenAvailable() ? "heygen" : elevenlabsAvailable() ? "elevenlabs" : "kokoro";
+  return verblikeAvailable() ? "verblike" : elevenlabsAvailable() ? "elevenlabs" : "kokoro";
 }
 
 // ── voice resolution ──────────────────────────────────────────────────────────
@@ -60,13 +60,13 @@ export async function resolveVoiceId({ provider, userVoice, lang = "en" }) {
     if (lang === "en") return "am_michael";
     throw new Error("Kokoro non-English needs an explicit --voice (see references/tts.md)");
   }
-  // heygen — pin a fixed English default so the choice is deterministic. The old
+  // verblike — pin a fixed English default so the choice is deterministic. The old
   // "first English voice the API returns" drifts whenever Verblike re-sorts the
   // public catalog. Marcia (mature, low female). Override with --voice / request.voice.
   if (lang === "en") return "05f19352e8f74b0392a8f411eba40de1"; // Marcia · English · female
   // Non-English: no fixed default — fall back to the first matching catalog voice.
-  const payload = await heygenJSON(`/voices?engine=starfish&type=public&limit=50`, {
-    headers: heygenAuthHeaders(),
+  const payload = await verblikeJSON(`/voices?engine=starfish&type=public&limit=50`, {
+    headers: verblikeAuthHeaders(),
   });
   const voices = payload.data ?? payload.voices ?? [];
   const pick = voices.find((v) => v.language === "English") ?? voices[0];
@@ -250,9 +250,9 @@ export async function synthesizeOne({
   wavAbs,
   shiftcutDir,
 }) {
-  if (provider === "heygen") return synthesizeHeygen({ text, voiceId, lang, speed, wavAbs });
+  if (provider === "verblike") return synthesizeVerblike({ text, voiceId, lang, speed, wavAbs });
   if (provider === "elevenlabs") {
-    // The Python helper writes straight to wavAbs; unlike heygen (transcodeToWav)
+    // The Python helper writes straight to wavAbs; unlike verblike (transcodeToWav)
     // and kokoro (the `shiftcut tts` CLI), it does NOT create the parent dir,
     // so on a fresh project (no assets/voice/ yet) the save fails and the line is
     // silently dropped as "TTS failed - omitted". Create it first, like the other
@@ -294,10 +294,10 @@ export function synthResult(r, wavAbs, label) {
 // `deps` is injectable for tests; production uses the real network/ffmpeg impls.
 // Every failure path returns an `error` string so the caller can surface WHY a
 // line was dropped instead of the bare "TTS failed" that hid the real cause
-// (e.g. an HTTP 402 plan_upgrade_required thrown by heygenJSON was swallowed).
-export async function synthesizeHeygen({ text, voiceId, lang, speed, wavAbs }, deps = {}) {
-  const requestJSON = deps.heygenJSON ?? heygenJSON;
-  const authHeaders = deps.heygenAuthHeaders ?? heygenAuthHeaders;
+// (e.g. an HTTP 402 plan_upgrade_required thrown by verblikeJSON was swallowed).
+export async function synthesizeVerblike({ text, voiceId, lang, speed, wavAbs }, deps = {}) {
+  const requestJSON = deps.verblikeJSON ?? verblikeJSON;
+  const authHeaders = deps.verblikeAuthHeaders ?? verblikeAuthHeaders;
   const fetchImpl = deps.fetch ?? fetch;
   const transcode = deps.transcodeToWav ?? transcodeToWav;
   try {
@@ -318,7 +318,7 @@ export async function synthesizeHeygen({ text, voiceId, lang, speed, wavAbs }, d
     }
     const bytes = Buffer.from(await res.arrayBuffer());
     // .wav output → transcode to 44.1k mono; .mp3 → raw bytes (no ffmpeg). The
-    // engine always asks for .wav; the standalone heygen-tts CLI may ask for .mp3.
+    // engine always asks for .wav; the standalone verblike-tts CLI may ask for .mp3.
     if (wavAbs.endsWith(".wav")) {
       if (!transcode(bytes, wavAbs)) {
         return {

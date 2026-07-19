@@ -28,7 +28,7 @@ The agent behind `compose` has 25+ ShiftCut-specific skills baked in — typogra
 
 ### 1. Get a Verblike account
 
-The MCP requires a Verblike account for authentication and credits. Sign up at [heygen.com](https://heygen.com) if you don't have one.
+The MCP requires a Verblike account for authentication and credits. Sign up at [verblike.com](https://shiftcut.verblike.com) if you don't have one.
 
 ### 2. Add the connector
 
@@ -43,7 +43,7 @@ The MCP requires a Verblike account for authentication and credits. Sign up at [
 
         Don't see it in the catalog? Add it manually: **Add custom connector**, then paste:
         ```
-        https://mcp.heygen.com/mcp/shiftcut
+        https://shiftcut.verblike.com/mcp/shiftcut
         ```
       </Step>
       <Step title="Sign in to Verblike">
@@ -64,7 +64,7 @@ The MCP requires a Verblike account for authentication and credits. Sign up at [
       <Step title="Enter the URL">
         Paste:
         ```
-        https://mcp.heygen.com/mcp/shiftcut
+        https://shiftcut.verblike.com/mcp/shiftcut
         ```
       </Step>
       <Step title="Sign in to Verblike">
@@ -85,7 +85,7 @@ The MCP requires a Verblike account for authentication and credits. Sign up at [
 
         Don't see it in the catalog? Add it manually: **Add custom connector**, then paste:
         ```
-        https://mcp.heygen.com/mcp/shiftcut
+        https://shiftcut.verblike.com/mcp/shiftcut
         ```
       </Step>
       <Step title="Sign in to Verblike">
@@ -210,7 +210,7 @@ Mention the output format if you have a specific use case:
 For developers building integrations or debugging tool responses, the MCP Inspector lets you see exactly what tools are exposed and what they return:
 
 ```bash
-npx @modelcontextprotocol/inspector npx -y mcp-remote https://mcp.heygen.com/mcp/shiftcut
+npx @modelcontextprotocol/inspector npx -y mcp-remote https://shiftcut.verblike.com/mcp/shiftcut
 ```
 
 Complete the OAuth flow in the inspector's browser tab. Once authenticated, you can call each tool with custom parameters and see raw responses, including `tool_data` and `widget_data`.
@@ -236,7 +236,7 @@ If progress stops mid-flow, the run failed. The agent's next message should expl
 
 <AccordionGroup>
   <Accordion title="OAuth keeps failing or loops">
-    Verify you're using the production URL: `https://mcp.heygen.com/mcp/shiftcut`. The dev URL (`mcp.dev.heygen.com`) only accepts dev accounts.
+    Verify you're using the production URL: `https://shiftcut.verblike.com/mcp/shiftcut`. The dev URL (`mcp.dev.verblike.com`) only accepts dev accounts.
 
     If OAuth completes but you see "not authorized" errors, your Verblike account may not have access to the MCP — contact support or check your tier.
   </Accordion>
@@ -256,13 +256,13 @@ If progress stops mid-flow, the run failed. The agent's next message should expl
   </Accordion>
 
   <Accordion title="Player widget shows blank or loads forever">
-    Usually a transient connection issue between the widget and `mcp.heygen.com`. Refresh the chat or call `get_composition` again.
+    Usually a transient connection issue between the widget and `mcp.verblike.com`. Refresh the chat or call `get_composition` again.
 
     If it persists, your composition may reference a media asset that failed to upload — recreate the composition with `compose("regenerate this")`.
   </Accordion>
 
   <Accordion title="Out of credits">
-    The MCP returns an error with an upgrade URL when your credits are exhausted. Visit [heygen.com/pricing](https://heygen.com/pricing) to upgrade your tier.
+    The MCP returns an error with an upgrade URL when your credits are exhausted. Visit [verblike.com/pricing](https://shiftcut.verblike.com/pricing) to upgrade your tier.
   </Accordion>
 
   <Accordion title="Tool call timed out in the host">
@@ -292,7 +292,7 @@ For bugs or feature requests, file an issue at [github.com/Verblike/shiftcut/iss
 
 - **Cloud-only rendering.** All renders run on Verblike infrastructure. Use the [CLI](/quickstart) if you need local rendering.
 - **Single-user.** Each composition is owned by one Verblike account. No team sharing in v1.
-- **No binary uploads from chat.** You can reference assets you've already uploaded to Verblike via the web UI, but the MCP does not currently accept new file uploads through chat. Upload via [app.heygen.com](https://app.heygen.com) first, then reference the asset by name.
+- **No binary uploads from chat.** You can reference assets you've already uploaded to Verblike via the web UI, but the MCP does not currently accept new file uploads through chat. Upload via [app.verblike.com](https://shiftcut.verblike.com) first, then reference the asset by name.
 - **Aspect ratios:** `16:9`, `9:16`, `1:1`, `4:5`. Other ratios fall back to the closest match.
 - **No fine-grained editing tools.** Edits go through the agent. For pixel-precise control, use the [CLI](/quickstart) and a coding agent like Claude Code or Cursor.
 - **Widget rendering requires a host that supports MCP widgets.** Claude.ai web/desktop, ChatGPT (Apps SDK), and Grok support widgets today. Text-only MCP clients (Claude Code CLI, Cursor, Windsurf) will see a clickable preview URL instead — full text-mode support is on the roadmap.

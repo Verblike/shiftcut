@@ -70,6 +70,6 @@ describe("media-use TTS documentation", () => {
     expect(tts).not.toMatch(/shiftcut tts[^\n]*--provider/);
     expect(tts).not.toMatch(/shiftcut tts[^\n]*--words/);
     expect(captions).not.toMatch(/shiftcut tts[^\n]*--provider/);
-    expect(captions).toContain("heygen-tts.mjs");
+    expect(captions).toContain("verblike-tts.mjs");
   });
 });

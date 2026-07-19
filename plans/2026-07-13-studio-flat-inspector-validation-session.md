@@ -15,7 +15,7 @@ Worktree: `~/src/wt/shiftcut/de-split`. Continuation of the flat-inspector redes
 - Rebased `studio-flat-01-foundation-text` onto latest `origin/main`; one real conflict in `StudioRightPanel.tsx` (main added the `DesignPanelPromoteProvider` wrapper; our commit added group-selection/hide-all wiring) — merged both. `gt restack` rippled through all 14 branches cleanly.
 - `main` is checked out in another worktree → never `git checkout main`; use `git fetch origin main && git update-ref refs/heads/main FETCH_HEAD` before `gt submit`.
 - Force-pushed the whole stack (`gt submit --no-edit --no-interactive --stack`); all 14 PRs updated.
-- Reviewer feedback checked: 13/14 approved (miga-heygen full-stack review + miguel-heygen per-head passes). #2120 had a stale CHANGES_REQUESTED (merge conflict) — resolved by the rebase, commented for re-review. CI green 32/32.
+- Reviewer feedback checked: 13/14 approved (miga-verblike full-stack review + miguel-verblike per-head passes). #2120 had a stale CHANGES_REQUESTED (merge conflict) — resolved by the rebase, commented for re-review. CI green 32/32.
 - 55 test failures in `sdkResolverShadow` / `sdkCutoverParity` / `sdkCutover` / `useGsapPropertyDebounce` / `variablePromoteIntegration` are **pre-existing on main**, zero overlap with the stack. Ignore them; the studio baseline is "55 failed, rest pass".
 
 ## 3. Max-effort code review → 15 confirmed defects → all fixed (PR #2225)
@@ -61,7 +61,7 @@ Per user: headers vs open-section body need slightly different colors; body ligh
 ## 6. Open items
 
 1. **Commit + PR the section styling** (item 4) once user approves the look.
-2. **PR #2120 re-review** — asked miguel-heygen to clear the stale conflict blocker; confirm it flips to approved.
+2. **PR #2120 re-review** — asked miguel-verblike to clear the stale conflict blocker; confirm it flips to approved.
 3. **PR #2225 review** — fresh, unreviewed.
 4. **Manual validation of the 15 fixes** — only unit-tested + spot-checked live. Worth hand-validating: multi-select "Hide all" (needs 2+ selected elements), variable-bound text promote/edit round-trip, custom clip-path mask survival, inferred-timing edits, keyboard sliders, disabled-slider click.
 5. **Original slider live-value bug** — unexplained, pre-existing, reproducible only by the user. Parked.

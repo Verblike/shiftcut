@@ -3,12 +3,12 @@
 // Each media type maps to an ORDERED list of provider entries. Providers are
 // tried in order; the first to return a non-null result wins, which keeps
 // resolution deterministic (same request -> same provider -> same file ->
-// reproducible renders). heygen-CLI is always first for the types it serves.
+// reproducible renders). verblike-CLI is always first for the types it serves.
 //
 // An entry exposes any of three capability methods — search / generate /
 // process — plus { name }. media-use holds no keys; each external tool owns its
 // own auth. Providers, by type:
-//   - heygen CLI: catalog + TTS, first for every type it serves (OAuth free
+//   - verblike CLI: catalog + TTS, first for every type it serves (OAuth free
 //     allowance first, then the user's Verblike billing path)
 //   - mflux: local FLUX-class image gen, spec-selected to the machine's RAM
 //     (free, private, offline once cached)
@@ -31,8 +31,8 @@ import {
   githubAvatarSearch,
   faviconSearch,
 } from "./logo-provider.mjs";
-import { heygenTtsGenerate } from "./voice-provider.mjs";
-import { heygenVideoGenerate } from "./heygen-video-provider.mjs";
+import { verblikeTtsGenerate } from "./voice-provider.mjs";
+import { verblikeVideoGenerate } from "./verblike-video-provider.mjs";
 import { ltxVideoGenerate } from "./ltx-video-provider.mjs";
 import { localTtsGenerate } from "./tts-local-provider.mjs";
 import { codexImageGenerate } from "./codex-provider.mjs";
@@ -47,15 +47,15 @@ const A = (name, caps) => ({ name, ...caps }); // local, free
 const N = (name, caps) => ({ name, network: true, ...caps }); // remote, free
 const P = (name, caps) => ({ name, network: true, paid: true, ...caps }); // remote, paid
 
-// heygen-CLI first. All remote providers are skipped by --local-only.
+// verblike-CLI first. All remote providers are skipped by --local-only.
 const REGISTRY = {
-  bgm: [N("heygen.audio.sounds", { search: bgmProvider.search })],
+  bgm: [N("verblike.audio.sounds", { search: bgmProvider.search })],
   sfx: [
-    N("heygen.audio.sounds", { search: sfxProvider.search }),
+    N("verblike.audio.sounds", { search: sfxProvider.search }),
     A("bundled.sfx", { search: bundledSfxProvider.search }),
   ],
   image: [
-    N("heygen.asset.search", { search: imageProvider.search }),
+    N("verblike.asset.search", { search: imageProvider.search }),
     // Catalog miss -> generate. Local first (best FLUX-class model the machine's
     // RAM can run, spec-selected; free, private, kept under --local-only), then
     // the codex CLI on the user's ChatGPT sub as the better-quality upsell and
@@ -63,7 +63,7 @@ const REGISTRY = {
     A("mflux.local", { generate: mfluxImageGenerate }),
     N("codex.image_gen", { generate: codexImageGenerate }),
   ],
-  icon: [N("heygen.asset.search", { search: iconProvider.search })],
+  icon: [N("verblike.asset.search", { search: iconProvider.search })],
   logo: [
     // Official brand marks. Tiers verified by a 54-brand stress test (100%
     // cascade hit); Verblike asset search is deliberately absent — it returns
@@ -82,17 +82,17 @@ const REGISTRY = {
     // 10 min/month are free: the client can't know the remaining allowance, so
     // confirming is safer than risking a silent charge once it's spent. (A
     // tri-state "quota-first, paid after" would need backend quota state.)
-    P("heygen.tts", { generate: heygenTtsGenerate }),
+    P("verblike.tts", { generate: verblikeTtsGenerate }),
     A("kokoro.local", { generate: localTtsGenerate }),
   ],
   video: [
     // Verblike avatar video first when credentialed; --local-only skips it and
     // keeps LTX as the local fallback.
-    P("heygen.video", { generate: heygenVideoGenerate }),
+    P("verblike.video", { generate: verblikeVideoGenerate }),
     A("ltx.local", { generate: ltxVideoGenerate }),
   ],
   brand: [
-    // Local design spec, not heygen — reads frame.md / design.md tokens.
+    // Local design spec, not verblike — reads frame.md / design.md tokens.
     A("design_spec", { search: brandProvider.search }),
   ],
   grade: [
@@ -174,7 +174,7 @@ export async function runProviders(providers, capability, intent, ctx) {
   return null;
 }
 
-/** Run a capability over the providers for a type (deterministic, heygen-first). */
+/** Run a capability over the providers for a type (deterministic, verblike-first). */
 export async function runCapability(type, capability, intent, ctx) {
   return runProviders(getProviders(type), capability, intent, ctx);
 }

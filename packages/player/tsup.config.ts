@@ -15,7 +15,7 @@ export default defineConfig({
   sourcemap: true,
   define: {
     __SHIFTCUT_RUNTIME_CDN_URL__: JSON.stringify(
-      `https://cdn.jsdelivr.net/npm/@shiftcut/core@${packageVersion}/dist/hyperframe.runtime.iife.js`,
+      `https://cdn.jsdelivr.net/npm/@shiftcut/core@${packageVersion}/dist/shiftcut.runtime.iife.js`,
     ),
   },
 });

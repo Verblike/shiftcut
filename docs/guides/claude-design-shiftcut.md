@@ -537,7 +537,7 @@ Transition plan: s1→s2 hard cut, s2→s3 hard cut, **s3→s4 SHADER** (hero re
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=1080, height=1920" />
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@shiftcut/core/dist/hyperframe.runtime.iife.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@shiftcut/core/dist/shiftcut.runtime.iife.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@shiftcut/shader-transitions/dist/index.global.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -781,7 +781,7 @@ Transition plan: s1→s2 hard cut, s2→s3 hard cut, s3→s4 hard cut, **s4→s5
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=1920, height=1080" />
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@shiftcut/core/dist/hyperframe.runtime.iife.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@shiftcut/core/dist/shiftcut.runtime.iife.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@shiftcut/shader-transitions/dist/index.global.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />

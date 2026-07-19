@@ -10,10 +10,10 @@
  * exported here — import it from the main `@shiftcut/lint` entry in Node.
  */
 export type {
-  HyperframeLintSeverity,
-  HyperframeLintFinding,
-  HyperframeLintResult,
-  HyperframeLinterOptions,
+  ShiftCutLintSeverity,
+  ShiftCutLintFinding,
+  ShiftCutLintResult,
+  ShiftCutLinterOptions,
 } from "./types.js";
-export { lintHyperframeHtml, lintMediaUrls } from "./hyperframeLinter.js";
+export { lintShiftCutHtml, lintMediaUrls } from "./shiftcutLinter.js";
 export { shouldBlockRender } from "./shouldBlockRender.js";

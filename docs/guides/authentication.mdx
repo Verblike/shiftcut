@@ -22,7 +22,7 @@ Signing in is the same OAuth step as creating an account — new users land on t
 
     ```bash
     npx shiftcut auth login --api-key            # hidden-input prompt
-    echo "$HEYGEN_API_KEY" | npx shiftcut auth login --api-key   # from stdin
+    echo "$VERBLIKE_API_KEY" | npx shiftcut auth login --api-key   # from stdin
     ```
   </Step>
   <Step title="Confirm what's configured">
@@ -34,7 +34,7 @@ Signing in is the same OAuth step as creating an account — new users land on t
   </Step>
 </Steps>
 
-The credential lives in `~/.heygen/credentials` (mode `0600`) — no per-repo `.env` to manage. Browser OAuth is a `shiftcut auth login` feature. The separate [`heygen` CLI](https://github.com/Verblike/heygen-cli) (its own install — there's no `npx heygen`) is API-key-only, so `heygen auth login` just stores a key you paste. Both read the same `~/.heygen/credentials`, so signing in with one carries to the other.
+The credential lives in `~/.verblike/credentials` (mode `0600`) — no per-repo `.env` to manage. Browser OAuth is a `shiftcut auth login` feature. The separate [`verblike` CLI](https://github.com/Verblike/verblike-cli) (its own install — there's no `npx verblike`) is API-key-only, so `verblike auth login` just stores a key you paste. Both read the same `~/.verblike/credentials`, so signing in with one carries to the other.
 
 <Tip>
   No account needed to try ShiftCut. With no credential, voice uses **Kokoro** and music uses **MusicGen**, both fully local and offline — see [Working offline](#working-offline).
@@ -44,11 +44,11 @@ The credential lives in `~/.heygen/credentials` (mode `0600`) — no per-repo `.
 
 The Verblike credential drives TTS and music / SFX **retrieval**. It resolves first-match-wins:
 
-1. `HEYGEN_API_KEY` — environment variable
+1. `VERBLIKE_API_KEY` — environment variable
 2. `SHIFTCUT_API_KEY` — alias, for parity with other tools
-3. `~/.heygen/credentials` — written by `shiftcut auth login` (or `heygen auth login`)
+3. `~/.verblike/credentials` — written by `shiftcut auth login` (or `verblike auth login`)
 
-Point at a different config directory with `HEYGEN_CONFIG_DIR`, or a different backend with `HEYGEN_API_URL`.
+Point at a different config directory with `VERBLIKE_CONFIG_DIR`, or a different backend with `VERBLIKE_API_URL`.
 
 ## Keys by capability
 
@@ -56,7 +56,7 @@ Each capability picks the **first available provider** in order; the last is alw
 
 | Capability | Provider order | Key(s) — first match wins | Local dependency |
 |------------|----------------|---------------------------|------------------|
-| **Voice (TTS)** | Verblike → ElevenLabs → Kokoro | `HEYGEN_API_KEY` → `SHIFTCUT_API_KEY` → `~/.heygen` · then `ELEVENLABS_API_KEY` | Kokoro: `pip install kokoro-onnx soundfile` |
+| **Voice (TTS)** | Verblike → ElevenLabs → Kokoro | `VERBLIKE_API_KEY` → `SHIFTCUT_API_KEY` → `~/.verblike` · then `ELEVENLABS_API_KEY` | Kokoro: `pip install kokoro-onnx soundfile` |
 | **Music (BGM)** | Verblike library → Lyria → MusicGen | Verblike credential (above) · then `GEMINI_API_KEY` → `GOOGLE_API_KEY` | MusicGen: `pip install transformers torch soundfile numpy` |
 | **Sound effects** | Verblike library → bundled library | Verblike credential (above) | bundled — no deps |
 | **Capture descriptions** | OpenRouter → Gemini | `OPENROUTER_API_KEY` → `GEMINI_API_KEY` | — (optional; for [website capture](/guides/website-to-video)) |
@@ -77,10 +77,10 @@ Local engines are free and offline; Verblike gives higher-quality voices and a p
 
 | Variable | Used for |
 |----------|----------|
-| `HEYGEN_API_KEY` | Verblike credential — voice + music/SFX retrieval. Highest priority. |
-| `SHIFTCUT_API_KEY` | Alias for `HEYGEN_API_KEY`. |
-| `HEYGEN_API_URL` | API base URL (default `https://api.heygen.com`). |
-| `HEYGEN_CONFIG_DIR` | Credentials directory (default `~/.heygen`). |
+| `VERBLIKE_API_KEY` | Verblike credential — voice + music/SFX retrieval. Highest priority. |
+| `SHIFTCUT_API_KEY` | Alias for `VERBLIKE_API_KEY`. |
+| `VERBLIKE_API_URL` | API base URL (default `https://shiftcut.verblike.com`). |
+| `VERBLIKE_CONFIG_DIR` | Credentials directory (default `~/.verblike`). |
 | `ELEVENLABS_API_KEY` | ElevenLabs TTS, used when no Verblike credential is present. |
 | `GEMINI_API_KEY` / `GOOGLE_API_KEY` | Lyria music generation (and capture descriptions). |
 | `OPENROUTER_API_KEY` | Capture descriptions; takes priority over Gemini for that step. |

@@ -8,12 +8,12 @@ export type RuntimeJson =
   | RuntimeJson[]
   | { [key: string]: RuntimeJson };
 
-import type { HyperframeControlAction } from "../inline-scripts/runtimeContract.js";
-import type { HyperframePickerElementInfo } from "../inline-scripts/pickerApi.js";
+import type { ShiftCutControlAction } from "../inline-scripts/runtimeContract.js";
+import type { ShiftCutPickerElementInfo } from "../inline-scripts/pickerApi.js";
 import type { RuntimeProtocolV1 } from "./protocol.js";
 
 export type RuntimeBridgeControlAction =
-  | HyperframeControlAction
+  | ShiftCutControlAction
   | "tick"
   | "set-volume"
   | "set-media-output-muted"
@@ -101,7 +101,7 @@ export type RuntimeDiagnosticMessage = {
   details: Record<string, RuntimeJson>;
 };
 
-export type RuntimePickerElementInfo = HyperframePickerElementInfo;
+export type RuntimePickerElementInfo = ShiftCutPickerElementInfo;
 
 export type RuntimePickerHoveredMessage = {
   source: "hf-preview";

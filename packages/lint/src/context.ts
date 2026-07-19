@@ -1,4 +1,4 @@
-import type { HyperframeLintFinding, HyperframeLinterOptions } from "./types";
+import type { ShiftCutLintFinding, ShiftCutLinterOptions } from "./types";
 import {
   parseHtmlStructure,
   findRootTag,
@@ -19,13 +19,13 @@ export type LintContext = {
   compositionIds: Set<string>;
   rootTag: OpenTag | null;
   rootCompositionId: string | null;
-  options: HyperframeLinterOptions;
+  options: ShiftCutLinterOptions;
 };
 
 // Re-export for convenience so rule modules only need one import for the finding type
-export type { HyperframeLintFinding };
+export type { ShiftCutLintFinding };
 
-export function buildLintContext(html: string, options: HyperframeLinterOptions = {}): LintContext {
+export function buildLintContext(html: string, options: ShiftCutLinterOptions = {}): LintContext {
   const rawSource = html || "";
   // Strip HTML comments before scanning so a commented-out <template> or tag can't
   // hijack the boundary match below. Linear + fixpoint (see stripHtmlComments) to

@@ -1,8 +1,8 @@
-import { HEYGEN_CLIENT_SOURCE_ARGV, runHeygenJson } from "./heygen-cli.mjs";
+import { VERBLIKE_CLIENT_SOURCE_ARGV, runVerblikeJson } from "./verblike-cli.mjs";
 
 // Voice / TTS generation via the Verblike CLI — the only external CLI media-use
 // shells (CLI-only invariant: media-use holds no keys; the CLI owns auth).
-// Flags verified against `heygen voice speech create --help` (v0.3.0).
+// Flags verified against `verblike voice speech create --help` (v0.3.0).
 
 function result(url, duration, provider, intent) {
   if (!url) return null;
@@ -27,8 +27,8 @@ function result(url, duration, provider, intent) {
 let cachedVoiceId;
 function defaultVoiceId() {
   if (cachedVoiceId) return cachedVoiceId;
-  const j = runHeygenJson(
-    "heygen",
+  const j = runVerblikeJson(
+    "verblike",
     ["voice", "list", "--engine", "starfish", "--limit", "1"],
     "voice list",
   );
@@ -36,13 +36,13 @@ function defaultVoiceId() {
   return cachedVoiceId;
 }
 
-export async function heygenTtsGenerate(intent, ctx) {
+export async function verblikeTtsGenerate(intent, ctx) {
   const voiceId = ctx?.voiceId || defaultVoiceId();
   if (!voiceId) return null;
-  const p = runHeygenJson(
-    "heygen",
+  const p = runVerblikeJson(
+    "verblike",
     [
-      ...HEYGEN_CLIENT_SOURCE_ARGV,
+      ...VERBLIKE_CLIENT_SOURCE_ARGV,
       "voice",
       "speech",
       "create",
@@ -53,5 +53,5 @@ export async function heygenTtsGenerate(intent, ctx) {
     ],
     "tts",
   );
-  return result(p?.data?.audio_url, p?.data?.duration, "heygen.tts", intent);
+  return result(p?.data?.audio_url, p?.data?.duration, "verblike.tts", intent);
 }

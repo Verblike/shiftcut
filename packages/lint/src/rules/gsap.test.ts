@@ -1,6 +1,6 @@
 // fallow-ignore-file code-duplication
 import { describe, it, expect } from "vitest";
-import { lintHyperframeHtml } from "../hyperframeLinter.js";
+import { lintShiftCutHtml } from "../shiftcutLinter.js";
 
 describe("GSAP rules", () => {
   it("errors when window.__timelines is registered BEFORE the fonts.ready build", async () => {
@@ -16,7 +16,7 @@ describe("GSAP rules", () => {
     });
   </script>
 </body></html>`;
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const finding = result.findings.find(
       (f) => f.code === "gsap_timeline_registered_before_async_build",
     );
@@ -37,7 +37,7 @@ describe("GSAP rules", () => {
     });
   </script>
 </body></html>`;
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const finding = result.findings.find(
       (f) => f.code === "gsap_timeline_registered_before_async_build",
     );
@@ -59,7 +59,7 @@ describe("GSAP rules", () => {
     window.__timelines["c1"] = tl;
   </script>
 </body></html>`;
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const finding = result.findings.find((f) => f.code === "gsap_animates_clip_element");
     expect(finding).toBeUndefined();
   });
@@ -79,7 +79,7 @@ describe("GSAP rules", () => {
     window.__timelines["c1"] = tl;
   </script>
 </body></html>`;
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const finding = result.findings.find((f) => f.code === "gsap_animates_clip_element");
     expect(finding).toBeUndefined();
   });
@@ -99,7 +99,7 @@ describe("GSAP rules", () => {
     window.__timelines["c1"] = tl;
   </script>
 </body></html>`;
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const finding = result.findings.find((f) => f.code === "gsap_animates_clip_element");
     expect(finding).toBeUndefined();
   });
@@ -119,7 +119,7 @@ describe("GSAP rules", () => {
     window.__timelines["c1"] = tl;
   </script>
 </body></html>`;
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const finding = result.findings.find((f) => f.code === "gsap_animates_clip_element");
     expect(finding).toBeUndefined();
   });
@@ -139,7 +139,7 @@ describe("GSAP rules", () => {
     window.__timelines["c1"] = tl;
   </script>
 </body></html>`;
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const finding = result.findings.find((f) => f.code === "gsap_animates_clip_element");
     expect(finding).toBeUndefined();
   });
@@ -159,7 +159,7 @@ describe("GSAP rules", () => {
     window.__timelines["c1"] = tl;
   </script>
 </body></html>`;
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const finding = result.findings.find(
       (f) => f.code === "gsap_fullscreen_overlay_starts_visible",
     );
@@ -184,7 +184,7 @@ describe("GSAP rules", () => {
     window.__timelines["c1"] = tl;
   </script>
 </body></html>`;
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const finding = result.findings.find(
       (f) => f.code === "gsap_fullscreen_overlay_starts_visible",
     );
@@ -207,7 +207,7 @@ describe("GSAP rules", () => {
     window.__timelines["c1"] = tl;
   </script>
 </body></html>`;
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const finding = result.findings.find(
       (f) => f.code === "gsap_fullscreen_overlay_starts_visible",
     );
@@ -234,7 +234,7 @@ describe("GSAP rules", () => {
     tl2.to("#tr-flash-1", { opacity: 0, duration: 0.18 }, 10.00);
   </script>
 </body></html>`;
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     expect(
       result.findings.filter((f) => f.code === "gsap_fullscreen_overlay_starts_visible"),
     ).toHaveLength(1);
@@ -253,7 +253,7 @@ describe("GSAP rules", () => {
     window.__timelines["c1"] = tl;
   </script>
 </body></html>`;
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const finding = result.findings.find(
       (f) => f.code === "gsap_fullscreen_overlay_starts_visible",
     );
@@ -276,7 +276,7 @@ describe("GSAP rules", () => {
     window.__timelines["c1"] = tl;
   </script>
 </body></html>`;
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const finding = result.findings.find(
       (f) => f.code === "gsap_fullscreen_overlay_starts_visible",
     );
@@ -301,7 +301,7 @@ describe("GSAP rules", () => {
     window.__timelines["c1"] = tl;
   </script>
 </body></html>`;
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const finding = result.findings.find(
       (f) => f.code === "gsap_fullscreen_overlay_starts_visible",
     );
@@ -324,7 +324,7 @@ describe("GSAP rules", () => {
     window.__timelines["c1"] = tl;
   </script>
 </body></html>`;
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const finding = result.findings.find((f) => f.code === "gsap_animates_clip_element");
     expect(finding).toBeUndefined();
   });
@@ -344,7 +344,7 @@ describe("GSAP rules", () => {
     window.__timelines["c1"] = tl;
   </script>
 </body></html>`;
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const finding = result.findings.find((f) => f.code === "gsap_animates_clip_element");
     expect(finding).toBeUndefined();
   });
@@ -362,7 +362,7 @@ describe("GSAP rules", () => {
   </div>
 </template>`;
 
-    const result = await lintHyperframeHtml(html, { isSubComposition: true });
+    const result = await lintShiftCutHtml(html, { isSubComposition: true });
     const finding = result.findings.find((f) => f.code === "missing_gsap_script");
     expect(finding).toBeUndefined();
   });
@@ -380,7 +380,7 @@ describe("GSAP rules", () => {
   </div>
 </template>`;
 
-    const result = await lintHyperframeHtml(html, { filePath: "compositions/intro.html" });
+    const result = await lintShiftCutHtml(html, { filePath: "compositions/intro.html" });
     const finding = result.findings.find((f) => f.code === "missing_gsap_script");
     expect(finding).toBeUndefined();
   });
@@ -400,7 +400,7 @@ describe("GSAP rules", () => {
     window.__timelines["c1"] = tl;
   </script>
 </body></html>`;
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const finding = result.findings.find((f) => f.code === "gsap_animates_clip_element");
     expect(finding).toBeDefined();
     expect(finding?.severity).toBe("error");
@@ -423,7 +423,7 @@ describe("GSAP rules", () => {
     window.__timelines["c1"] = tl;
   </script>
 </body></html>`;
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const finding = result.findings.find((f) => f.code === "gsap_animates_clip_element");
     expect(finding).toBeDefined();
     expect(finding?.severity).toBe("error");
@@ -446,7 +446,7 @@ describe("GSAP rules", () => {
     window.__timelines["c1"] = tl;
   </script>
 </body></html>`;
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const finding = result.findings.find((f) => f.code === "gsap_animates_clip_element");
     expect(finding).toBeDefined();
     expect(finding?.severity).toBe("error");
@@ -469,7 +469,7 @@ describe("GSAP rules", () => {
     window.__timelines["c1"] = tl;
   </script>
 </body></html>`;
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const finding = result.findings.find((f) => f.code === "gsap_css_transform_conflict");
     expect(finding).toBeDefined();
     expect(finding?.severity).toBe("error");
@@ -494,7 +494,7 @@ describe("GSAP rules", () => {
     window.__timelines["c1"] = tl;
   </script>
 </body></html>`;
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const finding = result.findings.find((f) => f.code === "gsap_css_transform_conflict");
     expect(finding).toBeDefined();
     expect(finding?.severity).toBe("error");
@@ -517,7 +517,7 @@ describe("GSAP rules", () => {
     window.__timelines["c1"] = tl;
   </script>
 </body></html>`;
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const conflict = result.findings.find((f) => f.code === "gsap_css_transform_conflict");
     expect(conflict).toBeUndefined();
   });
@@ -538,7 +538,7 @@ describe("GSAP rules", () => {
     window.__timelines["c1"] = tl;
   </script>
 </body></html>`;
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const conflict = result.findings.find((f) => f.code === "gsap_css_transform_conflict");
     expect(conflict).toBeUndefined();
   });
@@ -559,7 +559,7 @@ describe("GSAP rules", () => {
     window.__timelines["c1"] = tl;
   </script>
 </body></html>`;
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const conflict = result.findings.find((f) => f.code === "gsap_css_transform_conflict");
     expect(conflict).toBeUndefined();
   });
@@ -580,7 +580,7 @@ describe("GSAP rules", () => {
     window.__timelines["c1"] = tl;
   </script>
 </body></html>`;
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const conflicts = result.findings.filter((f) => f.code === "gsap_css_transform_conflict");
     expect(conflicts).toHaveLength(1);
     expect(conflicts[0]?.message).toMatch(/x\/scale|scale\/x/);
@@ -601,7 +601,7 @@ describe("GSAP rules", () => {
     window.__timelines["c1"] = tl;
   </script>
 </body></html>`;
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const finding = result.findings.find((f) => f.code === "gsap_css_transform_conflict");
     expect(finding).toBeDefined();
     expect(finding?.selector).toBe("#centered");
@@ -620,7 +620,7 @@ describe("GSAP rules", () => {
     window.__timelines["c1"] = tl;
   </script>
 </body></html>`;
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const finding = result.findings.find((f) => f.code === "gsap_css_transform_conflict");
     expect(finding).toBeDefined();
     expect(finding?.selector).toBe("#box");
@@ -639,7 +639,7 @@ describe("GSAP rules", () => {
     window.__timelines["c1"] = tl;
   </script>
 </body></html>`;
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     // rotation doesn't conflict with rotate() — GSAP handles rotation separately
     const finding = result.findings.find((f) => f.code === "gsap_css_transform_conflict");
     expect(finding).toBeUndefined();
@@ -658,7 +658,7 @@ describe("GSAP rules", () => {
     window.__timelines["c1"] = tl;
   </script>
 </body></html>`;
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const finding = result.findings.find((f) => f.code === "gsap_css_transform_conflict");
     expect(finding).toBeDefined();
   });
@@ -679,7 +679,7 @@ describe("GSAP rules", () => {
     window.__timelines["c1"] = tl;
   </script>
 </body></html>`;
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const conflicts = result.findings.filter((f) => f.code === "gsap_css_transform_conflict");
     expect(conflicts.length).toBeGreaterThanOrEqual(1);
   });
@@ -700,7 +700,7 @@ describe("GSAP rules", () => {
     window.__timelines["c1"] = tl;
   </script>
 </body></html>`;
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const finding = result.findings.find((f) => f.code === "gsap_css_transform_conflict");
     expect(finding).toBeDefined();
     expect(finding?.selector).toBe("#root .lab");
@@ -726,7 +726,7 @@ describe("GSAP rules", () => {
     window.__timelines["c1"] = tl;
   </script>
 </body></html>`;
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const finding = result.findings.find(
       (f) => f.code === "gsap_css_transform_conflict" && f.selector === "#root .lab, #root .sub",
     );
@@ -750,7 +750,7 @@ describe("GSAP rules", () => {
     window.__timelines["c1"] = tl;
   </script>
 </body></html>`;
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const conflict = result.findings.find((f) => f.code === "gsap_css_transform_conflict");
     expect(conflict).toBeUndefined();
   });
@@ -766,7 +766,7 @@ describe("GSAP rules", () => {
     window.__timelines["main"] = tl;
   </script>
 </body></html>`;
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const finding = result.findings.find((f) => f.code === "missing_gsap_script");
     expect(finding).toBeDefined();
     expect(finding?.severity).toBe("error");
@@ -785,7 +785,7 @@ describe("GSAP rules", () => {
     window.__timelines["main"] = tl;
   </script>
 </body></html>`;
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const finding = result.findings.find((f) => f.code === "missing_gsap_script");
     expect(finding).toBeUndefined();
   });
@@ -804,7 +804,7 @@ describe("GSAP rules", () => {
     window.__timelines["main"] = tl;
   </script>
 </body></html>`;
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const finding = result.findings.find((f) => f.code === "missing_gsap_script");
     expect(finding).toBeUndefined();
   });
@@ -823,7 +823,7 @@ describe("GSAP rules", () => {
     window.__timelines["main"] = tl;
   </script>
 </body></html>`;
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const finding = result.findings.find((f) => f.code === "missing_gsap_script");
     expect(finding).toBeUndefined();
   });
@@ -839,7 +839,7 @@ describe("GSAP rules", () => {
     window.__timelines["main"] = tl;
   </script>
 </body></html>`;
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const finding = result.findings.find((f) => f.code === "missing_gsap_script");
     expect(finding).toBeDefined();
     expect(finding?.severity).toBe("error");
@@ -857,7 +857,7 @@ describe("GSAP rules", () => {
     window.__timelines["main"] = tl;
   </script>
 </body></html>`;
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const finding = result.findings.find((f) => f.code === "gsap_infinite_repeat");
     expect(finding).toBeDefined();
     expect(finding?.severity).toBe("error");
@@ -876,7 +876,7 @@ describe("GSAP rules", () => {
     window.__timelines["main"] = tl;
   </script>
 </body></html>`;
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const finding = result.findings.find((f) => f.code === "gsap_infinite_repeat");
     expect(finding).toBeUndefined();
   });
@@ -897,7 +897,7 @@ describe("GSAP rules", () => {
     window.__timelines["main"] = tl;
   </script>
 </body></html>`;
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const finding = result.findings.find((f) => f.code === "gsap_infinite_repeat");
     expect(finding).toBeUndefined();
   });
@@ -923,7 +923,7 @@ describe("GSAP rules", () => {
     window.__timelines["c1"] = tl;
   </script>
 </body></html>`;
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const finding = result.findings.find((f) => f.code === "overlapping_gsap_tweens");
     expect(finding).toBeUndefined();
   });
@@ -943,7 +943,7 @@ describe("GSAP rules", () => {
     window.__timelines["c1"] = tl;
   </script>
 </body></html>`;
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const finding = result.findings.find((f) => f.code === "overlapping_gsap_tweens");
     expect(finding).toBeUndefined();
   });
@@ -967,7 +967,7 @@ describe("GSAP rules", () => {
     window.__timelines["c1"] = tl;
   </script>
 </body></html>`;
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const finding = result.findings.find((f) => f.code === "overlapping_gsap_tweens");
     expect(finding).toBeDefined();
   });
@@ -993,7 +993,7 @@ describe("GSAP rules", () => {
     window.__timelines["c1"] = tl;
   </script>
 </body></html>`;
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const finding = result.findings.find((f) => f.code === "overlapping_gsap_tweens");
     expect(finding).toBeUndefined();
   });
@@ -1016,7 +1016,7 @@ describe("GSAP rules", () => {
     window.__timelines["c1"] = tl;
   </script>
 </body></html>`;
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const finding = result.findings.find((f) => f.code === "overlapping_gsap_tweens");
     expect(finding).toBeUndefined();
   });
@@ -1036,7 +1036,7 @@ describe("GSAP rules", () => {
     window.__timelines["c1"] = tl;
   </script>
 </body></html>`;
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const finding = result.findings.find((f) => f.code === "overlapping_gsap_tweens");
     expect(finding).toBeUndefined();
   });
@@ -1055,7 +1055,7 @@ describe("GSAP rules", () => {
     window.__timelines["c1"] = tl;
   </script>
 </body></html>`;
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const finding = result.findings.find((f) => f.code === "overlapping_gsap_tweens");
     expect(finding).toBeDefined();
   });
@@ -1079,7 +1079,7 @@ describe("GSAP rules", () => {
     window.__timelines["c1"] = tl;
   </script>
 </body></html>`;
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const finding = result.findings.find((f) => f.code === "overlapping_gsap_tweens");
     expect(finding).toBeUndefined();
   });
@@ -1103,7 +1103,7 @@ describe("GSAP rules", () => {
     window.__timelines["c1"] = tl;
   </script>
 </body></html>`;
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const finding = result.findings.find((f) => f.code === "gsap_exit_missing_hard_kill");
     expect(finding).toBeDefined();
     expect(finding?.severity).toBe("error");
@@ -1129,7 +1129,7 @@ describe("GSAP rules", () => {
     window.__timelines["c1"] = tl;
   </script>
 </body></html>`;
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const finding = result.findings.find((f) => f.code === "gsap_exit_missing_hard_kill");
     expect(finding).toBeDefined();
     expect(finding?.fixHint).toContain("clip element");
@@ -1162,7 +1162,7 @@ describe("GSAP rules", () => {
     window.__timelines["c1"] = tl;
   </script>
 </body></html>`;
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const exitFindings = result.findings.filter((f) => f.code === "gsap_exit_missing_hard_kill");
     expect(exitFindings).toHaveLength(1);
     expect(exitFindings[0]?.selector).toBe("#headline");
@@ -1188,7 +1188,7 @@ describe("GSAP rules", () => {
     window.__timelines["c1"] = tl;
   </script>
 </body></html>`;
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const finding = result.findings.find((f) => f.code === "gsap_exit_missing_hard_kill");
     expect(finding).toBeUndefined();
   });
@@ -1213,7 +1213,7 @@ describe("GSAP rules", () => {
     window.__timelines["sub"] = tl;
   </script>
 </body></html>`;
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const finding = result.findings.find((f) => f.code === "gsap_exit_missing_hard_kill");
     expect(finding).toBeUndefined();
   });
@@ -1237,7 +1237,7 @@ describe("GSAP rules", () => {
     window.__timelines["c1"] = tl;
   </script>
 </body></html>`;
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const finding = result.findings.find((f) => f.code === "gsap_exit_missing_hard_kill");
     expect(finding?.fixHint).toContain("{ autoAlpha: 0 }");
   });
@@ -1254,7 +1254,7 @@ describe("GSAP rules", () => {
     window.__timelines["main"] = tl;
   </script>
 </body></html>`;
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const finding = result.findings.find((f) => f.code === "gsap_infinite_repeat");
     expect(finding).toBeUndefined();
   });
@@ -1272,7 +1272,7 @@ describe("GSAP rules", () => {
     window.__timelines["c1"] = tl;
   </script>
 </body></html>`;
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const finding = result.findings.find((f) => f.code === "gsap_from_opacity_noop");
     expect(finding).toBeDefined();
     expect(finding!.severity).toBe("error");
@@ -1295,7 +1295,7 @@ describe("GSAP rules", () => {
     window.__timelines["c1"] = tl;
   </script>
 </body></html>`;
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const finding = result.findings.find((f) => f.code === "gsap_from_opacity_noop");
     expect(finding).toBeDefined();
   });
@@ -1316,7 +1316,7 @@ describe("GSAP rules", () => {
     window.__timelines["c1"] = tl;
   </script>
 </body></html>`;
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const finding = result.findings.find((f) => f.code === "gsap_from_opacity_noop");
     expect(finding).toBeDefined();
   });
@@ -1334,7 +1334,7 @@ describe("GSAP rules", () => {
     window.__timelines["c1"] = tl;
   </script>
 </body></html>`;
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const finding = result.findings.find((f) => f.code === "gsap_from_opacity_noop");
     expect(finding).toBeUndefined();
   });
@@ -1352,7 +1352,7 @@ describe("GSAP rules", () => {
     window.__timelines["c1"] = tl;
   </script>
 </body></html>`;
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const finding = result.findings.find((f) => f.code === "gsap_from_opacity_noop");
     expect(finding).toBeDefined();
   });
@@ -1370,7 +1370,7 @@ describe("GSAP rules", () => {
     window.__timelines["c1"] = tl;
   </script>
 </body></html>`;
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const finding = result.findings.find((f) => f.code === "gsap_from_opacity_noop");
     expect(finding).toBeUndefined();
   });
@@ -1388,7 +1388,7 @@ describe("GSAP rules", () => {
     window.__timelines["c1"] = tl;
   </script>
 </body></html>`;
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const finding = result.findings.find((f) => f.code === "gsap_from_opacity_noop");
     expect(finding).toBeUndefined();
   });
@@ -1406,7 +1406,7 @@ describe("GSAP rules", () => {
     window.__timelines["c1"] = tl;
   </script>
 </body></html>`;
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const finding = result.findings.find(
       (f) => f.code === "gsap_cold_seek_hidden_fromto_missing_reveal",
     );
@@ -1429,7 +1429,7 @@ describe("GSAP rules", () => {
     window.__timelines["c1"] = tl;
   </script>
 </body></html>`;
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const finding = result.findings.find(
       (f) => f.code === "gsap_cold_seek_hidden_fromto_missing_reveal",
     );
@@ -1449,7 +1449,7 @@ describe("GSAP rules", () => {
     window.__timelines["c1"] = tl;
   </script>
 </body></html>`;
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const finding = result.findings.find((f) => f.code === "gsap_from_opacity_noop");
     expect(finding).toBeUndefined();
   });
@@ -1467,7 +1467,7 @@ describe("GSAP rules", () => {
     window.__timelines["c1"] = tl;
   </script>
 </body></html>`;
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const finding = result.findings.find((f) => f.code === "gsap_from_opacity_noop");
     expect(finding).toBeUndefined();
   });
@@ -1484,7 +1484,7 @@ describe("GSAP rules", () => {
     tl.to("#box", { opacity: 0.5, duration: 2 });
   </script>
 </body></html>`;
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const finding = result.findings.find((f) => f.code === "gsap_timeline_not_registered");
     expect(finding).toBeDefined();
     expect(finding?.severity).toBe("error");
@@ -1504,7 +1504,7 @@ describe("GSAP rules", () => {
     window.__timelines["root"] = tl;
   </script>
 </body></html>`;
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const finding = result.findings.find((f) => f.code === "gsap_timeline_not_registered");
     expect(finding).toBeUndefined();
   });
@@ -1523,7 +1523,7 @@ describe("GSAP rules", () => {
     window.__timelines.root = tl;
   </script>
 </body></html>`;
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const finding = result.findings.find((f) => f.code === "gsap_timeline_not_registered");
     expect(finding).toBeUndefined();
   });
@@ -1543,7 +1543,7 @@ describe("GSAP rules", () => {
     window.__timelines[spec.id] = tl;
   </script>
 </body></html>`;
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const finding = result.findings.find((f) => f.code === "gsap_timeline_not_registered");
     expect(finding).toBeUndefined();
   });
@@ -1559,7 +1559,7 @@ describe("GSAP rules", () => {
     tl.to("#box", { opacity: 0.5, duration: 2 });
   </script>
 </template>`;
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const finding = result.findings.find((f) => f.code === "gsap_timeline_not_registered");
     expect(finding).toBeUndefined();
   });
@@ -1578,7 +1578,7 @@ describe("GSAP rules", () => {
     window.__timelines["c1"] = tl;
   </script>
 </body></html>`;
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const finding = result.findings.find((f) => f.code === "scene_layer_missing_visibility_kill");
     expect(finding).toBeDefined();
     expect(finding?.severity).toBe("error");
@@ -1603,7 +1603,7 @@ describe("GSAP rules", () => {
     window.__timelines["c1"] = tl;
   </script>
 </body></html>`;
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const finding = result.findings.find((f) => f.code === "scene_layer_missing_visibility_kill");
     expect(finding).toBeDefined();
     expect(finding?.fixHint).toContain("clip element");
@@ -1626,7 +1626,7 @@ describe("GSAP rules", () => {
     window.__timelines["c1"] = tl;
   </script>
 </body></html>`;
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const finding = result.findings.find((f) => f.code === "scene_layer_missing_visibility_kill");
     expect(finding).toBeDefined();
   });
@@ -1646,7 +1646,7 @@ describe("GSAP rules", () => {
     window.__timelines["c1"] = tl;
   </script>
 </body></html>`;
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const finding = result.findings.find((f) => f.code === "scene_layer_missing_visibility_kill");
     expect(finding).toBeUndefined();
   });
@@ -1666,7 +1666,7 @@ describe("GSAP rules", () => {
     window.__timelines["c1"] = tl;
   </script>
 </body></html>`;
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const findings = result.findings.filter((f) => f.code === "gsap_non_transform_motion");
     expect(findings).toHaveLength(3);
     expect(findings.every((f) => f.severity === "error")).toBe(true);
@@ -1683,7 +1683,7 @@ describe("GSAP rules", () => {
     window.__timelines["c1"] = tl;
   </script>
 </body></html>`;
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const finding = result.findings.find((f) => f.code === "gsap_non_transform_motion");
     expect(finding).toBeUndefined();
   });
@@ -1700,7 +1700,7 @@ describe("GSAP rules", () => {
     window.__timelines["c1"] = tl;
   </script>
 </body></html>`;
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const finding = result.findings.find((f) => f.code === "gsap_non_transform_motion");
     expect(finding).toBeUndefined();
   });
@@ -1716,7 +1716,7 @@ describe("GSAP rules", () => {
     window.__timelines["c1"] = tl;
   </script>
 </body></html>`;
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const findings = result.findings.filter((f) => f.code === "gsap_non_transform_motion");
     expect(findings).toHaveLength(1);
   });
@@ -1733,7 +1733,7 @@ describe("GSAP rules", () => {
     window.__timelines["c1"] = tl;
   </script>
 </body></html>`;
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const finding = result.findings.find(
       (f) => f.code === "gsap_non_transform_motion" && f.selector === "#a",
     );
@@ -1755,7 +1755,7 @@ describe("GSAP rules", () => {
     window.__timelines["c1"] = tl;
   </script>
 </body></html>`;
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const finding = result.findings.find((f) => f.code === "gsap_non_transform_motion");
     expect(finding).toBeUndefined();
   });
@@ -1776,7 +1776,7 @@ describe("GSAP rules", () => {
     window.__timelines["c1"] = tl;
   </script>
 </body></html>`;
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const finding = result.findings.find((f) => f.code === "gsap_non_transform_motion");
     expect(finding).toBeDefined();
   });
@@ -1793,7 +1793,7 @@ describe("GSAP rules", () => {
     window.__timelines["c1"] = tl;
   </script>
 </body></html>`;
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const finding = result.findings.find((f) => f.code === "gsap_non_transform_motion");
     expect(finding).toBeDefined();
   });
@@ -1809,7 +1809,7 @@ describe("GSAP rules", () => {
     window.__timelines["c1"] = tl;
   </script>
 </body></html>`;
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const finding = result.findings.find((f) => f.code === "gsap_non_transform_motion");
     expect(finding).toBeDefined();
   });
@@ -1829,7 +1829,7 @@ describe("GSAP rules", () => {
     window.__timelines["c1"] = tl;
   </script>
 </body></html>`;
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const finding = result.findings.find((f) => f.code === "gsap_non_transform_motion");
     expect(finding).toBeDefined();
   });
@@ -1845,7 +1845,7 @@ describe("GSAP rules", () => {
     window.__timelines["c1"] = tl;
   </script>
 </body></html>`;
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const finding = result.findings.find((f) => f.code === "gsap_non_transform_motion");
     expect(finding).toBeDefined();
   });
@@ -1862,7 +1862,7 @@ describe("GSAP rules", () => {
     window.__timelines["c1"] = tl;
   </script>
 </body></html>`;
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const findings = result.findings.filter((f) => f.code === "gsap_non_transform_motion");
     expect(findings).toHaveLength(2);
     expect(findings.every((f) => f.severity === "error")).toBe(true);
@@ -1883,7 +1883,7 @@ describe("GSAP rules", () => {
     window.__timelines["c1"] = tl;
   </script>
 </body></html>`;
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const finding = result.findings.find((f) => f.code === "gsap_non_transform_motion");
     expect(finding).toBeDefined();
   });
@@ -1900,7 +1900,7 @@ describe("GSAP rules", () => {
     window.__timelines["c1"] = tl;
   </script>
 </body></html>`;
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const finding = result.findings.find((f) => f.code === "gsap_non_transform_motion");
     expect(finding).toBeUndefined();
   });
@@ -1926,7 +1926,7 @@ describe("GSAP seek-order safety rules", () => {
     window.__timelines["c1"] = tl;
   </script>
 </body></html>`;
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const finding = result.findings.find((f) => f.code === "gsap_relative_value_second_writer");
     expect(finding).toBeDefined();
     expect(finding?.severity).toBe("error");
@@ -1945,7 +1945,7 @@ describe("GSAP seek-order safety rules", () => {
     window.__timelines["c1"] = tl;
   </script>
 </body></html>`;
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const findings = result.findings.filter((f) => f.code === "gsap_relative_value_second_writer");
     expect(findings.length).toBe(1);
     expect(findings[0]?.message).toContain("xPercent");
@@ -1965,7 +1965,7 @@ describe("GSAP seek-order safety rules", () => {
     window.__timelines["c1"] = tl;
   </script>
 </body></html>`;
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const finding = result.findings.find((f) => f.code === "gsap_relative_value_second_writer");
     expect(finding).toBeUndefined();
   });
@@ -1985,7 +1985,7 @@ describe("GSAP seek-order safety rules", () => {
     window.__timelines["c1"] = tl;
   </script>
 </body></html>`;
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const finding = result.findings.find((f) => f.code === "gsap_relative_value_second_writer");
     expect(finding).toBeUndefined();
   });
@@ -2002,7 +2002,7 @@ describe("GSAP seek-order safety rules", () => {
     window.__timelines["c1"] = tl;
   </script>
 </body></html>`;
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const finding = result.findings.find((f) => f.code === "gsap_relative_value_second_writer");
     expect(finding).toBeUndefined();
   });
@@ -2031,7 +2031,7 @@ describe("GSAP seek-order safety rules", () => {
     window.__timelines["a"] = tl;
   </script>
 </body></html>`;
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const finding = result.findings.find((f) => f.code === "gsap_relative_value_second_writer");
     expect(finding).toBeUndefined();
   });
@@ -2048,7 +2048,7 @@ describe("GSAP seek-order safety rules", () => {
     window.__timelines["c1"] = tl;
   </script>
 </body></html>`;
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const finding = result.findings.find((f) => f.code === "gsap_relative_value_second_writer");
     expect(finding).toBeUndefined();
   });
@@ -2065,7 +2065,7 @@ describe("GSAP seek-order safety rules", () => {
     window.__timelines["c1"] = tl;
   </script>
 </body></html>`;
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const finding = result.findings.find((f) => f.code === "gsap_relative_value_second_writer");
     expect(finding).toBeUndefined();
   });
@@ -2083,7 +2083,7 @@ describe("GSAP seek-order safety rules", () => {
     window.__timelines["c1"] = tl;
   </script>
 </body></html>`;
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const finding = result.findings.find((f) => f.code === "gsap_relative_value_second_writer");
     expect(finding).toBeUndefined();
   });
@@ -2100,7 +2100,7 @@ describe("GSAP seek-order safety rules", () => {
     window.__timelines["c1"] = tl;
   </script>
 </body></html>`;
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const finding = result.findings.find((f) => f.code === "gsap_relative_value_second_writer");
     expect(finding).toBeUndefined();
   });
@@ -2118,7 +2118,7 @@ describe("GSAP seek-order safety rules", () => {
     window.__timelines["c1"] = tl;
   </script>
 </body></html>`;
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const finding = result.findings.find((f) => f.code === "gsap_repeat_refresh_relative_value");
     expect(finding).toBeDefined();
     expect(finding?.severity).toBe("error");
@@ -2139,7 +2139,7 @@ describe("GSAP seek-order safety rules", () => {
     window.__timelines["c1"] = tl;
   </script>
 </body></html>`;
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const finding = result.findings.find((f) => f.code === "gsap_repeat_refresh_relative_value");
     expect(finding).toBeUndefined();
   });
@@ -2156,7 +2156,7 @@ describe("GSAP seek-order safety rules", () => {
     window.__timelines["c1"] = tl;
   </script>
 </body></html>`;
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const finding = result.findings.find((f) => f.code === "gsap_repeat_refresh_relative_value");
     expect(finding).toBeUndefined();
   });
@@ -2174,7 +2174,7 @@ describe("GSAP seek-order safety rules", () => {
     window.__timelines["c1"] = tl;
   </script>
 </body></html>`;
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const finding = result.findings.find((f) => f.code === "gsap_function_value_hazard");
     expect(finding).toBeDefined();
     expect(finding?.severity).toBe("error");
@@ -2191,7 +2191,7 @@ describe("GSAP seek-order safety rules", () => {
     window.__timelines["c1"] = tl;
   </script>
 </body></html>`;
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const finding = result.findings.find((f) => f.code === "gsap_function_value_hazard");
     expect(finding).toBeDefined();
   });
@@ -2210,7 +2210,7 @@ describe("GSAP seek-order safety rules", () => {
     window.__timelines["c1"] = tl;
   </script>
 </body></html>`;
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const finding = result.findings.find((f) => f.code === "gsap_function_value_hazard");
     expect(finding).toBeDefined();
     expect(finding?.severity).toBe("warning");
@@ -2232,7 +2232,7 @@ describe("GSAP seek-order safety rules", () => {
     window.__timelines["c1"] = tl;
   </script>
 </body></html>`;
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const finding = result.findings.find((f) => f.code === "gsap_function_value_hazard");
     expect(finding).toBeUndefined();
   });
@@ -2263,7 +2263,7 @@ describe("GSAP seek-order safety rules", () => {
     window.__timelines["c1"] = tl;
   </script>
 </body></html>`;
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const finding = result.findings.find((f) => f.code === "gsap_callback_dom_measurement");
     expect(finding).toBeDefined();
     expect(finding?.severity).toBe("warning");
@@ -2287,7 +2287,7 @@ describe("GSAP seek-order safety rules", () => {
     window.__timelines["c1"] = tl;
   </script>
 </body></html>`;
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const finding = result.findings.find((f) => f.code === "gsap_callback_dom_measurement");
     expect(finding).toBeUndefined();
   });
@@ -2305,7 +2305,7 @@ describe("GSAP seek-order safety rules", () => {
     window.__timelines["c1"] = tl;
   </script>
 </body></html>`;
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const findings = result.findings.filter((f) => f.code === "gsap_callback_dom_measurement");
     expect(findings.length).toBeGreaterThanOrEqual(2);
   });
@@ -2325,7 +2325,7 @@ describe("GSAP seek-order safety rules", () => {
     window.__timelines["c1"] = tl;
   </script>
 </body></html>`;
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const finding = result.findings.find((f) => f.code === "gsap_callback_dom_measurement");
     expect(finding).toBeUndefined();
   });
@@ -2357,7 +2357,7 @@ describe("SVG draw-on rules", () => {
     window.__timelines["c1"] = tl;
   </script>
 </body></html>`;
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const finding = result.findings.find((f) => f.code === "svg_drawon_css_dasharray_conflict");
     expect(finding).toBeDefined();
     expect(finding?.severity).toBe("error");
@@ -2376,7 +2376,7 @@ describe("SVG draw-on rules", () => {
     window.__timelines["c1"] = tl;
   </script>
 </body></html>`;
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const finding = result.findings.find((f) => f.code === "svg_drawon_css_dasharray_conflict");
     expect(finding).toBeDefined();
   });
@@ -2395,7 +2395,7 @@ describe("SVG draw-on rules", () => {
     window.__timelines["c1"] = tl;
   </script>
 </body></html>`;
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const finding = result.findings.find((f) => f.code === "svg_drawon_css_dasharray_conflict");
     expect(finding).toBeUndefined();
   });
@@ -2414,7 +2414,7 @@ describe("SVG draw-on rules", () => {
     window.__timelines["c1"] = tl;
   </script>
 </body></html>`;
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const finding = result.findings.find((f) => f.code === "svg_drawon_css_dasharray_conflict");
     expect(finding).toBeUndefined();
   });
@@ -2434,7 +2434,7 @@ describe("SVG draw-on rules", () => {
     window.__timelines["c1"] = tl;
   </script>
 </body></html>`;
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const finding = result.findings.find((f) => f.code === "svg_drawon_css_dasharray_conflict");
     expect(finding).toBeUndefined();
   });
@@ -2461,7 +2461,7 @@ describe("SVG draw-on rules", () => {
     window.__timelines["a"] = tl;
   </script>
 </body></html>`;
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const finding = result.findings.find((f) => f.code === "svg_drawon_css_dasharray_conflict");
     expect(finding).toBeUndefined();
   });
@@ -2483,7 +2483,7 @@ describe("SVG draw-on rules", () => {
     window.__timelines["c1"] = tl;
   </script>
 </body></html>`;
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const findings = result.findings.filter((f) => f.code === "gsap_timeline_set_initial_hide");
     expect(findings.length).toBe(2);
     expect(findings.every((f) => f.severity === "warning")).toBe(true);
@@ -2503,7 +2503,7 @@ describe("SVG draw-on rules", () => {
     window.__timelines["c1"] = tl;
   </script>
 </body></html>`;
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const finding = result.findings.find((f) => f.code === "gsap_timeline_set_initial_hide");
     expect(finding).toBeUndefined();
   });
@@ -2525,7 +2525,7 @@ describe("SVG draw-on rules", () => {
     window.__timelines["c1"] = tl;
   </script>
 </body></html>`;
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const finding = result.findings.find((f) => f.code === "gsap_timeline_set_initial_hide");
     expect(finding).toBeUndefined();
   });
@@ -2543,7 +2543,7 @@ describe("SVG draw-on rules", () => {
     window.__timelines["c1"] = tl;
   </script>
 </body></html>`;
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const finding = result.findings.find((f) => f.code === "gsap_timeline_set_initial_hide");
     expect(finding).toBeUndefined();
   });
@@ -2563,7 +2563,7 @@ describe("SVG draw-on rules", () => {
     window.__timelines["c1"] = tl;
   </script>
 </body></html>`;
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const finding = result.findings.find((f) => f.code === "gsap_timeline_set_initial_hide");
     expect(finding).toBeDefined();
   });
@@ -2583,7 +2583,7 @@ describe("SVG draw-on rules", () => {
     })();
   </script>
 </body></html>`;
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const finding = result.findings.find((f) => f.code === "gsap_timeline_set_initial_hide");
     expect(finding).toBeUndefined();
   });
@@ -2600,7 +2600,7 @@ describe("SVG draw-on rules", () => {
     window.__timelines["c1"] = tl;
   </script>
 </body></html>`;
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const finding = result.findings.find((f) => f.code === "gsap_timeline_set_initial_hide");
     expect(finding).toBeUndefined();
   });
@@ -2617,7 +2617,7 @@ describe("SVG draw-on rules", () => {
     window.__timelines["c1"] = tl;
   </script>
 </body></html>`;
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const finding = result.findings.find((f) => f.code === "gsap_timeline_set_initial_hide");
     expect(finding).toBeDefined();
   });
@@ -2636,7 +2636,7 @@ describe("SVG draw-on rules", () => {
     window.__timelines["c1"] = tl;
   </script>
 </body></html>`;
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const finding = result.findings.find((f) => f.code === "gsap_timeline_set_initial_hide");
     expect(finding).toBeUndefined();
   });
@@ -2656,7 +2656,7 @@ describe("SVG draw-on rules", () => {
     window.__timelines["c1"] = tl;
   </script>
 </body></html>`;
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const finding = result.findings.find((f) => f.code === "svg_measure_before_path_d");
     expect(finding).toBeDefined();
     expect(finding?.severity).toBe("error");
@@ -2679,7 +2679,7 @@ describe("SVG draw-on rules", () => {
     window.__timelines["c1"] = tl;
   </script>
 </body></html>`;
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const finding = result.findings.find((f) => f.code === "svg_measure_before_path_d");
     expect(finding).toBeDefined();
     expect(finding?.severity).toBe("error");
@@ -2703,7 +2703,7 @@ describe("SVG draw-on rules", () => {
     window.__timelines["c1"] = tl;
   </script>
 </body></html>`;
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const finding = result.findings.find((f) => f.code === "svg_measure_before_path_d");
     expect(finding).toBeDefined();
     expect(finding?.severity).toBe("warning");
@@ -2722,7 +2722,7 @@ describe("SVG draw-on rules", () => {
     window.__timelines["c1"] = tl;
   </script>
 </body></html>`;
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const finding = result.findings.find((f) => f.code === "svg_measure_before_path_d");
     expect(finding).toBeUndefined();
   });
@@ -2741,7 +2741,7 @@ describe("SVG draw-on rules", () => {
     window.__timelines["c1"] = tl;
   </script>
 </body></html>`;
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const finding = result.findings.find((f) => f.code === "svg_measure_before_path_d");
     expect(finding).toBeUndefined();
   });
@@ -2760,7 +2760,7 @@ describe("SVG draw-on rules", () => {
     window.__timelines["c1"] = tl;
   </script>
 </body></html>`;
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const finding = result.findings.find((f) => f.code === "svg_measure_before_path_d");
     expect(finding).toBeUndefined();
   });
@@ -2781,7 +2781,7 @@ describe("SVG draw-on rules", () => {
     window.__timelines["c1"] = tl;
   </script>
 </body></html>`;
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const finding = result.findings.find((f) => f.code === "svg_measure_before_path_d");
     expect(finding).toBeUndefined();
   });

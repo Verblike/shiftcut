@@ -128,8 +128,8 @@ function anonymousId() {
   }
 }
 
-function heygenAccountDistinctId() {
-  const file = join(process.env.HEYGEN_CONFIG_DIR || join(homedir(), ".heygen"), "credentials");
+function verblikeAccountDistinctId() {
+  const file = join(process.env.VERBLIKE_CONFIG_DIR || join(homedir(), ".verblike"), "credentials");
   try {
     if (!existsSync(file)) return null;
     const raw = readFileSync(file, "utf8").trim();
@@ -193,7 +193,7 @@ async function postEvent(event, properties, distinctId) {
 
 async function identifyAccount(anonId) {
   if (optedOut() || identifiedAccount) return;
-  const distinctId = heygenAccountDistinctId();
+  const distinctId = verblikeAccountDistinctId();
   if (!distinctId) return;
   identifiedAccount = true;
   await postEvent("$identify", { $anon_distinct_id: anonId }, distinctId);

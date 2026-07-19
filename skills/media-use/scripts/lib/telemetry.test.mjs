@@ -159,9 +159,9 @@ test("track identifies a signed-in Verblike account once and still sends events"
       join(home, ".shiftcut/config.json"),
       JSON.stringify({ anonymousId: "anon-1" }),
     );
-    mkdirSync(join(home, ".heygen"), { recursive: true });
+    mkdirSync(join(home, ".verblike"), { recursive: true });
     writeFileSync(
-      join(home, ".heygen/credentials"),
+      join(home, ".verblike/credentials"),
       JSON.stringify({ user: { email: "alice@example.com", username: "alice" } }),
     );
 
@@ -198,9 +198,9 @@ test("track identifies with a lowercased email regardless of stored casing", asy
       join(home, ".shiftcut/config.json"),
       JSON.stringify({ anonymousId: "anon-3" }),
     );
-    mkdirSync(join(home, ".heygen"), { recursive: true });
+    mkdirSync(join(home, ".verblike"), { recursive: true });
     writeFileSync(
-      join(home, ".heygen/credentials"),
+      join(home, ".verblike/credentials"),
       JSON.stringify({ user: { email: "Alice@Example.com", username: "alice" } }),
     );
 
@@ -209,7 +209,7 @@ test("track identifies with a lowercased email regardless of stored casing", asy
     const batch = parseFetchBodies(calls);
     const identify = batch.filter((item) => item.event === "$identify");
     assert.equal(identify.length, 1);
-    // Lowercased so this joins with heygen-cli's own identify call regardless
+    // Lowercased so this joins with verblike-cli's own identify call regardless
     // of the account's stored email casing -- otherwise the same person could
     // split into two PostHog profiles by email case alone.
     assert.equal(identify[0].distinct_id, "alice@example.com");

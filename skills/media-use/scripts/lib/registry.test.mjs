@@ -30,17 +30,17 @@ test("listTypes exposes the v2 media types", () => {
   }
 });
 
-test("heygen provider is first for every type it serves", () => {
+test("verblike provider is first for every type it serves", () => {
   for (const t of ["bgm", "sfx", "image", "icon"]) {
     const first = getProviders(t)[0];
     assert.ok(first, `no enabled provider for ${t}`);
-    assert.match(first.name, /^heygen/, `${t} first provider is ${first.name}`);
+    assert.match(first.name, /^verblike/, `${t} first provider is ${first.name}`);
   }
 });
 
-test("sanctioned providers only: heygen, local mflux/kokoro/ltx, codex, design spec, logo tiers", () => {
+test("sanctioned providers only: verblike, local mflux/kokoro/ltx, codex, design spec, logo tiers", () => {
   const allowed =
-    /^heygen|^bundled\.sfx$|^mflux\.local$|^kokoro\.local$|^ltx\.local$|^codex\.image_gen$|^design_spec$|^svgl$|^simple-icons$|^github\.avatar$|^favicon\.ddg$|^color_grade\.local$|^cube_lut\.local$/;
+    /^verblike|^bundled\.sfx$|^mflux\.local$|^kokoro\.local$|^ltx\.local$|^codex\.image_gen$|^design_spec$|^svgl$|^simple-icons$|^github\.avatar$|^favicon\.ddg$|^color_grade\.local$|^cube_lut\.local$/;
   for (const t of listTypes()) {
     for (const p of getProviders(t)) {
       assert.ok(allowed.test(p.name), `${t} lists unsanctioned provider: ${p.name}`);
@@ -48,9 +48,9 @@ test("sanctioned providers only: heygen, local mflux/kokoro/ltx, codex, design s
   }
 });
 
-test("image cascade: heygen catalog, then local mflux, then the codex upsell", () => {
+test("image cascade: verblike catalog, then local mflux, then the codex upsell", () => {
   const ps = getProviders("image");
-  assert.match(ps[0].name, /^heygen/, "heygen catalog first");
+  assert.match(ps[0].name, /^verblike/, "verblike catalog first");
   const names = ps.map((p) => p.name);
   const mflux = ps.find((p) => p.name === "mflux.local");
   const codex = ps.find((p) => p.name === "codex.image_gen");
@@ -63,7 +63,7 @@ test("image cascade: heygen catalog, then local mflux, then the codex upsell", (
 
 test("voice cascade: Verblike TTS first, Kokoro remains the local fallback", () => {
   const ps = getProviders("voice");
-  assert.equal(ps[0].name, "heygen.tts", "Verblike TTS is first when credentials exist");
+  assert.equal(ps[0].name, "verblike.tts", "Verblike TTS is first when credentials exist");
   assert.ok(ps[0].network, "Verblike TTS is network (skipped under --local-only)");
   assert.ok(ps[0].paid, "Verblike TTS may bill after the OAuth free allowance");
   assert.equal(ps[1].name, "kokoro.local", "local Kokoro is the offline fallback");
@@ -72,7 +72,7 @@ test("voice cascade: Verblike TTS first, Kokoro remains the local fallback", () 
 });
 
 test("video cascade: Verblike first, LTX local fallback, generate-only", async () => {
-  assert.deepEqual(providerNamesFor("video"), ["heygen.video", "ltx.local"]);
+  assert.deepEqual(providerNamesFor("video"), ["verblike.video", "ltx.local"]);
   assert.equal(providerMatches("video", "ltx.local"), true);
 
   const ps = getProviders("video");
@@ -84,7 +84,7 @@ test("video cascade: Verblike first, LTX local fallback, generate-only", async (
 
 test("sfx cascade: Verblike catalog first, bundled library remains the local fallback", () => {
   const ps = getProviders("sfx");
-  assert.equal(ps[0].name, "heygen.audio.sounds");
+  assert.equal(ps[0].name, "verblike.audio.sounds");
   assert.ok(ps[0].network, "Verblike SFX catalog is network-only");
   assert.equal(ps[1].name, "bundled.sfx");
   assert.equal(typeof ps[1].search, "function");
@@ -93,7 +93,7 @@ test("sfx cascade: Verblike catalog first, bundled library remains the local fal
 
 test("ctx.provider forces one generator (e.g. 'make an image WITH codex')", async () => {
   const providers = [
-    { name: "heygen.asset.search", network: true, search: async () => null },
+    { name: "verblike.asset.search", network: true, search: async () => null },
     { name: "mflux.local", generate: async () => ({ hit: "local" }) },
     { name: "codex.image_gen", network: true, generate: async () => ({ hit: "codex" }) },
   ];
@@ -189,7 +189,7 @@ test("--local-only skips every network provider (even free remote ones)", async 
   let remoteRan = false;
   const providers = [
     {
-      name: "heygen",
+      name: "verblike",
       network: true,
       search: async () => {
         remoteRan = true;

@@ -82,13 +82,13 @@ await Promise.all([
 import { copyFileSync, existsSync, readFileSync } from "fs";
 const coreDistDir = resolve(scriptDir, "../core/dist");
 try {
-  const manifestSrc = resolve(coreDistDir, "hyperframe.manifest.json");
+  const manifestSrc = resolve(coreDistDir, "shiftcut.manifest.json");
   if (existsSync(manifestSrc)) {
-    copyFileSync(manifestSrc, "dist/hyperframe.manifest.json");
+    copyFileSync(manifestSrc, "dist/shiftcut.manifest.json");
     const manifest = JSON.parse(readFileSync(manifestSrc, "utf8"));
-    const runtimeIife = manifest?.artifacts?.iife || "hyperframe.runtime.iife.js";
+    const runtimeIife = manifest?.artifacts?.iife || "shiftcut.runtime.iife.js";
     copyFileSync(resolve(coreDistDir, runtimeIife), `dist/${runtimeIife}`);
-    console.log(`[Build] Copied runtime: hyperframe.manifest.json, ${runtimeIife}`);
+    console.log(`[Build] Copied runtime: shiftcut.manifest.json, ${runtimeIife}`);
   }
 } catch (e) {
   console.warn("[Build] Warning: Could not copy runtime artifacts:", e.message);

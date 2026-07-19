@@ -48,8 +48,8 @@ const adapter: StudioApiAdapter = {
   listProjects: () => projects,
   resolveProject: (id) => projectsById.get(id) ?? null,
   bundle: async (projectDir) => bundleToSingleHtml(projectDir),
-  lint: (html, opts) => lintHyperframeHtml(html, opts),
-  runtimeUrl: '/hyperframe-runtime.js',
+  lint: (html, opts) => lintShiftCutHtml(html, opts),
+  runtimeUrl: '/shiftcut-runtime.js',
   rendersDir: (project) => join(project.dir, 'renders'),
   startRender: async (opts) => startRenderJob(opts),
 };

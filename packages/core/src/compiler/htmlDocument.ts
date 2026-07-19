@@ -3,16 +3,16 @@ import { parseHTML } from "linkedom";
 export const RUNTIME_BOOTSTRAP_ATTR = "data-shiftcut-preview-runtime";
 
 const RUNTIME_SRC_MARKERS = [
-  "hyperframe.runtime.iife.js",
+  "shiftcut.runtime.iife.js",
   "shiftcut-runtime.modular.inline.js",
-  "hyperframe-runtime.modular-runtime.inline.js",
+  "shiftcut-runtime.modular-runtime.inline.js",
   RUNTIME_BOOTSTRAP_ATTR,
 ];
 
 const RUNTIME_INLINE_MARKERS = [
-  "__hyperframeRuntimeBootstrapped",
-  "__hyperframeRuntime",
-  "__hyperframeRuntimeTeardown",
+  "__shiftcutRuntimeBootstrapped",
+  "__shiftcutRuntime",
+  "__shiftcutRuntimeTeardown",
   "__HF_EXPORT_RENDER_SEEK_CONFIG",
   "window.__player =",
 ];

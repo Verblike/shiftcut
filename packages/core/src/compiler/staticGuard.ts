@@ -1,22 +1,22 @@
-import { lintHyperframeHtml } from "@shiftcut/lint";
+import { lintShiftCutHtml } from "@shiftcut/lint";
 
-export type HyperframeStaticFailureReason =
+export type ShiftCutStaticFailureReason =
   | "missing_composition_id"
   | "missing_composition_dimensions"
   | "missing_timeline_registry"
   | "invalid_script_syntax"
-  | "invalid_static_hyperframe_contract";
+  | "invalid_static_shiftcut_contract";
 
-export type HyperframeStaticGuardResult = {
+export type ShiftCutStaticGuardResult = {
   isValid: boolean;
   missingKeys: string[];
-  failureReason: HyperframeStaticFailureReason | null;
+  failureReason: ShiftCutStaticFailureReason | null;
 };
 
-export async function validateHyperframeHtmlContract(
+export async function validateShiftCutHtmlContract(
   html: string,
-): Promise<HyperframeStaticGuardResult> {
-  const result = await lintHyperframeHtml(html);
+): Promise<ShiftCutStaticGuardResult> {
+  const result = await lintShiftCutHtml(html);
   const missingKeys = result.findings
     .filter((finding) => finding.severity === "error")
     .map((finding) => finding.message);
@@ -26,7 +26,7 @@ export async function validateHyperframeHtmlContract(
   }
 
   const joined = missingKeys.join(" ").toLowerCase();
-  let failureReason: HyperframeStaticFailureReason = "invalid_static_hyperframe_contract";
+  let failureReason: ShiftCutStaticFailureReason = "invalid_static_shiftcut_contract";
   if (joined.includes("data-composition-id")) {
     failureReason = "missing_composition_id";
   } else if (joined.includes("data-width") || joined.includes("data-height")) {

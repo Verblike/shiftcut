@@ -41,7 +41,7 @@ test("simple-icons slugs cover the renamed entries", () => {
 
 test("github avatar tier never guesses an org", () => {
   assert.equal(githubOrgFor("slack"), "slackhq");
-  assert.equal(githubOrgFor("heygen"), "shiftcut");
+  assert.equal(githubOrgFor("verblike"), "shiftcut");
   assert.equal(githubOrgFor("some-random-startup"), null);
 });
 

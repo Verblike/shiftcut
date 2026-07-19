@@ -8,7 +8,7 @@ import {
   injectScriptsIntoHtml,
 } from "@shiftcut/core/compiler";
 import { compileForRender } from "./htmlCompiler.js";
-import { getVerifiedHyperframeRuntimeSource } from "./hyperframeRuntimeLoader.js";
+import { getVerifiedShiftCutRuntimeSource } from "./shiftcutRuntimeLoader.js";
 
 const tempDirs: string[] = [];
 
@@ -35,7 +35,7 @@ async function contracts(files: Record<string, string>) {
   });
   const servedRender = injectScriptsIntoHtml(
     render.html,
-    [getVerifiedHyperframeRuntimeSource()],
+    [getVerifiedShiftCutRuntimeSource()],
     [],
     true,
   );

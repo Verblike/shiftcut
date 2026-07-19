@@ -1,8 +1,8 @@
 import { describe, it, expect } from "vitest";
-import { lintHyperframeHtml } from "../hyperframeLinter.js";
+import { lintShiftCutHtml } from "../shiftcutLinter.js";
 
 async function findByCode(html: string, code: string, isSubComposition = true) {
-  const result = await lintHyperframeHtml(html, { isSubComposition });
+  const result = await lintShiftCutHtml(html, { isSubComposition });
   return result.findings.filter((f) => f.code === code);
 }
 
@@ -12,7 +12,7 @@ describe("font rules", () => {
       const html = `<div data-composition-id="test" data-width="1920" data-height="1080">
         <style>@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap');</style>
       </div>`;
-      const result = await lintHyperframeHtml(html, { isSubComposition: true });
+      const result = await lintShiftCutHtml(html, { isSubComposition: true });
       const findings = result.findings.filter((f) => f.code === "google_fonts_import");
       expect(findings).toHaveLength(1);
       expect(findings[0]!.severity).toBe("warning");
@@ -225,7 +225,7 @@ describe("font rules", () => {
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;700&display=swap">
         <style>body { font-family: 'Geist', sans-serif; }</style>
       </div>`;
-      const result = await lintHyperframeHtml(html, { isSubComposition: true });
+      const result = await lintShiftCutHtml(html, { isSubComposition: true });
       expect(result.findings.filter((f) => f.code === "google_fonts_import")).toHaveLength(1);
       expect(
         result.findings.filter((f) => f.code === "font_family_without_font_face"),
@@ -238,7 +238,7 @@ describe("font rules", () => {
         <link rel=stylesheet href=https://fonts.googleapis.com/css2?family=Geist:wght@400;700&display=swap>
         <style>body { font-family: 'Geist', sans-serif; }</style>
       </div>`;
-      const result = await lintHyperframeHtml(html, { isSubComposition: true });
+      const result = await lintShiftCutHtml(html, { isSubComposition: true });
       expect(result.findings.filter((f) => f.code === "google_fonts_import")).toHaveLength(1);
       expect(
         result.findings.filter((f) => f.code === "font_family_without_font_face"),
@@ -254,7 +254,7 @@ describe("font rules", () => {
           body { font-family: 'DM Sans', sans-serif; }
         </style>
       </div>`;
-      const result = await lintHyperframeHtml(html, { isSubComposition: true });
+      const result = await lintShiftCutHtml(html, { isSubComposition: true });
       expect(result.findings.filter((f) => f.code === "google_fonts_import")).toHaveLength(1);
       expect(
         result.findings.filter((f) => f.code === "font_family_without_font_face"),

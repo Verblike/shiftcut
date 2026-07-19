@@ -14,9 +14,9 @@ describe("htmlDocument helpers", () => {
 
   it("strips every known embedded ShiftCut runtime marker", () => {
     const html = `
-<script src="hyperframe.runtime.iife.js"></script>
+<script src="shiftcut.runtime.iife.js"></script>
 <script src="shiftcut-runtime.modular.inline.js"></script >
-<script src="hyperframe-runtime.modular-runtime.inline.js"></script>
+<script src="shiftcut-runtime.modular-runtime.inline.js"></script>
 <script data-shiftcut-preview-runtime="1"></script>
 <script>window.__playerReady = true;</script >
 <script>window.__renderReady = false;</script>
@@ -24,9 +24,9 @@ describe("htmlDocument helpers", () => {
 
     const stripped = stripEmbeddedRuntimeScripts(html);
 
-    expect(stripped).not.toContain("hyperframe.runtime.iife.js");
+    expect(stripped).not.toContain("shiftcut.runtime.iife.js");
     expect(stripped).not.toContain("shiftcut-runtime.modular.inline.js");
-    expect(stripped).not.toContain("hyperframe-runtime.modular-runtime.inline.js");
+    expect(stripped).not.toContain("shiftcut-runtime.modular-runtime.inline.js");
     expect(stripped).not.toContain("data-shiftcut-preview-runtime");
     expect(stripped).not.toContain("window.__playerReady");
     expect(stripped).not.toContain("window.__renderReady");

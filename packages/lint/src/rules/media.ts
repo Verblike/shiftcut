@@ -1,4 +1,4 @@
-import type { LintContext, HyperframeLintFinding } from "../context";
+import type { LintContext, ShiftCutLintFinding } from "../context";
 import { readAttr, readDecodedAttr, truncateSnippet, isMediaTag } from "../utils";
 
 function escapeRegExp(value: string): string {
@@ -46,8 +46,8 @@ function selectorTargetsManagedMedia(selector: string, mediaIndex: MediaSelector
   return false;
 }
 
-function findImperativeMediaControlFindings(ctx: LintContext): HyperframeLintFinding[] {
-  const findings: HyperframeLintFinding[] = [];
+function findImperativeMediaControlFindings(ctx: LintContext): ShiftCutLintFinding[] {
+  const findings: ShiftCutLintFinding[] = [];
   const mediaTags = ctx.tags.filter((tag) => tag.name === "video" || tag.name === "audio");
   const mediaIndex: MediaSelectorIndex = {
     ids: new Set(
@@ -194,10 +194,10 @@ function findImperativeMediaControlFindings(ctx: LintContext): HyperframeLintFin
   return findings;
 }
 
-export const mediaRules: Array<(ctx: LintContext) => HyperframeLintFinding[]> = [
+export const mediaRules: Array<(ctx: LintContext) => ShiftCutLintFinding[]> = [
   // duplicate_media_id + duplicate_media_discovery_risk
   ({ tags }) => {
-    const findings: HyperframeLintFinding[] = [];
+    const findings: ShiftCutLintFinding[] = [];
     const mediaById = new Map<string, typeof tags>();
     const mediaFingerprintCounts = new Map<string, number>();
 
@@ -249,7 +249,7 @@ export const mediaRules: Array<(ctx: LintContext) => HyperframeLintFinding[]> = 
 
   // video_missing_muted
   ({ tags }) => {
-    const findings: HyperframeLintFinding[] = [];
+    const findings: ShiftCutLintFinding[] = [];
     for (const tag of tags) {
       if (tag.name !== "video") continue;
       const hasMuted = hasAttrName(tag.raw, "muted");
@@ -284,7 +284,7 @@ export const mediaRules: Array<(ctx: LintContext) => HyperframeLintFinding[]> = 
 
   // video_nested_in_timed_element
   ({ source, tags }) => {
-    const findings: HyperframeLintFinding[] = [];
+    const findings: ShiftCutLintFinding[] = [];
     // HTML5 void elements cannot contain children, so they can never be a
     // parent of a nested <video>. Skipping them avoids false positives where
     // the linter looks for `</img>` and never finds it.
@@ -347,7 +347,7 @@ export const mediaRules: Array<(ctx: LintContext) => HyperframeLintFinding[]> = 
   // them, so they render BLANK/black in preview and renders — and the other lint/validate
   // passes otherwise miss it (only a per-frame snapshot reveals the blank panel).
   ({ tags, options }) => {
-    const findings: HyperframeLintFinding[] = [];
+    const findings: ShiftCutLintFinding[] = [];
     if (!options.isSubComposition) return findings;
     for (const tag of tags) {
       if (tag.name !== "video" && tag.name !== "audio") continue;
@@ -367,7 +367,7 @@ export const mediaRules: Array<(ctx: LintContext) => HyperframeLintFinding[]> = 
 
   // self_closing_media_tag
   ({ source }) => {
-    const findings: HyperframeLintFinding[] = [];
+    const findings: ShiftCutLintFinding[] = [];
     const selfClosingMediaRe = /<(audio|video)\b[^>]*\/>/gi;
     let scMatch: RegExpExecArray | null;
     while ((scMatch = selfClosingMediaRe.exec(source)) !== null) {
@@ -387,7 +387,7 @@ export const mediaRules: Array<(ctx: LintContext) => HyperframeLintFinding[]> = 
 
   // placeholder_media_url
   ({ tags }) => {
-    const findings: HyperframeLintFinding[] = [];
+    const findings: ShiftCutLintFinding[] = [];
     const PLACEHOLDER_DOMAINS =
       /\b(placehold\.co|placeholder\.com|placekitten\.com|picsum\.photos|example\.com|via\.placeholder\.com|dummyimage\.com)\b/i;
     for (const tag of tags) {
@@ -411,7 +411,7 @@ export const mediaRules: Array<(ctx: LintContext) => HyperframeLintFinding[]> = 
 
   // base64_media_prohibited
   ({ source }) => {
-    const findings: HyperframeLintFinding[] = [];
+    const findings: ShiftCutLintFinding[] = [];
     const base64MediaRe =
       /src\s*=\s*["'](data:(?:audio|video)\/[^;]+;base64,([A-Za-z0-9+/=]{20,}))["']/gi;
     let b64Match: RegExpExecArray | null;
@@ -434,7 +434,7 @@ export const mediaRules: Array<(ctx: LintContext) => HyperframeLintFinding[]> = 
 
   // media_missing_data_start + media_missing_id + media_missing_src + media_preload_none
   ({ tags }) => {
-    const findings: HyperframeLintFinding[] = [];
+    const findings: ShiftCutLintFinding[] = [];
     for (const tag of tags) {
       if (tag.name !== "video" && tag.name !== "audio") continue;
       const hasDataStart = readAttr(tag.raw, "data-start");
@@ -508,7 +508,7 @@ export const mediaRules: Array<(ctx: LintContext) => HyperframeLintFinding[]> = 
   // back (canvas/WebGL texture, WebAudio createMediaElementSource) AND only when the
   // host is known CORS-enabled.
   ({ tags }) => {
-    const findings: HyperframeLintFinding[] = [];
+    const findings: ShiftCutLintFinding[] = [];
     for (const tag of tags) {
       if (tag.name !== "video" && tag.name !== "audio") continue;
       if (!hasAttrName(tag.raw, "crossorigin")) continue;
@@ -529,7 +529,7 @@ export const mediaRules: Array<(ctx: LintContext) => HyperframeLintFinding[]> = 
   // video_audio_double_source — catches audible <video> paired with a separate
   // <audio> pointing to the same file, which causes double playback at runtime
   ({ tags }) => {
-    const findings: HyperframeLintFinding[] = [];
+    const findings: ShiftCutLintFinding[] = [];
     const videoSources = new Map<string, { id?: string; raw: string }>();
     const audioSources = new Map<string, { id?: string; raw: string }>();
 

@@ -14,7 +14,7 @@
 import { spawn, spawnSync } from "node:child_process";
 import { existsSync, mkdirSync, openSync, closeSync } from "node:fs";
 import { join } from "node:path";
-import { downloadTo, searchSounds } from "./heygen.mjs";
+import { downloadTo, searchSounds } from "./verblike.mjs";
 import { pythonInvocation } from "./python.mjs";
 
 const r3 = (x) => Number(x.toFixed(3));

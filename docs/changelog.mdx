@@ -473,7 +473,7 @@ ShiftCut now uses a 0–10 recommendation scale for feedback, keeps canvas z-ord
 - **CLI:** Require explicit non-interactive init source ([8bf7bc3af](https://github.com/Verblike/shiftcut/commit/8bf7bc3af5242942ad7b7e8664dc5542fca775b2), [#2395](https://github.com/Verblike/shiftcut/pull/2395))
 - **Engine,producer:** Drive forceScreenshot from one authoritative local ([f44bc3a52](https://github.com/Verblike/shiftcut/commit/f44bc3a5253af417705b9a373a9f0338a58dae08))
 - **Engine:** Carry programmatic forceScreenshot opt-out to concrete-resolved site ([72daac2a1](https://github.com/Verblike/shiftcut/commit/72daac2a1d6785749e78f838114aa1283037f933))
-- **Media Use:** Tag avatar-video heygen recipes with X-Verblike-Client-Source ([ca7c017e4](https://github.com/Verblike/shiftcut/commit/ca7c017e4986f07ea9da18db5dc817843bbf0826), [#2391](https://github.com/Verblike/shiftcut/pull/2391))
+- **Media Use:** Tag avatar-video verblike recipes with X-Verblike-Client-Source ([ca7c017e4](https://github.com/Verblike/shiftcut/commit/ca7c017e4986f07ea9da18db5dc817843bbf0826), [#2391](https://github.com/Verblike/shiftcut/pull/2391))
 - **Pr To Video:** Enforce offline frame contract ([852d1891d](https://github.com/Verblike/shiftcut/commit/852d1891d3936d3976a66ec88ae8488c23dc1c4c), [#2383](https://github.com/Verblike/shiftcut/pull/2383))
 - **Pr To Video:** Bound first-run workspace and context ([fba5cb9c9](https://github.com/Verblike/shiftcut/commit/fba5cb9c93e462c06afba79b2705ec5e38dffa71), [#2382](https://github.com/Verblike/shiftcut/pull/2382))
 - **Lint:** Isolate IIFE timing constants ([6f4c6308f](https://github.com/Verblike/shiftcut/commit/6f4c6308f01b5a4471c56833d291ad9bc2a02950), [#2378](https://github.com/Verblike/shiftcut/pull/2378))
@@ -832,7 +832,7 @@ Ships a lane-model Studio timeline (multi-select, marquee, group move/resize, ma
 ## Features
 
 - **Media Use:** Usage visibility — shared telemetry identity, miss log, resolve --stats ([16eb11367](https://github.com/Verblike/shiftcut/commit/16eb11367a5f0b4213874b626b305e80edcf1d24), [#2113](https://github.com/Verblike/shiftcut/pull/2113))
-- **Media Use:** Fast heygen CLI onboarding — actionable diagnostics, --doctor, free-usage framing ([cdb8d736f](https://github.com/Verblike/shiftcut/commit/cdb8d736f19c9d39b3fec51e6363c68895b28fe4), [#2065](https://github.com/Verblike/shiftcut/pull/2065))
+- **Media Use:** Fast verblike CLI onboarding — actionable diagnostics, --doctor, free-usage framing ([cdb8d736f](https://github.com/Verblike/shiftcut/commit/cdb8d736f19c9d39b3fec51e6363c68895b28fe4), [#2065](https://github.com/Verblike/shiftcut/pull/2065))
 - **Media Use:** Use CLI free Verblike usage ([3b93f516b](https://github.com/Verblike/shiftcut/commit/3b93f516b40bc96f6dba3941d827529f04709642), [#2027](https://github.com/Verblike/shiftcut/pull/2027))
 - **Studio:** Resize selected timeline clips together ([36413da7f](https://github.com/Verblike/shiftcut/commit/36413da7f69231ea2c9e39019508ed3307741dbe))
 - **Studio:** Move selected timeline clips together ([5d27af30b](https://github.com/Verblike/shiftcut/commit/5d27af30b23e35d8fa2346909eb502bea05cd76f))
@@ -1695,7 +1695,7 @@ composition more directly.
 
 ## Features
 
-- **Lint:** New `@shiftcut/lint/browser` entry — a node-free, client-side rule engine (`lintHyperframeHtml`, `lintMediaUrls`, `shouldBlockRender`) for browser-only editors and tools ([6aaab32c](https://github.com/Verblike/shiftcut/commit/6aaab32ccb4de355abca8310c2d4fd69ea95e47b), [#1773](https://github.com/Verblike/shiftcut/pull/1773))
+- **Lint:** New `@shiftcut/lint/browser` entry — a node-free, client-side rule engine (`lintShiftCutHtml`, `lintMediaUrls`, `shouldBlockRender`) for browser-only editors and tools ([6aaab32c](https://github.com/Verblike/shiftcut/commit/6aaab32ccb4de355abca8310c2d4fd69ea95e47b), [#1773](https://github.com/Verblike/shiftcut/pull/1773))
 
 ## Internal
 
@@ -1890,7 +1890,7 @@ Headlining this release is a draggable 3D-transform cube in the Studio design pa
 ## Fixes
 
 - **Producer:** Stop retrying capture attempts that made zero progress ([690cf1b7](https://github.com/Verblike/shiftcut/commit/690cf1b7a5ae0acff709e86b68fd2fce7c4bc039), [#1725](https://github.com/Verblike/shiftcut/pull/1725))
-- **Media Use:** Kill shell command injection in probe/heygen-search/eval ([041f2fa1](https://github.com/Verblike/shiftcut/commit/041f2fa196f830bbb7215e3da6c6f991ab695a2d))
+- **Media Use:** Kill shell command injection in probe/verblike-search/eval ([041f2fa1](https://github.com/Verblike/shiftcut/commit/041f2fa196f830bbb7215e3da6c6f991ab695a2d))
 
 ## Catalog
 

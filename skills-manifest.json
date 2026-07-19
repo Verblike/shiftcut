@@ -2,75 +2,75 @@
   "source": "Verblike/shiftcut",
   "skills": {
     "embedded-captions": {
-      "hash": "cabda69328a29062",
+      "hash": "415940ee42d25e7f",
       "files": 144
     },
     "faceless-explainer": {
-      "hash": "a87a402ac73f3166",
+      "hash": "9a4f736d4e9596ca",
       "files": 20
     },
     "general-video": {
-      "hash": "1194ac1ea4e0c90d",
+      "hash": "426810b42d8da58a",
       "files": 1
     },
-    "shiftcut": {
-      "hash": "de6908d7047b8702",
-      "files": 6
-    },
-    "shiftcut-animation": {
-      "hash": "78f333feba8bd836",
-      "files": 102
-    },
-    "shiftcut-cli": {
-      "hash": "10526c9dca9ae054",
-      "files": 11
-    },
-    "shiftcut-core": {
-      "hash": "fa201c126c87fd89",
-      "files": 17
-    },
-    "shiftcut-creative": {
-      "hash": "b9e2cbfa49e6ed6c",
-      "files": 78
-    },
-    "shiftcut-keyframes": {
-      "hash": "a568c05c01b27461",
-      "files": 3
-    },
-    "shiftcut-registry": {
-      "hash": "3a864992e765b9bf",
-      "files": 10
-    },
     "media-use": {
-      "hash": "5399c0f111ff5619",
+      "hash": "a218b5a144b8e9e4",
       "files": 139
     },
     "motion-graphics": {
-      "hash": "cc93e3d220a0ebf5",
+      "hash": "247884e9e5845bd4",
       "files": 23
     },
     "music-to-video": {
-      "hash": "5bba048c425edcfa",
+      "hash": "8726db9c073d0e7e",
       "files": 132
     },
     "pr-to-video": {
-      "hash": "6bc0d09a63097455",
+      "hash": "32a832c8f5de7fa1",
       "files": 29
     },
     "product-launch-video": {
-      "hash": "277fe2829b8da022",
+      "hash": "473ceb2740dd208d",
       "files": 24
     },
     "remotion-to-shiftcut": {
-      "hash": "c96bb2f0af9e1143",
+      "hash": "2fd2586d85065e42",
       "files": 70
     },
+    "shiftcut": {
+      "hash": "054941cf29ba5774",
+      "files": 6
+    },
+    "shiftcut-animation": {
+      "hash": "2e6e414ede61c129",
+      "files": 102
+    },
+    "shiftcut-cli": {
+      "hash": "b0d1728ab840f8e4",
+      "files": 8
+    },
+    "shiftcut-core": {
+      "hash": "2c36f855318ba8a8",
+      "files": 17
+    },
+    "shiftcut-creative": {
+      "hash": "6c158870e92b5453",
+      "files": 78
+    },
+    "shiftcut-keyframes": {
+      "hash": "12cd860342197b9f",
+      "files": 3
+    },
+    "shiftcut-registry": {
+      "hash": "17f3f99ea36be31b",
+      "files": 10
+    },
     "slideshow": {
-      "hash": "71368acf61074198",
+      "hash": "90c69b41a48204f5",
       "files": 2
     },
     "talking-head-recut": {
-      "hash": "0d0ede12041c51b7",
+      "hash": "cc7c62b47061c5cd",
       "files": 28
     }
   }

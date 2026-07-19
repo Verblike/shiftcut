@@ -19,8 +19,8 @@ import {
   wrapInlineScriptWithErrorBoundary,
   wrapScopedCompositionScript,
 } from "./compositionScoping";
-import { validateHyperframeHtmlContract } from "./staticGuard";
-import { getHyperframeRuntimeScript } from "../generated/runtime-inline";
+import { validateShiftCutHtmlContract } from "./staticGuard";
+import { getShiftCutRuntimeScript } from "../generated/runtime-inline";
 import { readDeclaredDefaults } from "../runtime/getVariables";
 import { inlineSubCompositions } from "./inlineSubCompositions";
 import { queryByAttr } from "../utils/cssSelector";
@@ -30,7 +30,7 @@ import { HF_COLOR_GRADING_ATTR } from "../colorGrading";
 const DEFAULT_RUNTIME_SCRIPT_URL = "";
 
 function getRuntimeScriptUrl(): string {
-  const configured = (process.env.HYPERFRAME_RUNTIME_URL || "").trim();
+  const configured = (process.env.SHIFTCUT_RUNTIME_URL || "").trim();
   return configured || DEFAULT_RUNTIME_SCRIPT_URL;
 }
 
@@ -39,7 +39,7 @@ function injectInterceptor(html: string, runtimeMode: "inline" | "placeholder" =
   if (sanitized.includes(RUNTIME_BOOTSTRAP_ATTR)) return sanitized;
 
   // Three modes for the runtime <script>:
-  //   1. HYPERFRAME_RUNTIME_URL env var set → emit src="<url>" (production CDN deploy).
+  //   1. SHIFTCUT_RUNTIME_URL env var set → emit src="<url>" (production CDN deploy).
   //   2. runtime: "placeholder" passed         → emit src="" for the caller to substitute
   //                                              (studio + vite preview hot-load a local
   //                                              runtime endpoint via string replace).
@@ -53,7 +53,7 @@ function injectInterceptor(html: string, runtimeMode: "inline" | "placeholder" =
   } else if (runtimeMode === "placeholder") {
     tag = `<script ${RUNTIME_BOOTSTRAP_ATTR}="1" src=""></script>`;
   } else {
-    const inlinedRuntime = getHyperframeRuntimeScript();
+    const inlinedRuntime = getShiftCutRuntimeScript();
     tag = `<script ${RUNTIME_BOOTSTRAP_ATTR}="1">${inlinedRuntime}</script>`;
   }
   if (sanitized.includes("</head>")) {
@@ -690,7 +690,7 @@ export interface BundleOptions {
    *   the runtime cacheable across hot-reloads instead of re-inlining ~150 KB
    *   on every change.
    *
-   * The `HYPERFRAME_RUNTIME_URL` env var, when set, takes precedence over both
+   * The `SHIFTCUT_RUNTIME_URL` env var, when set, takes precedence over both
    * modes and emits `<script ... src="<URL>">` directly.
    */
   runtime?: "inline" | "placeholder";
@@ -801,11 +801,9 @@ export async function bundleToSingleHtml(
   const rawHtml = readFileSync(indexPath, "utf-8");
   const compiled = await compileHtml(rawHtml, sourceDir, options?.probeMediaDuration);
 
-  const staticGuard = await validateHyperframeHtmlContract(compiled);
+  const staticGuard = await validateShiftCutHtmlContract(compiled);
   if (!staticGuard.isValid) {
-    console.warn(
-      `[StaticGuard] Invalid HyperFrame contract: ${staticGuard.missingKeys.join("; ")}`,
-    );
+    console.warn(`[StaticGuard] Invalid ShiftCut contract: ${staticGuard.missingKeys.join("; ")}`);
   }
 
   const withInterceptor = injectInterceptor(compiled, options?.runtime ?? "inline");

@@ -5,10 +5,7 @@
     "moduleResolution": "bundler",
     "baseUrl": ".",
     "paths": {
-      "@shiftcut/producer": ["../producer/src/index.ts"],
-      "@shiftcut/producer/distributed": ["../producer/src/distributed.ts"],
-      "@shiftcut/aws-lambda/sdk": ["../aws-lambda/src/sdk/index.ts"],
-      "@shiftcut/gcp-cloud-run/sdk": ["../gcp-cloud-run/src/sdk/index.ts"]
+      "@shiftcut/producer": ["../producer/src/index.ts"]
     },
     "strict": true,
     "noUncheckedIndexedAccess": true,

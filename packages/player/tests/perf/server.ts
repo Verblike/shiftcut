@@ -16,7 +16,7 @@ import { fileURLToPath } from "node:url";
  *   /host.html?fixture=<name>          → embed page hosting <shiftcut-player>
  *   /player/shiftcut-player.global.js
  *   /vendor/gsap.min.js
- *   /vendor/hyperframe.runtime.iife.js
+ *   /vendor/shiftcut.runtime.iife.js
  *   /fixtures/<name>/<file>            → fixture HTML + assets
  */
 
@@ -33,7 +33,7 @@ function firstExisting(candidates: string[]): string {
 
 const PATHS = {
   player: join(PLAYER_PKG, "dist/shiftcut-player.global.js"),
-  runtime: join(REPO_ROOT, "packages/core/dist/hyperframe.runtime.iife.js"),
+  runtime: join(REPO_ROOT, "packages/core/dist/shiftcut.runtime.iife.js"),
   // bun installs gsap into the package's node_modules in workspace mode, but
   // hoists it to the repo root if multiple packages share the same version.
   // Probe both locations so the server works regardless of layout.
@@ -164,7 +164,7 @@ export function startServer(options: ServeOptions = {}): RunningServer {
         return applyCacheHeaders(await readBunFile(PATHS.player), noCache);
       }
 
-      if (path === "/vendor/hyperframe.runtime.iife.js") {
+      if (path === "/vendor/shiftcut.runtime.iife.js") {
         return applyCacheHeaders(await readBunFile(PATHS.runtime), noCache);
       }
 

@@ -3,7 +3,7 @@ import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import puppeteer, { type Browser, type Page } from "puppeteer";
 
-const RUNTIME_PATH = resolve(import.meta.dirname, "../../../core/dist/hyperframe.runtime.iife.js");
+const RUNTIME_PATH = resolve(import.meta.dirname, "../../../core/dist/shiftcut.runtime.iife.js");
 
 describe("core runtime browser contract", () => {
   let browser: Browser;

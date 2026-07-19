@@ -16,9 +16,9 @@ npm install @shiftcut/core
 | ------------------ | ---------------------------------------------------------------------------------------------------- |
 | **Types**          | `TimelineElement`, `CompositionSpec`, `Asset`, canvas dimensions, defaults                           |
 | **Parsers**        | `parseHtml` — extract timeline elements from HTML; `parseGsapScript` — parse GSAP animations         |
-| **Generators**     | `generateShiftcutHtml` — produce valid Shiftcut HTML from a composition spec                   |
+| **Generators**     | `generateShiftcutHtml` — produce valid Shiftcut HTML from a composition spec                         |
 | **Compiler**       | `compileTimingAttrs` — resolve `data-start` / `data-duration` into absolute times                    |
-| **Linter**         | `lintHyperframeHtml` — validate Shiftcut HTML (missing attributes, overlapping tracks, etc.)      |
+| **Linter**         | `lintShiftCutHtml` — validate Shiftcut HTML (missing attributes, overlapping tracks, etc.)           |
 | **Runtime**        | IIFE script injected into the browser — manages seek, media playback, and the `window.__hf` protocol |
 | **Frame Adapters** | Pluggable animation drivers (GSAP, Lottie, CSS, or custom)                                           |
 
@@ -61,9 +61,9 @@ const html = generateShiftcutHtml(spec);
 ## Linting
 
 ```typescript
-import { lintHyperframeHtml } from "@shiftcut/core/lint";
+import { lintShiftCutHtml } from "@shiftcut/core/lint";
 
-const result = lintHyperframeHtml(htmlString);
+const result = lintShiftCutHtml(htmlString);
 // result.findings: { severity, message, elementId }[]
 ```
 

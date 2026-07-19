@@ -26,13 +26,10 @@ export {
 export {
   RENDER_REQUEST_VERSION,
   createRenderRequest,
-  distributedConfigFromRequest,
   parseRenderRequest,
   renderConfigFromRequest,
-  renderRequestFromDistributedConfig,
   serializeRenderRequest,
   type CreateRenderRequestInput,
-  type DistributedRenderOptions,
   type RenderRequest,
   type RenderRequestOptions,
 } from "./renderRequest.js";
@@ -121,22 +118,7 @@ export { quantizeTimeToFrame } from "./utils/parityContract.js";
 export { resolveRenderPaths, type RenderPaths } from "./utils/paths.js";
 
 export {
-  prepareHyperframeLintBody,
-  runHyperframeLint,
-  type PreparedHyperframeLintInput,
-} from "./services/hyperframeLint.js";
-
-// ── Distributed render primitives ───────────────────────────────────────────
-// The full surface lives at `@shiftcut/producer/distributed`; we
-// additionally re-export the three activity functions + their result
-// types here so callers that pin `@shiftcut/producer` don't need a
-// separate subpath import.
-export {
-  assemble,
-  plan,
-  renderChunk,
-  type AssembleResult,
-  type ChunkResult,
-  type DistributedRenderConfig,
-  type PlanResult,
-} from "./distributed.js";
+  prepareShiftCutLintBody,
+  runShiftCutLint,
+  type PreparedShiftCutLintInput,
+} from "./services/shiftcutLint.js";

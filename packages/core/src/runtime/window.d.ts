@@ -1,6 +1,6 @@
 import type { RuntimeSeekOptions, RuntimeTimelineMessage, RuntimeTimelineLike } from "./types";
 import type { RuntimeColorGradingApi } from "./colorGrading";
-import type { HyperframePickerApi } from "../inline-scripts/pickerApi";
+import type { ShiftCutPickerApi } from "../inline-scripts/pickerApi";
 import type { PlayerAPI } from "../core.types";
 import type { ClipTree } from "./clipTree";
 
@@ -72,7 +72,7 @@ declare global {
      * freshly-injected `__render_frame__` images. See `forceDispatchSeekEvent`.
      */
     __hfReseekGpu?: (time: number) => void;
-    __HF_PICKER_API?: HyperframePickerApi;
+    __HF_PICKER_API?: ShiftCutPickerApi;
     gsap?: {
       timeline: (params?: { paused?: boolean }) => RuntimeTimelineLike;
       ticker?: {

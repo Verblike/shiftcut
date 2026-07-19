@@ -8,7 +8,7 @@
  *   POST /render         — blocking render, returns JSON
  *   POST /render/stream  — SSE streaming render with progress
  *   GET  /render/queue   — current render queue status
- *   POST /lint           — blocking Hyperframe lint
+ *   POST /lint           — blocking ShiftCut lint
  *   GET  /health         — health check
  *   GET  /outputs/:token — download rendered MP4
  */
@@ -37,7 +37,7 @@ import {
   type RenderConfig,
   type RenderJob,
 } from "./services/renderOrchestrator.js";
-import { prepareHyperframeLintBody, runHyperframeLint } from "./services/hyperframeLint.js";
+import { prepareShiftCutLintBody, runShiftCutLint } from "./services/shiftcutLint.js";
 import { startHealthWorker, type HealthWorkerHandle } from "./services/healthWorker.js";
 import { isVideoFrameFormat } from "@shiftcut/engine";
 import { resolveRenderPaths } from "./utils/paths.js";
@@ -593,12 +593,12 @@ export function createRenderHandlers(options: HandlerOptions = {}): RenderHandle
       return c.json({ success: false, requestId, error: "Invalid JSON body" }, 400);
     }
 
-    const preparedResult = prepareHyperframeLintBody(body);
+    const preparedResult = prepareShiftCutLintBody(body);
     if ("error" in preparedResult) {
       return c.json({ success: false, requestId, error: preparedResult.error }, 400);
     }
 
-    const result = await runHyperframeLint(preparedResult.prepared);
+    const result = await runShiftCutLint(preparedResult.prepared);
     log.info("lint completed", {
       requestId,
       entryFile: preparedResult.prepared.entryFile,

@@ -2,13 +2,13 @@ import { afterEach, describe, expect, it } from "vitest";
 import { mkdtempSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
-import { loadHyperframeRuntimeSource } from "@shiftcut/core";
+import { loadShiftCutRuntimeSource } from "@shiftcut/core";
 import { loadRuntimeSource } from "./runtimeSource.js";
 import { createStudioServer, type StudioServer } from "./studioServer.js";
 
 describe("loadRuntimeSource", () => {
   it("loads runtime source from the published core entrypoint", async () => {
-    await expect(loadRuntimeSource()).resolves.toBe(loadHyperframeRuntimeSource());
+    await expect(loadRuntimeSource()).resolves.toBe(loadShiftCutRuntimeSource());
   });
 });
 

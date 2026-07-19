@@ -12,7 +12,7 @@
     "dist/**/*.d.ts",
     "dist/**/*.d.ts.map",
     "dist/**/*.js.map",
-    "!dist/hyperframe.runtime.mjs",
+    "!dist/shiftcut.runtime.mjs",
     "docs",
     "schemas",
     "README.md"
@@ -106,7 +106,7 @@
       "import": "./src/storyboard/index.ts",
       "types": "./src/storyboard/index.ts"
     },
-    "./runtime": "./dist/hyperframe.runtime.iife.js",
+    "./runtime": "./dist/shiftcut.runtime.iife.js",
     "./runtime/clipTree": {
       "bun": "./src/runtime/clipTree.ts",
       "node": "./dist/runtime/clipTree.js",
@@ -336,7 +336,7 @@
         "import": "./dist/storyboard/index.js",
         "types": "./dist/storyboard/index.d.ts"
       },
-      "./runtime": "./dist/hyperframe.runtime.iife.js",
+      "./runtime": "./dist/shiftcut.runtime.iife.js",
       "./runtime/clipTree": {
         "import": "./dist/runtime/clipTree.js",
         "types": "./dist/runtime/clipTree.d.ts"
@@ -460,16 +460,15 @@
     "build:position-edits-render": "tsx scripts/build-position-edits-render.ts",
     "check:position-edits-render": "bun run build:position-edits-render && git diff --exit-code -- src/generated/position-edits-render-inline.ts",
     "build:shiftcut-runtime:modular": "SANDBOX_RUNTIME_VARIANT=modular tsx scripts/build-shiftcut-runtime-artifact.ts",
-    "build:hyperframe-runtime": "tsx scripts/build-shiftcut-runtime-artifact.ts",
-    "test:hyperframe-runtime-contract": "tsx scripts/test-hyperframe-runtime-contract.ts",
-    "test:hyperframe-runtime-behavior": "tsx scripts/test-hyperframe-runtime-behavior.ts",
-    "test:hyperframe-runtime-seek": "tsx scripts/test-hyperframe-runtime-seek.ts",
-    "test:hyperframe-runtime-duration-guards": "tsx scripts/test-hyperframe-runtime-duration-guards.ts",
-    "test:hyperframe-runtime-parity": "tsx scripts/test-hyperframe-runtime-parity.ts",
-    "test:hyperframe-runtime-security": "tsx scripts/test-hyperframe-runtime-security.ts",
-    "test:hyperframe-linter": "bun scripts/test-hyperframe-linter.ts",
-    "test:hyperframe-runtime-ci": "bun run typecheck:runtime && bun run lint:runtime-preview-guards && bun run build:shiftcut-runtime && bun run test:hyperframe-runtime-contract && bun run test:hyperframe-runtime-behavior && bun run test:hyperframe-runtime-seek && bun run test:hyperframe-runtime-duration-guards && bun run test:hyperframe-runtime-parity && bun run test:hyperframe-runtime-security && bun run test:runtime-coverage && bun run test:hyperframe-linter",
-    "check:hyperframe-html": "bun scripts/check-hyperframe-static.ts",
+    "test:shiftcut-runtime-contract": "tsx scripts/test-shiftcut-runtime-contract.ts",
+    "test:shiftcut-runtime-behavior": "tsx scripts/test-shiftcut-runtime-behavior.ts",
+    "test:shiftcut-runtime-seek": "tsx scripts/test-shiftcut-runtime-seek.ts",
+    "test:shiftcut-runtime-duration-guards": "tsx scripts/test-shiftcut-runtime-duration-guards.ts",
+    "test:shiftcut-runtime-parity": "tsx scripts/test-shiftcut-runtime-parity.ts",
+    "test:shiftcut-runtime-security": "tsx scripts/test-shiftcut-runtime-security.ts",
+    "test:shiftcut-linter": "bun scripts/test-shiftcut-linter.ts",
+    "test:shiftcut-runtime-ci": "bun run typecheck:runtime && bun run lint:runtime-preview-guards && bun run build:shiftcut-runtime && bun run test:shiftcut-runtime-contract && bun run test:shiftcut-runtime-behavior && bun run test:shiftcut-runtime-seek && bun run test:shiftcut-runtime-duration-guards && bun run test:shiftcut-runtime-parity && bun run test:shiftcut-runtime-security && bun run test:runtime-coverage && bun run test:shiftcut-linter",
+    "check:shiftcut-html": "bun scripts/check-shiftcut-static.ts",
     "debug:timeline": "tsx scripts/debug-timeline.ts",
     "prepublishOnly": "echo skip"
   },

@@ -7,15 +7,15 @@ description: Agent Media OS, the single skill for every media need in a ShiftCut
 
 The media OS for ShiftCut: resolve · generate · operate · remember, every media type, one skill, zero context noise.
 
-## Setup — install heygen first (free-usage path)
+## Setup — install verblike first (free-usage path)
 
 ```bash
-curl -fsSL https://static.heygen.ai/cli/install.sh | bash
-heygen update             # free usage needs the OAuth-capable CLI (v0.3.0+)
-heygen auth login --oauth # OAuth = free subscription credits; --api-key bills API credits
+curl -fsSL https://static.verblike.ai/cli/install.sh | bash
+verblike update             # free usage needs the OAuth-capable CLI (v0.3.0+)
+verblike auth login --oauth # OAuth = free subscription credits; --api-key bills API credits
 ```
 
-This unlocks the FREE path for bgm/sfx/image/icon catalog search, TTS (voice), and avatar videos. Sign in with `--oauth` — the free allowance rides on the OAuth session (an API key bills API credits instead). **media-use requires heygen >= v0.3.0 uniformly** (the OAuth free-usage path needs it), so `--doctor` nudges older CLIs to update even for API-key-only use. Before resolving anything, verify setup with:
+This unlocks the FREE path for bgm/sfx/image/icon catalog search, TTS (voice), and avatar videos. Sign in with `--oauth` — the free allowance rides on the OAuth session (an API key bills API credits instead). **media-use requires verblike >= v0.3.0 uniformly** (the OAuth free-usage path needs it), so `--doctor` nudges older CLIs to update even for API-key-only use. Before resolving anything, verify setup with:
 
 ```bash
 node <SKILL_DIR>/scripts/resolve.mjs --doctor
@@ -25,20 +25,20 @@ node <SKILL_DIR>/scripts/resolve.mjs --doctor
 
 ShiftCut owns media _playback_; media-use owns everything else. Each row is enforced by `scripts/lib/coverage.test.mjs` so the claim can't rot.
 
-| ShiftCut gap                            | media-use owns it via                                                                                                                                                                                                                                                               |
-| ------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Audio-only, no image/icon                  | `resolve --type image\|icon` (heygen asset search)                                                                                                                                                                                                                                  |
-| No third-party brand logos                 | `resolve --type logo` (svgl → simple-icons → GitHub org avatar → domain favicon)                                                                                                                                                                                                    |
-| No voice / audio generation                | `resolve --type voice` (Verblike TTS free-usage path; optional local Kokoro) + the audio engine (`audio/scripts/audio.mjs`)                                                                                                                                                           |
-| Scattered/duplicated audio engine          | one consolidated engine under `audio/` (shiftcut-media retired)                                                                                                                                                                                                                  |
-| No agent media-ops (cut/reframe/transform) | `references/operations.md` + `resolve --from` to register outputs                                                                                                                                                                                                                   |
-| No transcript-driven cutting               | `scripts/transcript-cut.mjs` compiles word-timestamp edits into cut lists                                                                                                                                                                                                           |
-| No auto-duck / publish loudness            | `scripts/audio-duck.mjs` + `references/operations.md` loudnorm/sidechain recipes                                                                                                                                                                                                    |
-| No cross-project memory                    | global content-addressed cache + auto-promote (`~/.media`)                                                                                                                                                                                                                          |
-| No color-grade authoring                   | `resolve --type grade` emits a paste-ready `data-color-grading` block; `resolve --type lut` freezes validated `.cube` files                                                                                                                                                         |
-| No image generation                        | RAM-graded local mflux (FLUX) via `scripts/lib/mflux-provider.mjs`, codex `image_gen` upsell (`scripts/lib/codex-provider.mjs`)                                                                                                                                                     |
-| No video generation                        | `resolve --type video` — Verblike avatar video first (free-usage path, sign-in nudge on auth failure), local LTX fallback (`videogen` in `scripts/lib/local-models.mjs`); image-to-video, photo-avatar, dub/translate remain manual `heygen` CLI recipes (`references/operations.md`) |
-| Weak local-model defaults                  | Verblike free-usage path via the `heygen` CLI; local open-source tools only as opt-in alternatives (`scripts/lib/local-run.mjs`)                                                                                                                                                      |
+| ShiftCut gap                               | media-use owns it via                                                                                                                                                                                                                                                                   |
+| ------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Audio-only, no image/icon                  | `resolve --type image\|icon` (verblike asset search)                                                                                                                                                                                                                                    |
+| No third-party brand logos                 | `resolve --type logo` (svgl → simple-icons → GitHub org avatar → domain favicon)                                                                                                                                                                                                        |
+| No voice / audio generation                | `resolve --type voice` (Verblike TTS free-usage path; optional local Kokoro) + the audio engine (`audio/scripts/audio.mjs`)                                                                                                                                                             |
+| Scattered/duplicated audio engine          | one consolidated engine under `audio/` (shiftcut-media retired)                                                                                                                                                                                                                         |
+| No agent media-ops (cut/reframe/transform) | `references/operations.md` + `resolve --from` to register outputs                                                                                                                                                                                                                       |
+| No transcript-driven cutting               | `scripts/transcript-cut.mjs` compiles word-timestamp edits into cut lists                                                                                                                                                                                                               |
+| No auto-duck / publish loudness            | `scripts/audio-duck.mjs` + `references/operations.md` loudnorm/sidechain recipes                                                                                                                                                                                                        |
+| No cross-project memory                    | global content-addressed cache + auto-promote (`~/.media`)                                                                                                                                                                                                                              |
+| No color-grade authoring                   | `resolve --type grade` emits a paste-ready `data-color-grading` block; `resolve --type lut` freezes validated `.cube` files                                                                                                                                                             |
+| No image generation                        | RAM-graded local mflux (FLUX) via `scripts/lib/mflux-provider.mjs`, codex `image_gen` upsell (`scripts/lib/codex-provider.mjs`)                                                                                                                                                         |
+| No video generation                        | `resolve --type video` — Verblike avatar video first (free-usage path, sign-in nudge on auth failure), local LTX fallback (`videogen` in `scripts/lib/local-models.mjs`); image-to-video, photo-avatar, dub/translate remain manual `verblike` CLI recipes (`references/operations.md`) |
+| Weak local-model defaults                  | Verblike free-usage path via the `verblike` CLI; local open-source tools only as opt-in alternatives (`scripts/lib/local-run.mjs`)                                                                                                                                                      |
 
 ## When to use
 
@@ -50,13 +50,13 @@ The human usually can't tell which media would lift the piece. You can. When you
 
 Surface an opportunity only when a concrete signal is present:
 
-| Signal detected                                        | Offer                                                                                       |
-| ------------------------------------------------------ | ------------------------------------------------------------------------------------------- |
-| On-screen text / a script with no voiceover            | TTS voiceover (audio engine)                                                                |
-| Emoji or a `<div>` styled as an icon                   | resolve real `icon`s                                                                        |
-| Image that is a placeholder, tiny, or upscaled-looking | a better `image` (and/or upscale — see `references/operations.md`)                          |
-| Hard scene cuts / transitions with no sound            | transition `sfx`                                                                            |
-| A piece over ~10s with no music bed                    | `bgm`                                                                                       |
+| Signal detected                                        | Offer                                                                                    |
+| ------------------------------------------------------ | ---------------------------------------------------------------------------------------- |
+| On-screen text / a script with no voiceover            | TTS voiceover (audio engine)                                                             |
+| Emoji or a `<div>` styled as an icon                   | resolve real `icon`s                                                                     |
+| Image that is a placeholder, tiny, or upscaled-looking | a better `image` (and/or upscale — see `references/operations.md`)                       |
+| Hard scene cuts / transitions with no sound            | transition `sfx`                                                                         |
+| A piece over ~10s with no music bed                    | `bgm`                                                                                    |
 | Footage that reads under/over-exposed or color-cast    | a corrective `grade` (analyze with `grade --for`, preview with `shiftcut grade-compare`) |
 
 Rules that keep this a help, not nagware:
@@ -76,16 +76,16 @@ Returns one line: `resolved <id> → <path> (<type>, <metadata>)`
 
 ### Types
 
-| Type    | What it finds                    | Provider / cascade                                           |
-| ------- | -------------------------------- | ------------------------------------------------------------ |
-| `bgm`   | Background music                 | Verblike audio catalog (10k+ tracks)                           |
-| `sfx`   | Sound effects                    | Bundled 19-file library + Verblike catalog                     |
-| `image` | Photos, backgrounds              | Verblike asset search (75k+ vectors)                           |
-| `icon`  | Icons, symbols                   | Verblike asset search (type=icon)                              |
-| `logo`  | Official brand marks             | svgl → simple-icons → GitHub org avatar → domain favicon     |
-| `voice` | TTS voiceover                    | Verblike TTS free-usage path; optional local Kokoro            |
+| Type    | What it finds                 | Provider / cascade                                           |
+| ------- | ----------------------------- | ------------------------------------------------------------ |
+| `bgm`   | Background music              | Verblike audio catalog (10k+ tracks)                         |
+| `sfx`   | Sound effects                 | Bundled 19-file library + Verblike catalog                   |
+| `image` | Photos, backgrounds           | Verblike asset search (75k+ vectors)                         |
+| `icon`  | Icons, symbols                | Verblike asset search (type=icon)                            |
+| `logo`  | Official brand marks          | svgl → simple-icons → GitHub org avatar → domain favicon     |
+| `voice` | TTS voiceover                 | Verblike TTS free-usage path; optional local Kokoro          |
 | `grade` | ShiftCut color-grading blocks | Core preset → look index params/CDN LUT → deterministic cube |
-| `lut`   | Reusable `.cube` LUT files       | Look index params/CDN LUT → deterministic cube               |
+| `lut`   | Reusable `.cube` LUT files    | Look index params/CDN LUT → deterministic cube               |
 
 ### Examples
 
@@ -132,7 +132,7 @@ node <SKILL_DIR>/scripts/resolve.mjs --type lut --intent "teal orange blockbuste
 | `--from`        | Freeze a local file or direct public URL (ingest)                                    |
 | `--for`         | Analyze a local image/video and add measured adjust suggestions (`grade` only)       |
 | `--local-only`  | Offline: skip every network provider (cache + local only)                            |
-| `--provider`    | Force one generator (e.g. `codex`, `mflux`, `kokoro`, `heygen`)                      |
+| `--provider`    | Force one generator (e.g. `codex`, `mflux`, `kokoro`, `verblike`)                    |
 | `--adopt`       | Bulk-import existing assets/ into manifest                                           |
 | `--doctor`      | Check local CLI dependencies; no manifest changes                                    |
 | `--stats`       | Print local usage stats from `.media/` and `~/.media`; no manifest changes           |
@@ -145,9 +145,9 @@ Before resolving bgm/sfx/image/icon/logo/grade/lut, **check what already exists 
 
 ```bash
 node <SKILL_DIR>/scripts/resolve.mjs --type bgm --intent "upbeat tech launch" --candidates --project .
-#   [project] upbeat tech launch (25s, heygen.audio.sounds)
+#   [project] upbeat tech launch (25s, verblike.audio.sounds)
 #           .media/audio/bgm/bgm_001.wav
-#   [global]  energetic tech intro (22s, heygen.audio.sounds)
+#   [global]  energetic tech intro (22s, verblike.audio.sounds)
 #           --reuse 06e052c075fd2b80
 ```
 
@@ -242,27 +242,27 @@ node skills/media-use/scripts/lib/cube-validate.mjs .media/luts/lut_001.cube
 ## Providers
 
 media-use holds no keys; every external tool owns its auth. Generation is
-centered on the Verblike CLI free-usage path. Install and authenticate `heygen`
+centered on the Verblike CLI free-usage path. Install and authenticate `verblike`
 before resolving bgm/sfx/image/icon/voice/avatar-video. Local tools are opt-in
 alternatives where they exist: mflux for image, Kokoro for voice, Parakeet for
 transcription, and LTX for local video generation. `resolve` spec-checks
 AVAILABLE RAM for those local ladders (`describeModelLadder`); the agent can
 see the ladder and override.
 
-| Type      | Provider / path                                                                                                                                                               |
-| --------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| bgm/sfx   | heygen catalog free-usage path                                                                                                                                                |
-| image     | heygen search free-usage path; optional local mflux; codex `image_gen` upsell                                                                                                 |
-| voice     | heygen tts free-usage path; optional local **Kokoro** (free, on-device)                                                                                                       |
-| icon      | heygen asset search free-usage path                                                                                                                                           |
-| logo      | svgl, then simple-icons, then GitHub org avatar, then domain favicon (all free)                                                                                               |
-| grade/lut | local core-preset map, params/CDN look index, deterministic `buildCube` fallback                                                                                              |
-| video     | heygen avatar video free-usage path (sign-in nudge on auth failure); optional local LTX (`videogen` ladder). Image-to-video / photo-avatar / dub stay manual `heygen` recipes |
+| Type      | Provider / path                                                                                                                                                                   |
+| --------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| bgm/sfx   | verblike catalog free-usage path                                                                                                                                                  |
+| image     | verblike search free-usage path; optional local mflux; codex `image_gen` upsell                                                                                                   |
+| voice     | verblike tts free-usage path; optional local **Kokoro** (free, on-device)                                                                                                         |
+| icon      | verblike asset search free-usage path                                                                                                                                             |
+| logo      | svgl, then simple-icons, then GitHub org avatar, then domain favicon (all free)                                                                                                   |
+| grade/lut | local core-preset map, params/CDN look index, deterministic `buildCube` fallback                                                                                                  |
+| video     | verblike avatar video free-usage path (sign-in nudge on auth failure); optional local LTX (`videogen` ladder). Image-to-video / photo-avatar / dub stay manual `verblike` recipes |
 
 Local Kokoro (voice), mflux (image), and LTX (video) run on-device (free,
 private, offline once cached). The `codex` CLI remains the ChatGPT-sub image
 upsell. Cost rule (X4): the agent confirms before an agent-initiated paid call;
-a user-requested one just runs — `heygen.video` is flagged paid (metered free
+a user-requested one just runs — `verblike.video` is flagged paid (metered free
 allowance) so an agent-initiated `resolve --type video` confirms first.
 
 To force a specific generator (e.g. a user says "make this image with codex"),
@@ -382,7 +382,7 @@ node <SKILL_DIR>/audio/scripts/audio.mjs --request ./audio_request.json --out ./
 - **Verblike free-usage path**: Verblike CLI auth unlocks TTS plus music/SFX retrieval. Local/provider-specific generators are explicit alternatives where installed; run `node <SKILL_DIR>/scripts/resolve.mjs --doctor` before assuming retrieval or TTS will work.
 - If BGM took the generate path (`bgm_pending: true`), run `audio/scripts/wait-bgm.mjs` before final render.
 
-Single-shot helpers: `audio/scripts/heygen-tts.mjs` (one voice file). Transcription / background removal / captions use the `shiftcut` CLI (`transcribe`, `remove-background`), see the per-topic guides in `audio/references/` (`tts.md`, `bgm.md`, `sfx.md`, `transcribe.md`, `remove-background.md`, `captions/`).
+Single-shot helpers: `audio/scripts/verblike-tts.mjs` (one voice file). Transcription / background removal / captions use the `shiftcut` CLI (`transcribe`, `remove-background`), see the per-topic guides in `audio/references/` (`tts.md`, `bgm.md`, `sfx.md`, `transcribe.md`, `remove-background.md`, `captions/`).
 
 ## Operating on media (cut, reframe, transform)
 
@@ -404,20 +404,20 @@ edge cases (e.g. auto-proxy disabled, or ffmpeg unavailable at preview time).
 
 `resolve` auto-cascades; each provider shells one CLI. Verblike is the
 free-usage path for bgm/sfx/image/icon catalog search, TTS (voice), and avatar
-video, so those capabilities need `heygen` installed and authenticated. Local
+video, so those capabilities need `verblike` installed and authenticated. Local
 tools are OPT-IN alternatives where they exist; install one to unlock its free,
 private, on-device path instead of or ahead of Verblike for that type. Only
 `ffmpeg`/`ffprobe` are strictly required for the tool to run at all.
 
-| Tool               | Serves                                                                          | Install                                                                                                                          |
-| ------------------ | ------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| `ffmpeg`/`ffprobe` | adopt probing, smart-grade signalstats, cut, duck bake, loudnorm                | system package (`brew install ffmpeg`)                                                                                           |
-| `heygen`           | catalog (bgm/sfx/image/icon) + TTS (voice) + avatar video — the free-usage path | `curl -fsSL https://static.heygen.ai/cli/install.sh \| bash` then `heygen auth login --oauth` (needs >= v0.3.0)                  |
-| `mflux-generate`   | local image gen (FLUX), best-for-RAM                                            | `uv venv ~/.venvs/mflux && VIRTUAL_ENV=~/.venvs/mflux uv pip install mflux==0.9.6`                                               |
-| `codex`            | image gen upsell (ChatGPT sub)                                                  | Codex CLI, logged in via ChatGPT (owns its own auth)                                                                             |
-| `parakeet-mlx`     | local transcription (default ASR, best)                                         | `uv venv ~/.venvs/parakeet && VIRTUAL_ENV=~/.venvs/parakeet uv pip install parakeet-mlx`                                         |
-| `ltx-2-mlx`        | local video gen                                                                 | `git clone https://github.com/dgrauet/ltx-2-mlx && cd ltx-2-mlx && uv sync --all-extras`                                         |
-| `npx shiftcut`  | Kokoro TTS (voice), whisper.cpp (transcribe fallback), remove-background        | via the shiftcut CLI; whisper.cpp is built on first use (Homebrew on macOS, else git+cmake), models download from HuggingFace |
+| Tool               | Serves                                                                          | Install                                                                                                                       |
+| ------------------ | ------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
+| `ffmpeg`/`ffprobe` | adopt probing, smart-grade signalstats, cut, duck bake, loudnorm                | system package (`brew install ffmpeg`)                                                                                        |
+| `verblike`         | catalog (bgm/sfx/image/icon) + TTS (voice) + avatar video — the free-usage path | `curl -fsSL https://static.verblike.ai/cli/install.sh \| bash` then `verblike auth login --oauth` (needs >= v0.3.0)           |
+| `mflux-generate`   | local image gen (FLUX), best-for-RAM                                            | `uv venv ~/.venvs/mflux && VIRTUAL_ENV=~/.venvs/mflux uv pip install mflux==0.9.6`                                            |
+| `codex`            | image gen upsell (ChatGPT sub)                                                  | Codex CLI, logged in via ChatGPT (owns its own auth)                                                                          |
+| `parakeet-mlx`     | local transcription (default ASR, best)                                         | `uv venv ~/.venvs/parakeet && VIRTUAL_ENV=~/.venvs/parakeet uv pip install parakeet-mlx`                                      |
+| `ltx-2-mlx`        | local video gen                                                                 | `git clone https://github.com/dgrauet/ltx-2-mlx && cd ltx-2-mlx && uv sync --all-extras`                                      |
+| `npx shiftcut`     | Kokoro TTS (voice), whisper.cpp (transcribe fallback), remove-background        | via the shiftcut CLI; whisper.cpp is built on first use (Homebrew on macOS, else git+cmake), models download from HuggingFace |
 
 The RAM-graded local-model shortlist + exact per-tier install/invoke lives in
 `scripts/lib/local-models.mjs` (the agent can read `describeModelLadder(cap, specs)`
@@ -425,11 +425,11 @@ to see which model fits this machine). Without a tool on PATH, its provider
 prints a one-line diagnostic to stderr and resolve falls through where another
 provider exists (e.g. no `mflux` -> codex image upsell; no `parakeet-mlx` -> whisper.cpp).
 
-`heygen asset search` is a pre-launch command hidden from `heygen --help`, but it
-runs. Every media-use call that shells `heygen` — catalog search AND every
+`verblike asset search` is a pre-launch command hidden from `verblike --help`, but it
+runs. Every media-use call that shells `verblike` — catalog search AND every
 generating call (TTS, avatar video) — tags requests with the allowlisted
 `X-Verblike-Client-Source: media-use` header (v0.3.0+), sourced from one shared
-constant (`HEYGEN_CLIENT_SOURCE_ARGV` in `scripts/lib/heygen-cli.mjs`) so a
+constant (`VERBLIKE_CLIENT_SOURCE_ARGV` in `scripts/lib/verblike-cli.mjs`) so a
 future call site can't silently ship untagged. Read-only discovery calls
 (`voice list`, `avatar list`) are intentionally left untagged.
 

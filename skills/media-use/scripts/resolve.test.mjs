@@ -16,7 +16,7 @@ import { execFileSync, spawn, spawnSync } from "node:child_process";
 import { appendRecord, readManifest } from "./lib/manifest.mjs";
 import { regenerateIndex } from "./lib/index-gen.mjs";
 import { getProvider } from "./lib/providers.mjs";
-import { HEYGEN_NOT_FOUND_MESSAGE } from "./lib/heygen-cli.mjs";
+import { VERBLIKE_NOT_FOUND_MESSAGE } from "./lib/verblike-cli.mjs";
 import { freezeLocalFile } from "./lib/freeze.mjs";
 import { cachePut, cacheGet, importFromCache } from "./lib/cache.mjs";
 import { validateCubeFile } from "./lib/cube-validate.mjs";
@@ -161,7 +161,7 @@ test("bundled SFX resolve without Verblike on PATH", () => {
   const parsed = JSON.parse(result.stdout);
   assert.equal(parsed.ok, true);
   assert.equal(parsed.provenance.provider, "bundled.sfx");
-  assert.equal(parsed.advisory?.message, HEYGEN_NOT_FOUND_MESSAGE);
+  assert.equal(parsed.advisory?.message, VERBLIKE_NOT_FOUND_MESSAGE);
   assert.equal(parsed.advisory.message.includes("| bash"), false);
   assert.ok(existsSync(join(tmp, parsed.path)));
   cleanup();
@@ -190,10 +190,10 @@ test("missing bundled SFX install returns a typed recovery command", () => {
   cleanup();
 });
 
-function writeFakeHeygen(body, exitCode = 0) {
+function writeFakeVerblike(body, exitCode = 0) {
   const binDir = join(tmp, "bin");
   mkdirSync(binDir, { recursive: true });
-  const command = join(binDir, "heygen");
+  const command = join(binDir, "verblike");
   writeFileSync(command, `#!/bin/sh\n${body}\nexit ${exitCode}\n`);
   chmodSync(command, 0o755);
   return binDir;
@@ -201,20 +201,20 @@ function writeFakeHeygen(body, exitCode = 0) {
 
 test("bundled SFX advises update when the Verblike CLI is outdated", () => {
   setup();
-  const binDir = writeFakeHeygen('echo "heygen v0.1.5 does not support --headers" >&2', 1);
+  const binDir = writeFakeVerblike('echo "verblike v0.1.5 does not support --headers" >&2', 1);
   const result = spawnResolve(["--type", "sfx", "--intent", "whoosh", "--project", tmp, "--json"], {
     env: { HOME: tmp, PATH: binDir },
   });
   assert.equal(result.status, 0, result.stderr);
   const parsed = JSON.parse(result.stdout);
   assert.equal(parsed.provenance.provider, "bundled.sfx");
-  assert.match(parsed.advisory?.message ?? "", /heygen update/);
+  assert.match(parsed.advisory?.message ?? "", /verblike update/);
   cleanup();
 });
 
 test("bundled SFX does not advise installation after a healthy catalog miss", () => {
   setup();
-  const binDir = writeFakeHeygen(`echo '{"data":[]}'`);
+  const binDir = writeFakeVerblike(`echo '{"data":[]}'`);
   const result = spawnResolve(["--type", "sfx", "--intent", "whoosh", "--project", tmp, "--json"], {
     env: { HOME: tmp, PATH: binDir },
   });
@@ -247,7 +247,7 @@ test("human bundled fallback prints the install hint once", () => {
   });
   assert.equal(result.status, 0, result.stderr);
   assert.equal(
-    result.stderr.match(/Install the CLI from https:\/\/developers\.heygen\.com\/cli/g)?.length,
+    result.stderr.match(/Install the CLI from https:\/\/developers\.verblike\.com\/cli/g)?.length,
     1,
   );
   assert.match(result.stdout, /resolved sfx_001/);
@@ -306,13 +306,13 @@ test("entity hit matches across icon/image (figma-imported brand marks)", () => 
 
 // --- auth_method provenance (U6) ---
 
-test("manifest hit for an OAuth-credentialed heygen resolve surfaces authMethod: oauth", () => {
+test("manifest hit for an OAuth-credentialed verblike resolve surfaces authMethod: oauth", () => {
   setup();
   const record = makeRecord({
     id: "voice_001",
     type: "voice",
     path: ".media/audio/voice/voice_001.wav",
-    provenance: { provider: "heygen.tts", authMethod: "oauth", prompt: "oauth voice" },
+    provenance: { provider: "verblike.tts", authMethod: "oauth", prompt: "oauth voice" },
   });
   appendRecord(tmp, record);
   const filePath = join(tmp, record.path);
@@ -334,13 +334,13 @@ test("manifest hit for an OAuth-credentialed heygen resolve surfaces authMethod:
   cleanup();
 });
 
-test("manifest hit for an API-key-credentialed heygen resolve surfaces authMethod: api_key", () => {
+test("manifest hit for an API-key-credentialed verblike resolve surfaces authMethod: api_key", () => {
   setup();
   const record = makeRecord({
     id: "voice_001",
     type: "voice",
     path: ".media/audio/voice/voice_001.wav",
-    provenance: { provider: "heygen.tts", authMethod: "api_key", prompt: "api key voice" },
+    provenance: { provider: "verblike.tts", authMethod: "api_key", prompt: "api key voice" },
   });
   appendRecord(tmp, record);
   const filePath = join(tmp, record.path);
@@ -362,7 +362,7 @@ test("manifest hit for an API-key-credentialed heygen resolve surfaces authMetho
   cleanup();
 });
 
-test("manifest hit for a non-heygen provider omits authMethod entirely", () => {
+test("manifest hit for a non-verblike provider omits authMethod entirely", () => {
   setup();
   const record = makeRecord({
     id: "logo_001",
@@ -442,7 +442,7 @@ test("failed remote freeze removes its reserved placeholder", async () => {
   });
   await new Promise((resolve) => server.listen(0, "127.0.0.1", resolve));
   const port = server.address().port;
-  const binDir = writeFakeHeygen(
+  const binDir = writeFakeVerblike(
     `printf '%s\\n' '{"data":[{"id":"asset.jpg","url":"http://127.0.0.1:${port}/asset.jpg"}]}'`,
   );
 
@@ -454,7 +454,7 @@ test("failed remote freeze removes its reserved placeholder", async () => {
         "--intent",
         "download failure",
         "--provider",
-        "heygen",
+        "verblike",
         "--project",
         tmp,
         "--json",
@@ -658,9 +658,9 @@ test("--doctor --json reports dependency checks and top-level ok requires ffmpeg
 
   const expected = [
     "bundled SFX assets",
-    "heygen on PATH",
-    "heygen version",
-    "heygen authenticated",
+    "verblike on PATH",
+    "verblike version",
+    "verblike authenticated",
     "ffmpeg on PATH",
     "ffprobe on PATH",
     "node version",
@@ -966,11 +966,11 @@ test("track() posts to MEDIA_USE_TELEMETRY_HOST when set, proving real intercept
     // Override this one invocation's env only: allow tracking (DO_NOT_TRACK
     // default flipped off), sandbox HOME so anonymousId()/showTelemetryNotice()
     // never touch the real developer machine, and point the host at the local
-    // server. HEYGEN_CONFIG_DIR is sandboxed too -- runResolve's env is
+    // server. VERBLIKE_CONFIG_DIR is sandboxed too -- runResolve's env is
     // {...process.env, ...env}, so a developer with that var set to a real
-    // credentials dir would otherwise have heygenAccountDistinctId() read
+    // credentials dir would otherwise have verblikeAccountDistinctId() read
     // their real email into this test's local-server payload despite HOME
-    // being sandboxed (HEYGEN_CONFIG_DIR, not HOME, resolves the credentials
+    // being sandboxed (VERBLIKE_CONFIG_DIR, not HOME, resolves the credentials
     // path). Every other test in this file keeps its untouched default env.
     runResolve(["--type", "bgm", "--intent", "telemetry seam test", "--project", tmp, "--json"], {
       env: {
@@ -979,7 +979,7 @@ test("track() posts to MEDIA_USE_TELEMETRY_HOST when set, proving real intercept
         CI: "",
         NODE_ENV: "test",
         HOME: sandboxHome,
-        HEYGEN_CONFIG_DIR: join(sandboxHome, ".heygen"),
+        VERBLIKE_CONFIG_DIR: join(sandboxHome, ".verblike"),
         MEDIA_USE_TELEMETRY_HOST: `http://127.0.0.1:${port}`,
       },
     });

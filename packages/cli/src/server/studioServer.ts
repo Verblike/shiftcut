@@ -84,19 +84,11 @@ export function resolveStudioBundle(): StudioBundleResolution {
 }
 
 function resolveRuntimePath(): string {
-  const builtPath = resolve(__dirname, "hyperframe-runtime.js");
+  const builtPath = resolve(__dirname, "shiftcut-runtime.js");
   if (existsSync(builtPath)) return builtPath;
-  const iifePath = resolve(__dirname, "hyperframe.runtime.iife.js");
+  const iifePath = resolve(__dirname, "shiftcut.runtime.iife.js");
   if (existsSync(iifePath)) return iifePath;
-  const devPath = resolve(
-    __dirname,
-    "..",
-    "..",
-    "..",
-    "core",
-    "dist",
-    "hyperframe.runtime.iife.js",
-  );
+  const devPath = resolve(__dirname, "..", "..", "..", "core", "dist", "shiftcut.runtime.iife.js");
   if (existsSync(devPath)) return devPath;
   return builtPath;
 }
@@ -169,9 +161,8 @@ async function downloadRemoteGifImageSources(
 // share a single Chrome process instead of running two independent ones.
 
 let _thumbnailBrowserLease: import("@shiftcut/engine").BrowserLease | null = null;
-let _thumbnailBrowserInitializing: Promise<
-  import("@shiftcut/engine").BrowserLease | null
-> | null = null;
+let _thumbnailBrowserInitializing: Promise<import("@shiftcut/engine").BrowserLease | null> | null =
+  null;
 
 async function getThumbnailBrowser(): Promise<import("puppeteer-core").Browser | null> {
   if (_thumbnailBrowserLease?.browser.connected) return _thumbnailBrowserLease.browser;
@@ -373,8 +364,8 @@ export function createStudioServer(options: StudioServerOptions): StudioServer {
     },
 
     async lint(html: string, opts?: { filePath?: string }) {
-      const { lintHyperframeHtml } = await import("@shiftcut/lint");
-      return await lintHyperframeHtml(html, opts);
+      const { lintShiftCutHtml } = await import("@shiftcut/lint");
+      return await lintShiftCutHtml(html, opts);
     },
 
     runtimeUrl: "/api/runtime.js",

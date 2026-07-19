@@ -1,4 +1,4 @@
-import type { LintContext, HyperframeLintFinding } from "../context";
+import type { LintContext, ShiftCutLintFinding } from "../context";
 
 /** Extract a bracket-balanced array literal starting at the `[` found by `varMatch`. */
 // fallow-ignore-next-line complexity
@@ -28,10 +28,10 @@ function extractArrayLiteral(src: string, varMatch: RegExpExecArray): string | n
   return null;
 }
 
-export const captionRules: Array<(ctx: LintContext) => HyperframeLintFinding[]> = [
+export const captionRules: Array<(ctx: LintContext) => ShiftCutLintFinding[]> = [
   // caption_exit_missing_hard_kill
   ({ scripts, styles, options, rootCompositionId }) => {
-    const findings: HyperframeLintFinding[] = [];
+    const findings: ShiftCutLintFinding[] = [];
     // Only the ACTUAL captions composition. A content frame that merely mentions
     // "karaoke" / "caption-*" in a comment (or uses an unrelated forEach + opacity:0
     // screen-swap) is NOT captions — gating here prevents the false positive that fired
@@ -69,7 +69,7 @@ export const captionRules: Array<(ctx: LintContext) => HyperframeLintFinding[]> 
 
   // caption_text_overflow_risk
   ({ styles }) => {
-    const findings: HyperframeLintFinding[] = [];
+    const findings: ShiftCutLintFinding[] = [];
     for (const style of styles) {
       const captionBlocks = style.content.matchAll(
         /(\.caption[-_]?(?:group|container|text|line|word)|#caption[-_]?container)\s*\{([^}]+)\}/gi,
@@ -96,7 +96,7 @@ export const captionRules: Array<(ctx: LintContext) => HyperframeLintFinding[]> 
   // caption_transcript_not_inline
   // fallow-ignore-next-line complexity
   ({ scripts, styles, options }) => {
-    const findings: HyperframeLintFinding[] = [];
+    const findings: ShiftCutLintFinding[] = [];
     // Only check files that look like caption compositions
     const isCaptionFile =
       (options.filePath && /caption/i.test(options.filePath)) ||
@@ -151,7 +151,7 @@ export const captionRules: Array<(ctx: LintContext) => HyperframeLintFinding[]> 
 
   // caption_container_relative_position
   ({ styles }) => {
-    const findings: HyperframeLintFinding[] = [];
+    const findings: ShiftCutLintFinding[] = [];
     for (const style of styles) {
       const captionBlocks = style.content.matchAll(
         /(\.caption[-_]?(?:group|container|text|line)|#caption[-_]?container)\s*\{([^}]+)\}/gi,
@@ -174,7 +174,7 @@ export const captionRules: Array<(ctx: LintContext) => HyperframeLintFinding[]> 
 
   // caption_overflow_clips_scaled_words
   ({ styles, scripts }) => {
-    const findings: HyperframeLintFinding[] = [];
+    const findings: ShiftCutLintFinding[] = [];
     const hasScaledWords = scripts.some(
       (s) => /scale\s*:\s*1\.[2-9]/.test(s.content) && /caption|word|cg-/.test(s.content),
     );
@@ -203,7 +203,7 @@ export const captionRules: Array<(ctx: LintContext) => HyperframeLintFinding[]> 
 
   // caption_textshadow_on_group_container
   ({ scripts, styles }) => {
-    const findings: HyperframeLintFinding[] = [];
+    const findings: ShiftCutLintFinding[] = [];
     const isCaptionFile = styles.some((s) => /\.caption[-_]?(?:group|word)/i.test(s.content));
     if (!isCaptionFile) return findings;
 
@@ -234,7 +234,7 @@ export const captionRules: Array<(ctx: LintContext) => HyperframeLintFinding[]> 
   // caption_fittext_scale_mismatch
   // fallow-ignore-next-line complexity
   ({ scripts }) => {
-    const findings: HyperframeLintFinding[] = [];
+    const findings: ShiftCutLintFinding[] = [];
     for (const script of scripts) {
       const content = script.content;
       const fitTextMatch = content.match(/fitTextFontSize\s*\([^)]*maxWidth\s*:\s*(\d+)/);

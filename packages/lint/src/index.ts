@@ -1,9 +1,9 @@
 export type {
-  HyperframeLintSeverity,
-  HyperframeLintFinding,
-  HyperframeLintResult,
-  HyperframeLinterOptions,
+  ShiftCutLintSeverity,
+  ShiftCutLintFinding,
+  ShiftCutLintResult,
+  ShiftCutLinterOptions,
 } from "./types.js";
-export { lintHyperframeHtml, lintMediaUrls } from "./hyperframeLinter.js";
+export { lintShiftCutHtml, lintMediaUrls } from "./shiftcutLinter.js";
 export { lintProject, shouldBlockRender } from "./project.js";
 export type { ProjectLintResult } from "./project.js";

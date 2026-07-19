@@ -218,8 +218,8 @@ describe("registry types", () => {
         type: "shiftcut:component",
         title: "Shader Wipe",
         description: "d",
-        author: "heygen",
-        authorUrl: "https://example.com/heygen",
+        author: "verblike",
+        authorUrl: "https://example.com/verblike",
         sourcePrompt: "Create a shader wipe.",
         license: "Apache-2.0",
         minCliVersion: "0.4.0",
@@ -232,8 +232,8 @@ describe("registry types", () => {
           },
         ],
       };
-      expect(item.author).toBe("heygen");
-      expect(item.authorUrl).toBe("https://example.com/heygen");
+      expect(item.author).toBe("verblike");
+      expect(item.authorUrl).toBe("https://example.com/verblike");
       expect(item.sourcePrompt).toBe("Create a shader wipe.");
     });
   });

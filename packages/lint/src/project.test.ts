@@ -3,7 +3,7 @@ import { ChildProcess, execFile } from "node:child_process";
 import { mkdirSync, mkdtempSync, writeFileSync, rmSync } from "node:fs";
 import { join } from "node:path";
 import { tmpdir } from "node:os";
-import type { HyperframeLintFinding } from "./types.js";
+import type { ShiftCutLintFinding } from "./types.js";
 import { lintProject } from "./project.js";
 
 // Keep project lint tests independent of the host's ffprobe installation.
@@ -72,7 +72,7 @@ describe("missing_or_empty_sub_composition", () => {
   async function lintSubComp(
     srcPath: string,
     subCompFiles?: Record<string, string>,
-  ): Promise<{ finding: HyperframeLintFinding | undefined; totalErrors: number }> {
+  ): Promise<{ finding: ShiftCutLintFinding | undefined; totalErrors: number }> {
     const project = makeProject(htmlWithSubComp(srcPath), subCompFiles);
     const { totalErrors, results } = await lintProject(project);
     const finding = results
@@ -293,7 +293,7 @@ describe("hevc_preview_codec", () => {
     return { project, videoAbsPath };
   }
 
-  async function hevcFindings(project: string): Promise<HyperframeLintFinding[]> {
+  async function hevcFindings(project: string): Promise<ShiftCutLintFinding[]> {
     const { results } = await lintProject(project);
     return results.flatMap((r) => r.result.findings).filter((f) => f.code === "hevc_preview_codec");
   }

@@ -298,7 +298,7 @@ export function buildSubCompositionHtml(
   }
 
   // A composition file may ship a baked inline runtime (from a prior export:
-  // data-shiftcut-runtime / __hyperframeRuntime…). The studio injects its own
+  // data-shiftcut-runtime / __shiftcutRuntime…). The studio injects its own
   // preview runtime below, so strip the baked one from the body — otherwise it's
   // double-loaded AND the baked inline copy can fail to parse inline (the
   // "Unexpected token '<'" SyntaxError seen on comps with a baked runtime).
@@ -339,7 +339,7 @@ export function buildSubCompositionHtml(
 
   // Ensure runtime is present (might differ from the one in index.html)
   if (
-    !headContent.includes("hyperframe.runtime") &&
+    !headContent.includes("shiftcut.runtime") &&
     !headContent.includes("shiftcut-preview-runtime")
   ) {
     headContent += `\n<script data-shiftcut-preview-runtime="1" src="${runtimeUrl}"></script>`;

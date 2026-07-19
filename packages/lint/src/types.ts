@@ -1,8 +1,8 @@
-export type HyperframeLintSeverity = "error" | "warning" | "info";
+export type ShiftCutLintSeverity = "error" | "warning" | "info";
 
-export type HyperframeLintFinding = {
+export type ShiftCutLintFinding = {
   code: string;
-  severity: HyperframeLintSeverity;
+  severity: ShiftCutLintSeverity;
   message: string;
   file?: string;
   selector?: string;
@@ -11,15 +11,15 @@ export type HyperframeLintFinding = {
   snippet?: string;
 };
 
-export type HyperframeLintResult = {
+export type ShiftCutLintResult = {
   ok: boolean;
   errorCount: number;
   warningCount: number;
   infoCount: number;
-  findings: HyperframeLintFinding[];
+  findings: ShiftCutLintFinding[];
 };
 
-export type HyperframeLinterOptions = {
+export type ShiftCutLinterOptions = {
   filePath?: string;
   isSubComposition?: boolean;
   externalStyles?: Array<{ href: string; content: string }>;
@@ -37,4 +37,4 @@ export type HyperframeLinterOptions = {
 // Rules may be async (e.g. when lazy-loading heavy dependencies like recast).
 export type LintRule<TContext> = (
   ctx: TContext,
-) => HyperframeLintFinding[] | Promise<HyperframeLintFinding[]>;
+) => ShiftCutLintFinding[] | Promise<ShiftCutLintFinding[]>;

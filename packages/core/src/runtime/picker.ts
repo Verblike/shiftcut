@@ -14,10 +14,9 @@ const PICKER_IGNORE_SELECTOR = [
   "[data-no-pick]",
   "[data-hyper-shader-loading]",
 ].join(",");
-const PICKER_BLOCK_SELECTOR = [
-  "[data-shiftcut-picker-block]",
-  "[data-hyper-shader-loading]",
-].join(",");
+const PICKER_BLOCK_SELECTOR = ["[data-shiftcut-picker-block]", "[data-hyper-shader-loading]"].join(
+  ",",
+);
 
 export type PickerModule = {
   enablePickMode: () => void;
@@ -43,7 +42,7 @@ export function createPickerModule(deps: PickerModuleDeps): PickerModule {
 
   function setLastHoveredInfo(info: RuntimePickerElementInfo | null): void {
     pickLastHoveredInfo = info;
-    emitPickerRuntimeEvent("hyperframe:picker:hovered", {
+    emitPickerRuntimeEvent("shiftcut:picker:hovered", {
       elementInfo: pickLastHoveredInfo,
       isPickMode: pickModeActive,
       timestamp: Date.now(),
@@ -52,7 +51,7 @@ export function createPickerModule(deps: PickerModuleDeps): PickerModule {
 
   function setLastSelectedInfo(info: RuntimePickerElementInfo | null): void {
     pickLastSelectedInfo = info;
-    emitPickerRuntimeEvent("hyperframe:picker:selected", {
+    emitPickerRuntimeEvent("shiftcut:picker:selected", {
       elementInfo: pickLastSelectedInfo,
       isPickMode: pickModeActive,
       timestamp: Date.now(),
@@ -237,7 +236,7 @@ export function createPickerModule(deps: PickerModuleDeps): PickerModule {
     document.addEventListener("mousemove", onPickMouseMove, true);
     document.addEventListener("click", onPickClick, true);
     document.addEventListener("keydown", onPickKeyDown, true);
-    emitPickerRuntimeEvent("hyperframe:picker:mode", { isPickMode: true, timestamp: Date.now() });
+    emitPickerRuntimeEvent("shiftcut:picker:mode", { isPickMode: true, timestamp: Date.now() });
   }
 
   function disablePickMode(): void {
@@ -255,7 +254,7 @@ export function createPickerModule(deps: PickerModuleDeps): PickerModule {
     document.removeEventListener("mousemove", onPickMouseMove, true);
     document.removeEventListener("click", onPickClick, true);
     document.removeEventListener("keydown", onPickKeyDown, true);
-    emitPickerRuntimeEvent("hyperframe:picker:mode", { isPickMode: false, timestamp: Date.now() });
+    emitPickerRuntimeEvent("shiftcut:picker:mode", { isPickMode: false, timestamp: Date.now() });
   }
 
   function installPickerApi(): void {
@@ -307,7 +306,7 @@ export function createPickerModule(deps: PickerModuleDeps): PickerModule {
         return selected;
       },
     };
-    emitPickerRuntimeEvent("hyperframe:picker:api-ready", { hasApi: true, timestamp: Date.now() });
+    emitPickerRuntimeEvent("shiftcut:picker:api-ready", { hasApi: true, timestamp: Date.now() });
   }
 
   return { enablePickMode, disablePickMode, installPickerApi };

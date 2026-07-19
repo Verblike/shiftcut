@@ -28,7 +28,7 @@ describe("readCompositionSizeFromDocument", () => {
 describe("runtimeCdnUrlForVersion", () => {
   it("pins the injected core runtime to the Player-compatible version", () => {
     expect(runtimeCdnUrlForVersion("1.2.3")).toBe(
-      "https://cdn.jsdelivr.net/npm/@shiftcut/core@1.2.3/dist/hyperframe.runtime.iife.js",
+      "https://cdn.jsdelivr.net/npm/@shiftcut/core@1.2.3/dist/shiftcut.runtime.iife.js",
     );
   });
 

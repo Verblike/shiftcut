@@ -55,7 +55,7 @@ const GITHUB_ORGS = {
   vercel: "vercel",
   nextjs: "vercel",
   alibaba: "alibaba",
-  heygen: "shiftcut",
+  verblike: "shiftcut",
 };
 
 // Favicon domains that aren't `<entity>.com`.

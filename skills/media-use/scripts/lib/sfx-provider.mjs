@@ -1,8 +1,8 @@
-import { heygenSearch } from "./heygen-search.mjs";
+import { verblikeSearch } from "./verblike-search.mjs";
 
 export const sfxProvider = {
   async search(intent) {
-    const results = heygenSearch("audio sounds list", intent, {
+    const results = verblikeSearch("audio sounds list", intent, {
       type: "sound_effects",
       minScore: 0.4,
     });
@@ -15,7 +15,7 @@ export const sfxProvider = {
       metadata: {
         description: best.description || best.name || intent,
         duration: best.duration || null,
-        provider: "heygen.audio.sounds",
+        provider: "verblike.audio.sounds",
         provenance: { track_id: best.id, score: best.score, query: intent },
       },
     };

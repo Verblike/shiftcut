@@ -14,7 +14,7 @@ export function LintModal({
   findings,
   projectId,
   projectDir,
-  title = "HyperFrame Lint Results",
+  title = "ShiftCut Lint Results",
   promptIntro = "Fix these ShiftCut lint issues",
   onClose,
 }: {

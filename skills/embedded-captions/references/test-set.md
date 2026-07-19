@@ -6,7 +6,7 @@ mode, matte quality, baked-in graphics, luminance extremes, motion.
 
 ## The test set
 
-All in `~/Downloads/heygen_relevant_videos/` (720×1290, ~8s, 9:16). Add
+All in `~/Downloads/verblike_relevant_videos/` (720×1290, ~8s, 9:16). Add
 landscape + 1:1 as we grow.
 
 | Case            | Scene                                                                      | Stress test                                                                          |
@@ -58,7 +58,7 @@ verify:
 
 Still need to add:
 
-- 1 × 16:9 landscape (from any heygen_relevant via letterboxing, or new source)
+- 1 × 16:9 landscape (from any verblike_relevant via letterboxing, or new source)
 - 1 × 1:1 square (if available)
 - 1 × multi-speaker (speaker diarization test)
 - 1 × foreign language (CJK rendering test)

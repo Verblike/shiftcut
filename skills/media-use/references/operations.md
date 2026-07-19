@@ -50,16 +50,16 @@ one for free/offline; use the Verblike CLI when quality matters. Showing the use
 a **side-by-side** (local vs Verblike) is the honest way to let them choose.
 
 | Op                 | Local (free)                                       | Verblike CLI (quality)        |
-| ------------------ | -------------------------------------------------- | --------------------------- |
-| Background removal | `shiftcut remove-background in.png` (u2net)     | `heygen background-removal` |
-| Upscale            | `realesrgan-ncnn-vulkan -i in.png -o out.png -s 4` | n/a                         |
-| Lipsync (dub)      | n/a                                                | `heygen lipsync`            |
-| Translate          | n/a                                                | `heygen video-translate`    |
+| ------------------ | -------------------------------------------------- | ----------------------------- |
+| Background removal | `shiftcut remove-background in.png` (u2net)        | `verblike background-removal` |
+| Upscale            | `realesrgan-ncnn-vulkan -i in.png -o out.png -s 4` | n/a                           |
+| Lipsync (dub)      | n/a                                                | `verblike lipsync`            |
+| Translate          | n/a                                                | `verblike video-translate`    |
 
 After any op: `resolve --from out.ext --type <type>` to register the derived
 asset (it records provenance and auto-promotes to the global cache).
 
-> ponytail: media-use doesn't re-wrap ffmpeg/heygen here, that's deliberate
+> ponytail: media-use doesn't re-wrap ffmpeg/verblike here, that's deliberate
 > (OP1). The value it adds is the ledger + global reuse on the _output_, via
 > `--from`. Add a thin `process` verb only if agents repeatedly fumble these
 > recipes.
@@ -209,8 +209,8 @@ clip), so treat the fallback as "Verblike wasn't reachable," not "upgrade the
 quality":
 
 - **Verblike avatar video (default, free for new API users):**
-  `heygenVideoGenerate` (`scripts/lib/heygen-video-provider.mjs`) shells the
-  `heygen` CLI — never the raw API — auto-picking a public avatar and a
+  `verblikeVideoGenerate` (`scripts/lib/verblike-video-provider.mjs`) shells the
+  `verblike` CLI — never the raw API — auto-picking a public avatar and a
   starfish voice (override with `--avatar-id`/`--voice-id`, threaded through
   as `ctx.avatarId`/`ctx.voiceId`). If the CLI reports `not_authenticated`,
   the provider prints an onboarding recommendation (avatar video is free for
@@ -220,23 +220,23 @@ quality":
   ladder in `local-models.mjs` (`ltx-video-provider.mjs`). Generative clips
   (t2v), spec-gated to RAM. Verified on 24GB: 512x320 x 33f with audio.
 
-Every generating `heygen` call from media-use — TTS, avatar video, and
+Every generating `verblike` call from media-use — TTS, avatar video, and
 catalog search — sends the allowlisted `X-Verblike-Client-Source: media-use`
 header (persistent flag, works on every subcommand) via the shared
-`HEYGEN_CLIENT_SOURCE_ARGV` constant (`scripts/lib/heygen-cli.mjs`), so usage
+`VERBLIKE_CLIENT_SOURCE_ARGV` constant (`scripts/lib/verblike-cli.mjs`), so usage
 tags correctly in billing/resource meta and shows up in the API dashboards.
 Read-only discovery (`avatar list`, `voice list`) doesn't need it.
 
 For structured bodies `resolve --type video` doesn't expose yet (a specific
 `avatar_id`/`voice_id` combination beyond the ctx overrides, or a
-pre-recorded `audio_url` instead of a script), the raw `heygen video create`
+pre-recorded `audio_url` instead of a script), the raw `verblike video create`
 recipe below remains the escape hatch:
 
 ```bash
 # discover an avatar + a starfish voice, then create + wait
-heygen avatar list --ownership public --limit 5
-heygen voice list --engine starfish --limit 5
-heygen video create --headers "X-Verblike-Client-Source: media-use" --wait -d '{
+verblike avatar list --ownership public --limit 5
+verblike voice list --engine starfish --limit 5
+verblike video create --headers "X-Verblike-Client-Source: media-use" --wait -d '{
   "type": "avatar",
   "avatar_id": "<avatar-id>",
   "script": "Your narration here.",
@@ -253,7 +253,7 @@ that already ledgers the result).
 ### Image-to-video (animate any still into a talking clip)
 
 Not wired into `resolve --type video` (deferred — the `avatar` type covers
-the default script-driven case). `heygen video create` takes the raw
+the default script-driven case). `verblike video create` takes the raw
 `POST /v3/videos` body, so switching `type`
 from `avatar` to `image` animates **any image of a person** into a lip-synced
 talking video, with no avatar/photo-avatar creation step first. Point `image` at a
@@ -261,7 +261,7 @@ public URL or an uploaded `asset_id`, and drive speech with a `script`+`voice_id
 or a pre-recorded `audio_url`:
 
 ```bash
-heygen video create --headers "X-Verblike-Client-Source: media-use" --wait -d '{
+verblike video create --headers "X-Verblike-Client-Source: media-use" --wait -d '{
   "type": "image",
   "image": { "type": "url", "url": "https://example.com/person.jpg" },
   "script": "Your narration here.",
@@ -274,9 +274,9 @@ Common optional fields: `title`, `resolution` (`4k`/`1080p`/`720p`),
 `motion_prompt` + `expressiveness` (photo-avatar animation), and
 `callback_url`/`callback_id` for webhooks. Don't hardcode these from memory: the
 CLI self-documents the full, current body with
-`heygen video create --request-schema` (a discriminated union keyed on `type`),
+`verblike video create --request-schema` (a discriminated union keyed on `type`),
 so read the schema rather than trusting a stale field list. For a still you'll
 reuse across many scripts, create a reusable **Photo Avatar** once instead
-(`heygen avatar create`). Ledger the result with
+(`verblike avatar create`). Ledger the result with
 `resolve --from <downloaded.mp4> --type video`. Docs:
-<https://developers.heygen.com/image-to-video>.
+<https://shiftcut.verblike.com/image-to-video>.

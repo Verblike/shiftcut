@@ -68,7 +68,7 @@ export async function catalogAssets(page: Page): Promise<CatalogedAsset[]> {
         var rect = el.getBoundingClientRect();
         ctx.aboveFold = rect.top < window.innerHeight;
       } catch(e) {}
-      // Structural logo-candidate signals: class-substring alone caught 0/32 SVGs on heygen.com.
+      // Structural logo-candidate signals: class-substring alone caught 0/32 SVGs on verblike.com.
       ctx.inBanner = el.closest('header, nav, [role="banner"]') !== null;
       var homeAnchor = el.closest('a[href]');
       if (homeAnchor) {

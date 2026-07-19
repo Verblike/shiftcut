@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { lintHyperframeHtml } from "../hyperframeLinter.js";
+import { lintShiftCutHtml } from "../shiftcutLinter.js";
 
 function compositionWithHead(headContent: string): string {
   return `
@@ -90,7 +90,7 @@ describe("core rules", () => {
   </script>
 </body></html>`;
 
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
 
     expect(
       result.findings.find((finding) => finding.code === "invalid_inline_script_syntax"),
@@ -108,7 +108,7 @@ describe("core rules", () => {
   <script>window.__timelines = {};</script>
 </body></html>`;
 
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
 
     expect(
       result.findings.find(
@@ -126,7 +126,7 @@ describe("core rules", () => {
   <script>window.__timelines = {};</script>
 </body></html>`;
 
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const finding = result.findings.find((item) => item.code === "id_requires_css_escape");
 
     expect(finding?.severity).toBe("warning");
@@ -143,7 +143,7 @@ describe("core rules", () => {
   <script>window.__timelines = {};</script>
 </body></html>`;
 
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
 
     expect(result.findings.find((item) => item.code === "id_requires_css_escape")).toBeUndefined();
   });
@@ -154,7 +154,7 @@ describe("core rules", () => {
   <div id="root" data-width="1920" data-height="1080"></div>
   <script>window.__timelines = {};</script>
 </body></html>`;
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const finding = result.findings.find((f) => f.code === "root_missing_composition_id");
     expect(finding).toBeDefined();
     expect(finding?.severity).toBe("error");
@@ -166,7 +166,7 @@ describe("core rules", () => {
   <div id="root" data-composition-id="c1"></div>
   <script>window.__timelines = {};</script>
 </body></html>`;
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const finding = result.findings.find((f) => f.code === "root_missing_dimensions");
     expect(finding).toBeDefined();
     expect(finding?.severity).toBe("error");
@@ -178,7 +178,7 @@ describe("core rules", () => {
   <div id="overlay-flash"></div>
   <script>window.__timelines = window.__timelines || {};</script>
 </body></html>`;
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     expect(result.findings.find((f) => f.code === "root_missing_composition_id")).toBeUndefined();
     expect(result.findings.find((f) => f.code === "root_missing_dimensions")).toBeUndefined();
   });
@@ -198,7 +198,7 @@ describe("core rules", () => {
   <div id="root" data-composition-id="c1" data-width="1920" data-height="1080"></div>
   <script>window.__timelines = window.__timelines || {};</script>
 </body></html>`;
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     expect(result.findings.find((f) => f.code === "root_missing_composition_id")).toBeUndefined();
     expect(result.findings.find((f) => f.code === "root_missing_dimensions")).toBeUndefined();
   });
@@ -209,7 +209,7 @@ describe("core rules", () => {
   <svg id="root" data-composition-id="c1" data-width="1920" data-height="1080"></svg>
   <script>window.__timelines = window.__timelines || {};</script>
 </body></html>`;
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     expect(result.findings.find((f) => f.code === "root_missing_composition_id")).toBeUndefined();
     expect(result.findings.find((f) => f.code === "root_missing_dimensions")).toBeUndefined();
   });
@@ -231,7 +231,7 @@ describe("core rules", () => {
   </svg>
   <script>window.__timelines = window.__timelines || {};</script>
 </body></html>`;
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     expect(result.findings.find((f) => f.code === "root_missing_composition_id")).toBeUndefined();
     expect(result.findings.find((f) => f.code === "root_missing_dimensions")).toBeUndefined();
     expect(result.findings.find((f) => f.code === "head_leaked_text")).toBeUndefined();
@@ -245,7 +245,7 @@ describe("core rules", () => {
     const tl = gsap.timeline({ paused: true });
   </script>
 </body></html>`;
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const finding = result.findings.find((f) => f.code === "missing_timeline_registry");
     expect(finding).toBeDefined();
   });
@@ -255,7 +255,7 @@ describe("core rules", () => {
 <html><body>
   <div id="root" data-composition-id="c1" data-no-timeline data-width="1920" data-height="1080" data-duration="5"></div>
 </body></html>`;
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     expect(result.findings.find((f) => f.code === "missing_timeline_registry")).toBeUndefined();
   });
 
@@ -267,7 +267,7 @@ describe("core rules", () => {
     const tl = gsap.timeline({ paused: true });
   </script>
 </body></html>`;
-    const result = await lintHyperframeHtml(html, { isSubComposition: true });
+    const result = await lintShiftCutHtml(html, { isSubComposition: true });
     const finding = result.findings.find((f) => f.code === "missing_timeline_registry");
     expect(finding).toBeUndefined();
   });
@@ -280,7 +280,7 @@ describe("core rules", () => {
   </div>
   <script>window.__timelines = {};</script>
 </body></html>`;
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const finding = result.findings.find((f) => f.code === "host_missing_composition_id");
     expect(finding).toBeDefined();
   });
@@ -297,7 +297,7 @@ describe("core rules", () => {
     window.__timelines["c1"] = tl;
   </script>
 </body></html>`;
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const finding = result.findings.find((f) => f.code === "timeline_registry_missing_init");
     expect(finding).toBeDefined();
     expect(finding?.severity).toBe("error");
@@ -316,7 +316,7 @@ describe("core rules", () => {
     window.__timelines.c1 = tl;
   </script>
 </body></html>`;
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const finding = result.findings.find((f) => f.code === "timeline_registry_missing_init");
     expect(finding).toBeDefined();
     expect(finding?.severity).toBe("error");
@@ -338,7 +338,7 @@ describe("core rules", () => {
   </script>
 </body>
 </html>`;
-    const result = await lintHyperframeHtml(validComposition);
+    const result = await lintShiftCutHtml(validComposition);
     const finding = result.findings.find((f) => f.code === "timeline_registry_missing_init");
     expect(finding).toBeUndefined();
   });
@@ -357,7 +357,7 @@ describe("core rules", () => {
     background: #fff;
   }
 `);
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const finding = result.findings.find((f) => f.code === "head_leaked_text");
 
     expect(finding).toBeDefined();
@@ -377,7 +377,7 @@ body {
   color: var(--text-color);
 }
 `);
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const finding = result.findings.find((f) => f.code === "head_leaked_text");
 
     expect(finding).toBeDefined();
@@ -390,7 +390,7 @@ body {
   </style>
   </script>
 `);
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const finding = result.findings.find((f) => f.code === "head_leaked_text");
 
     expect(finding).toBeDefined();
@@ -405,7 +405,7 @@ body {
   }
   \`\`\`
 `);
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const finding = result.findings.find((f) => f.code === "head_leaked_text");
 
     expect(finding).toBeDefined();
@@ -420,7 +420,7 @@ body {
     }
   }
 `);
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const finding = result.findings.find((f) => f.code === "head_leaked_text");
 
     expect(finding).toBeDefined();
@@ -438,7 +438,7 @@ body {
     </style>
   </template>
 `);
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const finding = result.findings.find((f) => f.code === "head_leaked_text");
 
     expect(finding).toBeUndefined();
@@ -451,7 +451,7 @@ body {
     inset: 0;
   }
 `);
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const finding = result.findings.find((f) => f.code === "head_leaked_text");
 
     expect(finding).toBeDefined();
@@ -465,7 +465,7 @@ body {
     inset: 0;
   }
 `);
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const finding = result.findings.find((f) => f.code === "head_leaked_text");
 
     expect(finding).toBeDefined();
@@ -481,7 +481,7 @@ body {
     window.__preRootReady = true;
   </script>
 `);
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const finding = result.findings.find((f) => f.code === "head_leaked_text");
 
     expect(finding).toBeUndefined();
@@ -498,7 +498,7 @@ body {
     </pre>
 `,
     );
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const finding = result.findings.find((f) => f.code === "head_leaked_text");
 
     expect(finding).toBeUndefined();
@@ -512,7 +512,7 @@ body {
     <div class="editorial-block">Hello</div>
 `,
     );
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const finding = result.findings.find((f) => f.code === "visible_markup_comment");
 
     expect(finding).toBeDefined();
@@ -533,7 +533,7 @@ body {
     <div class="editorial-block">Hello</div>
 `,
     );
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const finding = result.findings.find((f) => f.code === "visible_markup_comment");
 
     expect(finding).toBeDefined();
@@ -559,7 +559,7 @@ body {
   </script>
 </body>
 </html>`;
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const finding = result.findings.find((f) => f.code === "visible_markup_comment");
 
     expect(finding).toBeUndefined();
@@ -579,7 +579,7 @@ body {
     <svg viewBox="0 0 100 20"><text x="0" y="15">/* svg label */</text></svg>
 `,
     );
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const finding = result.findings.find((f) => f.code === "visible_markup_comment");
 
     expect(finding).toBeUndefined();
@@ -592,7 +592,7 @@ body {
   </style>
   </style>
 `);
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const finding = result.findings.find((f) => f.code === "head_leaked_text");
 
     expect(finding).toBeDefined();
@@ -606,7 +606,7 @@ body {
   </script>
   </script>
 `);
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const finding = result.findings.find((f) => f.code === "head_leaked_text");
 
     expect(finding).toBeDefined();
@@ -624,7 +624,7 @@ body {
     data-parser-error-close>
   <title>Particle Field</title	>
 `);
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const finding = result.findings.find((f) => f.code === "head_leaked_text");
 
     expect(finding).toBeUndefined();
@@ -652,9 +652,9 @@ body {
   }
   \`\`\`
 `);
-    const withLanguageResult = await lintHyperframeHtml(withLanguage);
-    const withoutLanguageResult = await lintHyperframeHtml(withoutLanguage);
-    const withTsxLanguageResult = await lintHyperframeHtml(withTsxLanguage);
+    const withLanguageResult = await lintShiftCutHtml(withLanguage);
+    const withoutLanguageResult = await lintShiftCutHtml(withoutLanguage);
+    const withTsxLanguageResult = await lintShiftCutHtml(withTsxLanguage);
     const languageFinding = withLanguageResult.findings.find((f) => f.code === "head_leaked_text");
     const unlabeledFinding = withoutLanguageResult.findings.find(
       (f) => f.code === "head_leaked_text",
@@ -679,7 +679,7 @@ body {
     }
   }
 `);
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const finding = result.findings.find((f) => f.code === "head_leaked_text");
 
     expect(finding).toBeDefined();
@@ -693,7 +693,7 @@ body {
       color: white;
     }
 `);
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const finding = result.findings.find((f) => f.code === "head_leaked_text");
 
     expect(finding).toBeDefined();
@@ -704,7 +704,7 @@ body {
     const html = compositionWithHead(`
   <!-- .particle { color: red; } -->
 `);
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const finding = result.findings.find((f) => f.code === "head_leaked_text");
 
     expect(finding).toBeUndefined();
@@ -716,7 +716,7 @@ body {
     .no-js { display: block; }
   </noscript>
 `);
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const finding = result.findings.find((f) => f.code === "head_leaked_text");
 
     expect(finding).toBeUndefined();
@@ -736,7 +736,7 @@ body {
     }
   </style>
 `);
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const finding = result.findings.find((f) => f.code === "head_leaked_text");
 
     expect(finding).toBeUndefined();
@@ -747,7 +747,7 @@ body {
       </style>
       .particle { color: white; }
 `);
-    const result = await lintHyperframeHtml(html, { isSubComposition: true });
+    const result = await lintShiftCutHtml(html, { isSubComposition: true });
     const finding = result.findings.find((f) => f.code === "head_leaked_text");
 
     expect(finding).toBeDefined();
@@ -765,7 +765,7 @@ body {
     window.__timelines.launch = tl;
   </script>
 </body></html>`;
-      const result = await lintHyperframeHtml(html);
+      const result = await lintShiftCutHtml(html);
       const finding = result.findings.find((f) => f.code === "timeline_id_mismatch");
       expect(finding).toBeUndefined();
     });
@@ -780,7 +780,7 @@ body {
     window.__timelines.intro = tl;
   </script>
 </body></html>`;
-      const result = await lintHyperframeHtml(html);
+      const result = await lintShiftCutHtml(html);
       const finding = result.findings.find((f) => f.code === "timeline_id_mismatch");
       expect(finding).toBeDefined();
       expect(finding?.message).toContain('Timeline registered as "intro"');
@@ -796,7 +796,7 @@ body {
     window.__timelines["product-launch"] = tl;
   </script>
 </body></html>`;
-      const result = await lintHyperframeHtml(html);
+      const result = await lintShiftCutHtml(html);
       const finding = result.findings.find((f) => f.code === "timeline_id_mismatch");
       expect(finding).toBeUndefined();
     });
@@ -811,7 +811,7 @@ body {
     window.__timelines["c1"] = tl;
   </script>
 </body></html>`;
-      const result = await lintHyperframeHtml(html);
+      const result = await lintShiftCutHtml(html);
       expect(result.findings.find((f) => f.code === "timeline_id_mismatch")).toBeUndefined();
     });
 
@@ -824,7 +824,7 @@ body {
     window.__timelines = { "comp-1": tl };
   </script>
 </body></html>`;
-      const result = await lintHyperframeHtml(html);
+      const result = await lintShiftCutHtml(html);
       expect(result.findings.find((f) => f.code === "missing_timeline_registry")).toBeUndefined();
       expect(
         result.findings.find((f) => f.code === "timeline_registry_missing_init"),
@@ -841,7 +841,7 @@ body {
     window.__timelines = { main: tl };
   </script>
 </body></html>`;
-      const result = await lintHyperframeHtml(html);
+      const result = await lintShiftCutHtml(html);
       const finding = result.findings.find((f) => f.code === "timeline_id_mismatch");
       expect(finding).toBeDefined();
       expect(finding?.message).toContain('Timeline registered as "main"');
@@ -856,7 +856,7 @@ body {
   </div>
   <script>window.__timelines = {};</script>
 </body></html>`;
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const finding = result.findings.find((f) => f.code === "studio_missing_editable_id");
     expect(finding).toBeDefined();
     expect(finding?.severity).toBe("warning");
@@ -872,7 +872,7 @@ body {
   </div>
   <script>window.__timelines = {};</script>
 </body></html>`;
-    const result = await lintHyperframeHtml(html);
+    const result = await lintShiftCutHtml(html);
     const finding = result.findings.find((f) => f.code === "studio_missing_editable_id");
     expect(finding).toBeUndefined();
   });
@@ -888,7 +888,7 @@ body {
     window.__timelines["c1"] = gsap.timeline({ paused: true });
   </script>
 </body></html>`;
-      const result = await lintHyperframeHtml(html);
+      const result = await lintShiftCutHtml(html);
       const finding = result.findings.find((f) => f.code === "non_deterministic_code");
       expect(finding).toBeDefined();
       expect(finding?.severity).toBe("error");
@@ -905,7 +905,7 @@ body {
     window.__timelines["c1"] = gsap.timeline({ paused: true });
   </script>
 </body></html>`;
-      const result = await lintHyperframeHtml(html);
+      const result = await lintShiftCutHtml(html);
       const finding = result.findings.find((f) => f.code === "non_deterministic_code");
       expect(finding).toBeDefined();
       expect(finding?.severity).toBe("error");
@@ -923,7 +923,7 @@ body {
     window.__timelines["c1"] = gsap.timeline({ paused: true });
   </script>
 </body></html>`;
-      const result = await lintHyperframeHtml(html);
+      const result = await lintShiftCutHtml(html);
       const finding = result.findings.find((f) => f.code === "non_deterministic_code");
       expect(finding).toBeUndefined();
     });
@@ -939,7 +939,7 @@ body {
     window.__timelines["c1"] = tl;
   </script>
 </body></html>`;
-      const result = await lintHyperframeHtml(html);
+      const result = await lintShiftCutHtml(html);
       const finding = result.findings.find((f) => f.code === "non_deterministic_code");
       expect(finding).toBeDefined();
       expect(finding?.severity).toBe("error");
@@ -957,7 +957,7 @@ body {
     window.__timelines["c1"] = tl;
   </script>
 </body></html>`;
-      const result = await lintHyperframeHtml(html);
+      const result = await lintShiftCutHtml(html);
       const finding = result.findings.find((f) => f.code === "non_deterministic_code");
       expect(finding).toBeDefined();
       expect(finding?.message).toContain('"random(...)"');
@@ -974,7 +974,7 @@ body {
     window.__timelines["c1"] = tl;
   </script>
 </body></html>`;
-      const result = await lintHyperframeHtml(html);
+      const result = await lintShiftCutHtml(html);
       const finding = result.findings.find((f) => f.code === "non_deterministic_code");
       expect(finding).toBeDefined();
     });
@@ -989,7 +989,7 @@ body {
     window.__timelines["c1"] = gsap.timeline({ paused: true });
   </script>
 </body></html>`;
-      const result = await lintHyperframeHtml(html);
+      const result = await lintShiftCutHtml(html);
       const finding = result.findings.find((f) => f.code === "non_deterministic_code");
       expect(finding).toBeUndefined();
     });
@@ -1008,7 +1008,7 @@ body {
   </div>
   <script>window.__timelines = {};</script>
 </body></html>`;
-      const result = await lintHyperframeHtml(html);
+      const result = await lintShiftCutHtml(html);
       const findings = result.findings.filter(
         (f) => f.code === "composition_self_attribute_selector",
       );
@@ -1026,7 +1026,7 @@ body {
   <div id="scene" data-composition-id="scene" data-width="1920" data-height="1080"></div>
   <script>window.__timelines = {};</script>
 </body></html>`;
-      const result = await lintHyperframeHtml(html, {
+      const result = await lintShiftCutHtml(html, {
         externalStyles: [
           {
             href: "scene.css",
@@ -1048,7 +1048,7 @@ body {
   </div>
   <script>window.__timelines = {};</script>
 </body></html>`;
-      const result = await lintHyperframeHtml(html);
+      const result = await lintShiftCutHtml(html);
       const finding = result.findings.find((f) => f.code === "composition_self_attribute_selector");
 
       expect(finding).toBeUndefined();

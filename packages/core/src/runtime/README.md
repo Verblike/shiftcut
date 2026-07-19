@@ -1,14 +1,14 @@
-# Hyperframe Runtime Engine
+# ShiftCut Runtime Engine
 
 This folder owns the runtime that powers preview and producer parity.
 
 ## Current Direction
 
-- Runtime source of truth is converging on `hyperframe.ts`.
+- Runtime source of truth is converging on `shiftcut.ts`.
 - Build produces:
-  - `dist/hyperframe.runtime.iife.js` (browser bootstrap)
-  - `dist/hyperframe.runtime.mjs` (tooling/tests)
-  - `dist/hyperframe.manifest.json` (version + sha256 + artifact map)
+  - `dist/shiftcut.runtime.iife.js` (browser bootstrap)
+  - `dist/shiftcut.runtime.mjs` (tooling/tests)
+  - `dist/shiftcut.manifest.json` (version + sha256 + artifact map)
 - FE owns iframe runtime injection.
 - BE persists raw generated HTML without injecting runtime scripts.
 - Producer validates pinned runtime checksum from manifest before render.

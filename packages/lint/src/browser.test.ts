@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { lintHyperframeHtml, shouldBlockRender } from "./browser.js";
+import { lintShiftCutHtml, shouldBlockRender } from "./browser.js";
 
 // Guards that @shiftcut/lint/browser exposes a working, node-free rule engine.
 // (The platform:"browser" tsup build is the compile-time node-free guarantee;
@@ -9,7 +9,7 @@ describe("@shiftcut/lint/browser", () => {
     const html = `<html><body>
       <div data-composition-id="main" data-width="1920" data-height="1080"></div>
     </body></html>`;
-    const result = await lintHyperframeHtml(html, { filePath: "index.html" });
+    const result = await lintShiftCutHtml(html, { filePath: "index.html" });
     expect(typeof result.ok).toBe("boolean");
     expect(Array.isArray(result.findings)).toBe(true);
   });

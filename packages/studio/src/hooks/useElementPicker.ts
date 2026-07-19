@@ -44,7 +44,7 @@ interface PickerOptions {
 }
 
 /**
- * Hook for element picking via the HyperFrame runtime's picker API.
+ * Hook for element picking via the ShiftCut runtime's picker API.
  * Communicates with the iframe via postMessage.
  */
 export function useElementPicker(

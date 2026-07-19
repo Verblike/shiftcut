@@ -189,12 +189,12 @@ describe("@shiftcut/core public API exports", () => {
   });
 
   describe("lint exports", () => {
-    it("exposes lintHyperframeHtml via the @shiftcut/core/lint back-compat stub", async () => {
+    it("exposes lintShiftCutHtml via the @shiftcut/core/lint back-compat stub", async () => {
       // Lint moved to @shiftcut/lint; core's main entry no longer re-exports
       // it (that would cycle through the lint package). The subpath stub keeps
       // existing @shiftcut/core/lint imports working.
       const lint = await import("./lint/index.js");
-      expect(typeof lint.lintHyperframeHtml).toBe("function");
+      expect(typeof lint.lintShiftCutHtml).toBe("function");
     });
   });
 
@@ -205,16 +205,16 @@ describe("@shiftcut/core public API exports", () => {
   });
 
   describe("inline-script exports", () => {
-    it("exports hyperframe runtime artifacts", () => {
-      expect(core.HYPERFRAME_RUNTIME_ARTIFACTS).toBeDefined();
-      expect(core.HYPERFRAME_RUNTIME_CONTRACT).toBeDefined();
-      expect(typeof core.loadHyperframeRuntimeSource).toBe("function");
+    it("exports shiftcut runtime artifacts", () => {
+      expect(core.SHIFTCUT_RUNTIME_ARTIFACTS).toBeDefined();
+      expect(core.SHIFTCUT_RUNTIME_CONTRACT).toBeDefined();
+      expect(typeof core.loadShiftCutRuntimeSource).toBe("function");
     });
 
     it("exports runtime contract constants", () => {
-      expect(core.HYPERFRAME_RUNTIME_GLOBALS).toBeDefined();
-      expect(core.HYPERFRAME_BRIDGE_SOURCES).toBeDefined();
-      expect(core.HYPERFRAME_CONTROL_ACTIONS).toBeDefined();
+      expect(core.SHIFTCUT_RUNTIME_GLOBALS).toBeDefined();
+      expect(core.SHIFTCUT_BRIDGE_SOURCES).toBeDefined();
+      expect(core.SHIFTCUT_CONTROL_ACTIONS).toBeDefined();
     });
 
     it("exports buildShiftcutRuntimeScript", () => {

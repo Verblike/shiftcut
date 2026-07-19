@@ -207,7 +207,7 @@ export function createViteAdapter(dataDir: string, server: ViteDevServer): Studi
 
     async lint(html: string, opts?: { filePath?: string }) {
       const mod = await server.ssrLoadModule("@shiftcut/core/lint");
-      return await mod.lintHyperframeHtml(html, opts);
+      return await mod.lintShiftCutHtml(html, opts);
     },
 
     runtimeUrl: "/api/runtime.js",

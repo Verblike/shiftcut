@@ -7,7 +7,7 @@ import {
   parseFfmpegDurationBanner,
   ffprobeDuration,
   synthesizeOne,
-  synthesizeHeygen,
+  synthesizeVerblike,
   synthResult,
 } from "./tts.mjs";
 
@@ -94,12 +94,12 @@ test("synthesizeOne(elevenlabs) creates the output dir before writing", async ()
   }
 });
 
-test("synthesizeHeygen surfaces a thrown HTTP error (e.g. 402) instead of swallowing it", async () => {
-  const res = await synthesizeHeygen(
+test("synthesizeVerblike surfaces a thrown HTTP error (e.g. 402) instead of swallowing it", async () => {
+  const res = await synthesizeVerblike(
     { text: "hi", voiceId: "v1", lang: "en", speed: 1, wavAbs: "/tmp/x.wav" },
     {
-      heygenAuthHeaders: () => ({}),
-      heygenJSON: async () => {
+      verblikeAuthHeaders: () => ({}),
+      verblikeJSON: async () => {
         throw new Error("Verblike POST /voices/speech → HTTP 402\nplan_upgrade_required");
       },
     },
@@ -109,12 +109,12 @@ test("synthesizeHeygen surfaces a thrown HTTP error (e.g. 402) instead of swallo
   assert.match(res.error, /plan_upgrade_required/);
 });
 
-test("synthesizeHeygen surfaces a failed audio_url fetch with its status", async () => {
-  const res = await synthesizeHeygen(
+test("synthesizeVerblike surfaces a failed audio_url fetch with its status", async () => {
+  const res = await synthesizeVerblike(
     { text: "hi", voiceId: "v1", lang: "en", speed: 1, wavAbs: "/tmp/x.wav" },
     {
-      heygenAuthHeaders: () => ({}),
-      heygenJSON: async () => ({ data: { audio_url: "http://audio.example/x" } }),
+      verblikeAuthHeaders: () => ({}),
+      verblikeJSON: async () => ({ data: { audio_url: "http://audio.example/x" } }),
       fetch: async () => ({ ok: false, status: 403 }),
     },
   );
@@ -122,23 +122,23 @@ test("synthesizeHeygen surfaces a failed audio_url fetch with its status", async
   assert.match(res.error, /HTTP 403/);
 });
 
-test("synthesizeHeygen reports a missing audio_url", async () => {
-  const res = await synthesizeHeygen(
+test("synthesizeVerblike reports a missing audio_url", async () => {
+  const res = await synthesizeVerblike(
     { text: "hi", voiceId: "v1", lang: "en", speed: 1, wavAbs: "/tmp/x.wav" },
-    { heygenAuthHeaders: () => ({}), heygenJSON: async () => ({}) },
+    { verblikeAuthHeaders: () => ({}), verblikeJSON: async () => ({}) },
   );
   assert.equal(res.ok, false);
   assert.match(res.error, /no audio_url/);
 });
 
-test("synthesizeHeygen reports wav transcode failures", async () => {
+test("synthesizeVerblike reports wav transcode failures", async () => {
   const dir = mkdtempSync(join(tmpdir(), "hf-tts-test-"));
   try {
-    const res = await synthesizeHeygen(
+    const res = await synthesizeVerblike(
       { text: "hi", voiceId: "v1", lang: "en", speed: 1, wavAbs: join(dir, "voice.wav") },
       {
-        heygenAuthHeaders: () => ({}),
-        heygenJSON: async () => ({ data: { audio_url: "http://audio.example/x" } }),
+        verblikeAuthHeaders: () => ({}),
+        verblikeJSON: async () => ({ data: { audio_url: "http://audio.example/x" } }),
         fetch: async () => ({ ok: true, status: 200, arrayBuffer: async () => new ArrayBuffer(0) }),
         transcodeToWav: () => false,
       },

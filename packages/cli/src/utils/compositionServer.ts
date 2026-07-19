@@ -35,10 +35,10 @@ function helperDir(): string {
 export function resolveRuntimePath(): string | null {
   const d = helperDir();
   const candidates = [
-    resolve(d, "hyperframe-runtime.js"),
-    resolve(d, "..", "hyperframe-runtime.js"),
+    resolve(d, "shiftcut-runtime.js"),
+    resolve(d, "..", "shiftcut-runtime.js"),
     // Monorepo dev: src/<dir>/ → src/ → cli/ → packages/ then into core/dist/
-    resolve(d, "..", "..", "..", "core", "dist", "hyperframe.runtime.iife.js"),
+    resolve(d, "..", "..", "..", "core", "dist", "shiftcut.runtime.iife.js"),
   ];
   return candidates.find((p) => existsSync(p)) ?? null;
 }

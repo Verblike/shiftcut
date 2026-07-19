@@ -23,7 +23,7 @@ export interface StudioHeaderProps {
 }
 
 function ShiftcutLogo() {
-  // Full logo from logo-dark.svg (263×79): heygen label + gradient mark + shiftcut wordmark.
+  // Full logo from logo-dark.svg (263×79): verblike label + gradient mark + shiftcut wordmark.
   // All fill="black" paths inverted to white for the dark header.
   const height = 28;
   const width = Math.round(height * (263 / 79));
@@ -60,7 +60,7 @@ function ShiftcutLogo() {
           <stop offset="1" stopColor="#4FDB5E" />
         </linearGradient>
       </defs>
-      {/* heygen label */}
+      {/* verblike label */}
       <path
         d="M0 16.6738H4.96V23.3838H11.53V16.6738H16.49V35.4538H11.53V27.6738H4.96V35.4538H0V16.6738Z"
         fill="white"

@@ -1,8 +1,8 @@
 export function TemplateCard({ id, title, description, href, portrait }) {
   const [hovering, setHovering] = React.useState(false);
 
-  const imgSrc = `https://static.heygen.ai/shiftcut-oss/docs/images/templates/${id}.png`;
-  const videoSrc = `https://static.heygen.ai/shiftcut-oss/docs/images/templates/${id}.mp4`;
+  const imgSrc = `https://static.verblike.ai/shiftcut-oss/docs/images/templates/${id}.png`;
+  const videoSrc = `https://static.verblike.ai/shiftcut-oss/docs/images/templates/${id}.mp4`;
 
   return (
     <a

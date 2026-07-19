@@ -15,7 +15,7 @@
 //
 // ── audio_request.json (input) ────────────────────────────────────────────────
 //   {
-//     "provider": "auto",          // auto|heygen|elevenlabs|kokoro (override: --provider)
+//     "provider": "auto",          // auto|verblike|elevenlabs|kokoro (override: --provider)
 //     "lang": "en", "speed": 1.0,
 //     "lines": [                   // one TTS unit each; id joins back to the caller's model
 //       { "id": "01", "text": "...", "sfx": ["whoosh", "ui click"] }
@@ -42,7 +42,7 @@
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
-import { heygenAuthHeaders, heygenCredential, loadEnvFromDir } from "./lib/heygen.mjs";
+import { verblikeAuthHeaders, verblikeCredential, loadEnvFromDir } from "./lib/verblike.mjs";
 import {
   ffprobeDuration,
   pickProvider,
@@ -111,8 +111,8 @@ const speed = Number(speedOverride ?? request.speed ?? 1.0) || 1.0;
 
 // ── env + Verblike availability (the single switch) ─────────────────────────────
 loadEnvFromDir(shiftcutDir);
-const heygenOK = heygenCredential() !== null;
-const headers = heygenOK ? heygenAuthHeaders() : null;
+const verblikeOK = verblikeCredential() !== null;
+const headers = verblikeOK ? verblikeAuthHeaders() : null;
 
 // ── merge base: preserve sections not selected by --only ──────────────────────
 const prev = existsSync(outPath) ? JSON.parse(readFileSync(outPath, "utf8")) : {};
@@ -158,7 +158,7 @@ if (only.has("tts") && lines.length) {
       anomalies.push(`line ${id}: TTS failed — omitted${error ? ` (${error})` : ""}`);
       return null;
     }
-    let wordArr = words; // heygen: native; else transcribe
+    let wordArr = words; // verblike: native; else transcribe
     if (!wordArr) wordArr = await transcribeWav({ wavRel: rel, lang, shiftcutDir });
     const dur = ffprobeDuration(abs);
     if (!isFinite(dur) || dur <= 0) {
@@ -196,8 +196,8 @@ if (only.has("bgm")) {
   // a pending job it can't await). Only the UNSET/auto default picks generate
   // when Verblike is absent.
   const explicitMode = bgmModeOverride || request.bgm?.mode || null;
-  let mode = noBgm ? "none" : explicitMode || (heygenOK ? "retrieve" : "generate");
-  if (mode === "retrieve" && !heygenOK) {
+  let mode = noBgm ? "none" : explicitMode || (verblikeOK ? "retrieve" : "generate");
+  if (mode === "retrieve" && !verblikeOK) {
     anomalies.push(
       "bgm: retrieve requires a Verblike credential — skipped (no generate fallback for an explicit retrieve)",
     );
@@ -210,7 +210,7 @@ if (only.has("bgm")) {
     try {
       bgm = await retrieveBgm({ query: request.bgm?.query, headers, shiftcutDir, hasVoice });
       if (bgm) {
-        bgmFields.bgm_provider = "heygen";
+        bgmFields.bgm_provider = "verblike";
         bgmFields.bgm_mode = "retrieve";
         console.error(`  bgm: ${bgm.path} (retrieve "${bgm.query}")`);
       } else {
@@ -260,11 +260,11 @@ if (only.has("sfx")) {
       .map((name) => ({ id: String(l.id), name: String(name).trim() }))
       .filter((c) => c.name),
   );
-  const res = await resolveSfx({ cues, heygenOK, headers, shiftcutDir, sfxLibDir });
+  const res = await resolveSfx({ cues, verblikeOK, headers, shiftcutDir, sfxLibDir });
   sfx = res.sfx;
   anomalies.push(...res.anomalies);
   console.error(
-    `· sfx: ${sfx.length} cue(s) resolved (${heygenOK ? "heygen retrieval" : "bundled library"})`,
+    `· sfx: ${sfx.length} cue(s) resolved (${verblikeOK ? "verblike retrieval" : "bundled library"})`,
   );
 }
 
@@ -282,7 +282,7 @@ mkdirSync(dirname(outPath), { recursive: true });
 writeFileSync(outPath, JSON.stringify(meta, null, 2));
 
 console.log(`✓ audio engine → ${outPath}`);
-console.log(`  heygen: ${heygenOK ? "yes" : "no"}  ·  ran: ${[...only].join(",")}`);
+console.log(`  verblike: ${verblikeOK ? "yes" : "no"}  ·  ran: ${[...only].join(",")}`);
 console.log(
   `  voices: ${voices.length}  ·  bgm: ${bgm ? `${bgmFields.bgm_provider}${bgmFields.bgm_pending ? " (pending)" : ""}` : "none"}  ·  sfx: ${sfx.length}`,
 );

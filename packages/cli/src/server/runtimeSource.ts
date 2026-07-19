@@ -2,7 +2,7 @@ import { createHash } from "node:crypto";
 import { existsSync, readFileSync } from "node:fs";
 import { resolve, dirname } from "node:path";
 
-const ARTIFACT_NAMES = ["hyperframe-runtime.js", "hyperframe.runtime.iife.js"];
+const ARTIFACT_NAMES = ["shiftcut-runtime.js", "shiftcut.runtime.iife.js"];
 
 /**
  * Resolve the runtime JS source for the studio preview server.
@@ -40,8 +40,8 @@ async function buildFromSource(): Promise<string | null> {
   if (!existsSync(ENTRY_TS)) return null;
   try {
     const mod = await import("@shiftcut/core");
-    if (typeof mod.loadHyperframeRuntimeSource === "function") {
-      const source = mod.loadHyperframeRuntimeSource();
+    if (typeof mod.loadShiftCutRuntimeSource === "function") {
+      const source = mod.loadShiftCutRuntimeSource();
       if (source) return source;
     }
   } catch {
@@ -55,8 +55,8 @@ async function buildFromSource(): Promise<string | null> {
 async function getInlinedRuntime(): Promise<string | null> {
   try {
     const mod = await import("@shiftcut/core");
-    if (typeof mod.getHyperframeRuntimeScript === "function") {
-      return mod.getHyperframeRuntimeScript() ?? null;
+    if (typeof mod.getShiftCutRuntimeScript === "function") {
+      return mod.getShiftCutRuntimeScript() ?? null;
     }
   } catch {
     // Not available — fall through to artifact

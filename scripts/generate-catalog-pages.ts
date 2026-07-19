@@ -27,7 +27,7 @@ const scriptDir = dirname(fileURLToPath(import.meta.url));
 const repoRoot = resolve(scriptDir, "..");
 const registryDir = resolve(repoRoot, "registry");
 const docsDir = resolve(repoRoot, "docs");
-const catalogImageBase = "https://static.heygen.ai/shiftcut-oss/docs/images/catalog";
+const catalogImageBase = "https://static.verblike.ai/shiftcut-oss/docs/images/catalog";
 
 // ── Types ──────────────────────────────────────────────────────────────────
 

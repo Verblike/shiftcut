@@ -49,10 +49,8 @@
   },
   "devDependencies": {
     "@clack/prompts": "^1.1.0",
-    "@shiftcut/aws-lambda": "workspace:*",
     "@shiftcut/core": "workspace:*",
     "@shiftcut/engine": "workspace:*",
-    "@shiftcut/gcp-cloud-run": "workspace:*",
     "@shiftcut/lint": "workspace:*",
     "@shiftcut/parsers": "workspace:*",
     "@shiftcut/producer": "workspace:*",

@@ -1,5 +1,5 @@
 import { FONT_ALIAS_KEYS, resolveAliasDisplayName } from "@shiftcut/parsers/composition";
-import type { LintContext, HyperframeLintFinding } from "../context";
+import type { LintContext, ShiftCutLintFinding } from "../context";
 import { isRegistrySourceFile, isRegistryInstalledFile } from "./composition";
 
 const GENERIC_FAMILIES = new Set([
@@ -162,11 +162,11 @@ function collectGoogleFontFamilies(
   return families;
 }
 
-export const fontRules: Array<(ctx: LintContext) => HyperframeLintFinding[]> = [
+export const fontRules: Array<(ctx: LintContext) => ShiftCutLintFinding[]> = [
   // google_fonts_import
   ({ styles, source, rawSource, options }) => {
     if (isRegistrySourceFile(options.filePath) || isRegistryInstalledFile(rawSource)) return [];
-    const findings: HyperframeLintFinding[] = [];
+    const findings: ShiftCutLintFinding[] = [];
     const googleFontsInLink = /<link\b[^>]*fonts\.googleapis\.com[^>]*>/i.test(source);
     const googleFontsInImport = styles.some((s) =>
       /@import\s+url\s*\(\s*['"]?[^)]*fonts\.googleapis\.com/i.test(s.content),
@@ -214,7 +214,7 @@ export const fontRules: Array<(ctx: LintContext) => HyperframeLintFinding[]> = [
   // font_family_without_font_face
   ({ styles, source, rawSource, options }) => {
     if (isRegistrySourceFile(options.filePath) || isRegistryInstalledFile(rawSource)) return [];
-    const findings: HyperframeLintFinding[] = [];
+    const findings: ShiftCutLintFinding[] = [];
     const declared = extractFontFaceFamilies(styles);
     const used = extractUsedFontFamilies(styles);
     const googleFonts = collectGoogleFontFamilies(source, styles);

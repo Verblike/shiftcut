@@ -13,8 +13,8 @@ import {
   resolveLocalAssetCandidates,
 } from "@shiftcut/parsers/asset-resolution";
 import { collectLocalVideoCandidates, lintHevcPreviewCodec } from "./hevcPreviewLint.js";
-import { lintHyperframeHtml } from "./hyperframeLinter.js";
-import type { HyperframeLintFinding, HyperframeLintResult } from "./types.js";
+import { lintShiftCutHtml } from "./shiftcutLinter.js";
+import type { ShiftCutLintFinding, ShiftCutLintResult } from "./types.js";
 import type { ParsableDocumentLike } from "@shiftcut/parsers/sub-composition-validity";
 
 /** Adapts linkedom's `parseHTML` to the `checkSubCompositionUsability` contract. */
@@ -46,7 +46,7 @@ function querySelectorAllIncludingTemplates(root: ParentNode, selector: string):
 }
 
 export interface ProjectLintResult {
-  results: Array<{ file: string; result: HyperframeLintResult }>;
+  results: Array<{ file: string; result: ShiftCutLintResult }>;
   totalErrors: number;
   totalWarnings: number;
   totalInfos: number;
@@ -147,13 +147,13 @@ export async function lintProject(
   }
   const rootFile = relative(resolve(projectDir), indexPath).replace(/\\/g, "/") || "index.html";
   const rootCompSrcPath = rootFile === "index.html" ? undefined : rootFile;
-  const results: Array<{ file: string; result: HyperframeLintResult }> = [];
+  const results: Array<{ file: string; result: ShiftCutLintResult }> = [];
   let totalErrors = 0;
   let totalWarnings = 0;
   let totalInfos = 0;
 
   const rootHtml = readFileSync(indexPath, "utf-8");
-  const rootResult = await lintHyperframeHtml(rootHtml, {
+  const rootResult = await lintShiftCutHtml(rootHtml, {
     filePath: indexPath,
     externalStyles: collectExternalStyles(projectDir, rootHtml, rootCompSrcPath),
   });
@@ -192,7 +192,7 @@ export async function lintProject(
       // Anchored to the file's ROOT element so a real composition that merely
       // inlines snippet markup (or mentions the token in text) is still linted.
       if (isSnippetFragment(html)) continue;
-      const result = await lintHyperframeHtml(html, {
+      const result = await lintShiftCutHtml(html, {
         filePath,
         isSubComposition: true,
         externalStyles: collectExternalStyles(projectDir, html, compSrcPath),
@@ -237,8 +237,8 @@ export async function lintProject(
 function lintProjectAudioFiles(
   projectDir: string,
   htmlSources: HtmlSource[],
-): HyperframeLintFinding[] {
-  const findings: HyperframeLintFinding[] = [];
+): ShiftCutLintFinding[] {
+  const findings: ShiftCutLintFinding[] = [];
 
   let audioFiles: string[];
   try {
@@ -271,8 +271,8 @@ function lintProjectAudioFiles(
 function lintAudioSrcNotFound(
   projectDir: string,
   htmlSources: HtmlSource[],
-): HyperframeLintFinding[] {
-  const findings: HyperframeLintFinding[] = [];
+): ShiftCutLintFinding[] {
+  const findings: ShiftCutLintFinding[] = [];
 
   const audioSrcRe = /<audio\b[^>]*\bsrc\s*=\s*["']([^"']+)["'][^>]*>/gi;
 
@@ -310,8 +310,8 @@ function lintAudioSrcNotFound(
 function lintMissingLocalAsset(
   projectDir: string,
   htmlSources: HtmlSource[],
-): HyperframeLintFinding[] {
-  const findings: HyperframeLintFinding[] = [];
+): ShiftCutLintFinding[] {
+  const findings: ShiftCutLintFinding[] = [];
 
   const localAssetSrcRe = /<(video|img|source)\b[^>]*\bsrc\s*=\s*["']([^"']+)["'][^>]*>/gi;
 
@@ -353,7 +353,7 @@ function lintMissingLocalAsset(
       fixHint:
         unique.length === 1
           ? `Add "${unique[0]}" to the project directory, or update the src attribute to point to an existing file. ` +
-            "Common cause: captured asset filenames are unreliable (heygen-logo.svg often contains Google, nvidia-logo.svg may contain Autodesk, etc.). " +
+            "Common cause: captured asset filenames are unreliable (verblike-logo.svg often contains Google, nvidia-logo.svg may contain Autodesk, etc.). " +
             "Open the contact sheets and verify the file actually exists at this path before referencing it."
           : "Add the missing files to the project directory, or update the src attributes to point to existing files. " +
             "Captured asset filenames are unreliable — verify against capture/contact-sheets/ and capture/extracted/asset-descriptions.md.",
@@ -366,7 +366,7 @@ function lintMissingLocalAsset(
 function lintTextureMaskAssetNotFound(
   projectDir: string,
   htmlSources: HtmlSource[],
-): HyperframeLintFinding[] {
+): ShiftCutLintFinding[] {
   const missing = new Map<string, string>();
 
   for (const { html, compSrcPath } of htmlSources) {
@@ -406,8 +406,8 @@ function lintTextureMaskAssetNotFound(
   ];
 }
 
-function lintMultipleRootCompositions(projectDir: string): HyperframeLintFinding[] {
-  const findings: HyperframeLintFinding[] = [];
+function lintMultipleRootCompositions(projectDir: string): ShiftCutLintFinding[] {
+  const findings: ShiftCutLintFinding[] = [];
   try {
     const rootHtmlFiles = readdirSync(projectDir).filter(
       (file) => file.endsWith(".html") && !file.startsWith("._"),
@@ -435,8 +435,8 @@ function lintMultipleRootCompositions(projectDir: string): HyperframeLintFinding
   return findings;
 }
 
-function lintDuplicateAudioTracks(htmlSources: HtmlSource[]): HyperframeLintFinding[] {
-  const findings: HyperframeLintFinding[] = [];
+function lintDuplicateAudioTracks(htmlSources: HtmlSource[]): ShiftCutLintFinding[] {
+  const findings: ShiftCutLintFinding[] = [];
   function extractAttr(tag: string, name: string): string | null {
     const re = new RegExp(`\\b${name}\\s*=\\s*["']([^"']+)["']`, "i");
     const m = tag.match(re);
@@ -512,7 +512,7 @@ function lintDuplicateAudioTracks(htmlSources: HtmlSource[]): HyperframeLintFind
 function lintMissingOrEmptySubComposition(
   projectDir: string,
   rootHtml: string,
-): HyperframeLintFinding[] {
+): ShiftCutLintFinding[] {
   // Dedup by src path — the same reference can appear from nested sub-comps.
   const checked = new Map<string, { srcPath: string; problem: string }>();
   const visited = new Set<string>();
@@ -567,7 +567,7 @@ function lintMissingOrEmptySubComposition(
 
   walk(rootHtml);
 
-  const findings: HyperframeLintFinding[] = [];
+  const findings: ShiftCutLintFinding[] = [];
   for (const { srcPath, problem } of checked.values()) {
     findings.push({
       code: "missing_or_empty_sub_composition",

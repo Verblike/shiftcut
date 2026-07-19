@@ -5,7 +5,7 @@ import { join } from "node:path";
 
 const root = join(import.meta.dirname, "..");
 const { version } = JSON.parse(readFileSync(join(root, "package.json"), "utf8"));
-const expected = `@shiftcut/core@${version}/dist/hyperframe.runtime.iife.js`;
+const expected = `@shiftcut/core@${version}/dist/shiftcut.runtime.iife.js`;
 const bundles = [
   "dist/shiftcut-player.js",
   "dist/shiftcut-player.cjs",
@@ -17,7 +17,7 @@ for (const bundle of bundles) {
   if (!source.includes(expected)) {
     throw new Error(`${bundle} does not pin the injected runtime to ${version}`);
   }
-  if (source.includes("@shiftcut/core/dist/hyperframe.runtime.iife.js")) {
+  if (source.includes("@shiftcut/core/dist/shiftcut.runtime.iife.js")) {
     throw new Error(`${bundle} still contains an unversioned runtime URL`);
   }
 }

@@ -3,8 +3,8 @@ import { installAuthoredOpacityCapture } from "./colorGrading";
 import { fitTextFontSize } from "../text/fitTextFontSize";
 import { getVariables } from "./getVariables";
 
-type HyperframeWindow = Window & {
-  __hyperframeRuntimeBootstrapped?: boolean;
+type ShiftCutWindow = Window & {
+  __shiftcutRuntimeBootstrapped?: boolean;
   __shiftcut?: {
     fitTextFontSize: typeof fitTextFontSize;
     getVariables: typeof getVariables;
@@ -13,7 +13,7 @@ type HyperframeWindow = Window & {
 
 // Inline composition scripts can run before DOMContentLoaded.
 // Ensure timeline registry exists at script evaluation time.
-(window as HyperframeWindow).__timelines = (window as HyperframeWindow).__timelines || {};
+(window as ShiftCutWindow).__timelines = (window as ShiftCutWindow).__timelines || {};
 
 // Stamp color-graded elements with their authored inline opacity BEFORE the
 // composition's animation scripts (and the grading hide) mutate it — must run
@@ -23,22 +23,22 @@ installAuthoredOpacityCapture();
 // Expose runtime helpers immediately so composition scripts can use them
 // before DOMContentLoaded (font sizing runs during script evaluation, and
 // getVariables is read by composition setup before the timeline is built).
-(window as HyperframeWindow).__shiftcut = {
+(window as ShiftCutWindow).__shiftcut = {
   fitTextFontSize,
   getVariables,
 };
 
-function bootstrapHyperframeRuntime(): void {
-  const win = window as HyperframeWindow;
-  if (win.__hyperframeRuntimeBootstrapped) {
+function bootstrapShiftCutRuntime(): void {
+  const win = window as ShiftCutWindow;
+  if (win.__shiftcutRuntimeBootstrapped) {
     return;
   }
-  win.__hyperframeRuntimeBootstrapped = true;
+  win.__shiftcutRuntimeBootstrapped = true;
   initSandboxRuntimeModular();
 }
 
 if (document.readyState === "loading") {
-  document.addEventListener("DOMContentLoaded", bootstrapHyperframeRuntime, { once: true });
+  document.addEventListener("DOMContentLoaded", bootstrapShiftCutRuntime, { once: true });
 } else {
-  bootstrapHyperframeRuntime();
+  bootstrapShiftCutRuntime();
 }

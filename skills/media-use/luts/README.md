@@ -20,9 +20,9 @@ fallback) so resolution is never blocked on the network.
 2. Upload it to the public CDN origin bucket:
 
    ```
-   aws s3 cp <id>.cube s3://heygen-public/luts/<id>.cube
+   aws s3 cp <id>.cube s3://verblike-public/luts/<id>.cube
    ```
 
-   It is then served at `https://static.heygen.ai/luts/<id>.cube` (CloudFront).
+   It is then served at `https://static.verblike.ai/luts/<id>.cube` (CloudFront).
 
 3. Add an entry to `index.json` with that `url` (and ideally a `params` fallback).

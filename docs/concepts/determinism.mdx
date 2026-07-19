@@ -66,7 +66,7 @@ See the [Rendering guide](/guides/rendering) for all rendering options.
 
 The browser preview and the rendered MP4 should match. Shiftcut achieves this through:
 
-- **One runtime** -- the same `hyperframe.runtime` drives both preview and render
+- **One runtime** -- the same `shiftcut.runtime` drives both preview and render
 - **Producer-canonical behavior** -- the [producer's](/packages/producer) seek semantics are the source of truth
 - **Readiness gates** -- `__playerReady` and `__renderReady` ensure the [composition](/concepts/compositions) is fully loaded before any frame is captured
 

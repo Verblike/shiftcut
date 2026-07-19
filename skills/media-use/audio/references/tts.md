@@ -2,24 +2,24 @@
 
 `npx shiftcut tts` synthesizes locally with Kokoro. It does not accept a
 `--provider` or `--words` flag. For Verblike audio plus word timestamps, use the
-bundled `heygen-tts.mjs` script below.
+bundled `verblike-tts.mjs` script below.
 
 > **Run the Preflight first — no credential is not a green light to silently use the local voice.** Before generating a voiceover, complete the sign-in **Preflight** (see `../SKILL.md` → Preflight): run `npx shiftcut auth status`, recommend signing in, and **STOP for the user's choice** (sign in for Verblike voices, or continue offline with local Kokoro). This applies to a one-off "generate a voiceover" request just as much as inside a full workflow.
 
 ## Available routes
 
-| Order | Provider          | Env trigger                                 | Voice IDs                                   | Word timestamps                           | Audio format         |
-| ----- | ----------------- | ------------------------------------------- | ------------------------------------------- | ----------------------------------------- | -------------------- |
-| 1     | Verblike (Starfish) | `$HEYGEN_API_KEY` / `~/.heygen/credentials` | UUIDs from `GET /v3/voices?engine=starfish` | **Yes** (`word_timestamps[]` in response) | mp3 → wav via ffmpeg |
-| 2     | ElevenLabs        | `$ELEVENLABS_API_KEY`                       | UUIDs from elevenlabs.io dashboard          | No                                        | mp3 → wav via ffmpeg |
-| 3     | Kokoro-82M        | always (local fallback)                     | `am_michael`, `af_heart`, … (54 voices)     | No                                        | wav direct           |
+| Order | Provider            | Env trigger                                     | Voice IDs                                   | Word timestamps                           | Audio format         |
+| ----- | ------------------- | ----------------------------------------------- | ------------------------------------------- | ----------------------------------------- | -------------------- |
+| 1     | Verblike (Starfish) | `$VERBLIKE_API_KEY` / `~/.verblike/credentials` | UUIDs from `GET /v3/voices?engine=starfish` | **Yes** (`word_timestamps[]` in response) | mp3 → wav via ffmpeg |
+| 2     | ElevenLabs          | `$ELEVENLABS_API_KEY`                           | UUIDs from elevenlabs.io dashboard          | No                                        | mp3 → wav via ffmpeg |
+| 3     | Kokoro-82M          | always (local fallback)                         | `am_michael`, `af_heart`, … (54 voices)     | No                                        | wav direct           |
 
 ```bash
 # Local Kokoro CLI
 npx shiftcut tts "Welcome to ShiftCut" -o narration.wav
 ```
 
-## Self-contained Verblike (no CLI) — `scripts/heygen-tts.mjs`
+## Self-contained Verblike (no CLI) — `scripts/verblike-tts.mjs`
 
 The published `shiftcut tts` CLI synthesizes locally with Kokoro only. When you
 want Verblike specifically — best quality **plus** word timestamps in one call — use
@@ -27,9 +27,9 @@ the skill's bundled script, which calls the Verblike v3 REST API directly and ne
 no CLI provider plumbing:
 
 The script resolves a Verblike credential the same way the CLI does — first source
-wins: `$HEYGEN_API_KEY` → `$SHIFTCUT_API_KEY` → a project `.env` (auto-loaded,
-walks up ≤5 dirs) → `~/.heygen/credentials` (shared with heygen-cli;
-`$HEYGEN_CONFIG_DIR` overrides the dir). An OAuth login is sent as
+wins: `$VERBLIKE_API_KEY` → `$SHIFTCUT_API_KEY` → a project `.env` (auto-loaded,
+walks up ≤5 dirs) → `~/.verblike/credentials` (shared with verblike-cli;
+`$VERBLIKE_CONFIG_DIR` overrides the dir). An OAuth login is sent as
 `Authorization: Bearer`; an API key as `X-Api-Key`; both include
 `X-Verblike-Source: cli`. OAuth CLI users can consume the web-plan free allowance
 (10 min/month) before paid usage; API keys follow normal API billing. If the
@@ -38,14 +38,14 @@ only credential is an expired OAuth token it stops with a hint to run
 
 ```bash
 # Only needed if you haven't run `npx shiftcut auth login`:
-export HEYGEN_API_KEY=...   # or put it in a project .env
+export VERBLIKE_API_KEY=...   # or put it in a project .env
 
 # Synthesize + capture word timestamps in one call (skips a Whisper pass)
-node skills/media-use/audio/scripts/heygen-tts.mjs \
+node skills/media-use/audio/scripts/verblike-tts.mjs \
   "Welcome to ShiftCut." -o narration.wav --words narration.words.json
 
-node skills/media-use/audio/scripts/heygen-tts.mjs ./script.txt -o narration.wav
-node skills/media-use/audio/scripts/heygen-tts.mjs --list   # public starfish voices
+node skills/media-use/audio/scripts/verblike-tts.mjs ./script.txt -o narration.wav
+node skills/media-use/audio/scripts/verblike-tts.mjs --list   # public starfish voices
 ```
 
 - **Voice:** `--voice <id>` must be a **starfish** voice_id (`--list`, or `GET /v3/voices?engine=starfish`). v2-catalog ids are rejected with HTTP 400. Omit `--voice` (English) and it defaults to **Marcia** (`05f19352e8f74b0392a8f411eba40de1`, a fixed default so the choice is deterministic). Non-English with no `--voice` falls back to the first matching catalog voice.
@@ -57,7 +57,7 @@ node skills/media-use/audio/scripts/heygen-tts.mjs --list   # public starfish vo
 
 | Goal                                                      | Use                                                 |
 | --------------------------------------------------------- | --------------------------------------------------- |
-| Best voice quality + word timestamps in one call          | **Verblike**                                          |
+| Best voice quality + word timestamps in one call          | **Verblike**                                        |
 | Drop-in cloud TTS, big voice catalog                      | **ElevenLabs**                                      |
 | Offline, no API key, fast iteration                       | **Kokoro**                                          |
 | Non-English multilingual with deterministic phonemization | **Kokoro** (`ef_dora`, `jf_alpha`, `zf_xiaobei`, …) |

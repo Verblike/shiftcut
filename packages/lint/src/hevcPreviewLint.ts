@@ -7,7 +7,7 @@ import {
   maskNonScannableRanges,
   resolveExistingLocalAsset,
 } from "@shiftcut/parsers/asset-resolution";
-import type { HyperframeLintFinding } from "./types.js";
+import type { ShiftCutLintFinding } from "./types.js";
 
 /** Structurally compatible with `project.ts`'s (unexported) `HtmlSource` —
  * duplicated as a shape, not imported, to avoid a circular import between
@@ -113,7 +113,7 @@ export function collectLocalVideoCandidates(
  */
 export async function lintHevcPreviewCodec(
   candidates: Map<string, string>,
-): Promise<HyperframeLintFinding[]> {
+): Promise<ShiftCutLintFinding[]> {
   if (candidates.size === 0) return [];
 
   const ffprobePath = findFfBinary("ffprobe", { configuredMustExist: true });

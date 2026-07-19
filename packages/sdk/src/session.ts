@@ -784,7 +784,7 @@ class CompositionImpl implements Composition {
 
   serialize(opts?: { stripRuntime?: boolean }): string {
     const html = serializeDocument(this.parsed);
-    // Newer agent-generated compositions embed hyperframe.runtime.iife.js in their own
+    // Newer agent-generated compositions embed shiftcut.runtime.iife.js in their own
     // HTML. Any host driving its own clock (not just an editing iframe — anything that
     // owns seeking/playback itself) must not let that runtime self-init: it races the
     // host's first seek and resets the timeline to t=0. Opt-in (default false) since a

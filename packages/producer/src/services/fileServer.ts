@@ -3,7 +3,7 @@
  * File Server for Render Mode
  *
  * Lightweight HTTP server that serves the project directory inside Docker.
- * Key responsibility: inject the verified Hyperframe runtime + render mode extension
+ * Key responsibility: inject the verified ShiftCut runtime + render mode extension
  * into index.html on-the-fly, so Puppeteer can load the composition with
  * all relative URLs (compositions, CSS, JS, assets) resolving correctly.
  */
@@ -17,7 +17,7 @@ import { Readable } from "node:stream";
 import { join, extname, resolve, sep } from "node:path";
 import { injectScriptsAtHeadStart, injectScriptsIntoHtml } from "@shiftcut/core/compiler";
 import { fpsToNumber, type Fps } from "@shiftcut/core";
-import { getVerifiedHyperframeRuntimeSource } from "./hyperframeRuntimeLoader.js";
+import { getVerifiedShiftCutRuntimeSource } from "./shiftcutRuntimeLoader.js";
 import { getHfEarlyStub } from "../generated/hf-early-stub-inline.js";
 import { defaultLogger, type ProducerLogger } from "../logger.js";
 
@@ -560,7 +560,7 @@ export const HF_PAGE_SIDE_COMPOSITING_STUB = `(function() {
 })();`;
 
 /**
- * Bridge script: maps window.__player (Hyperframe runtime) → window.__hf (engine protocol).
+ * Bridge script: maps window.__player (ShiftCut runtime) → window.__hf (engine protocol).
  * Injected after RENDER_MODE_SCRIPT so the engine's frameCapture can find window.__hf.
  *
  * This script *patches* the existing __hf object rather than replacing it, so
@@ -660,7 +660,7 @@ export interface FileServerOptions {
   port?: number;
   /** Scripts injected into <head> of every served HTML file before authored scripts. */
   preHeadScripts?: string[];
-  /** Scripts injected into <head> of index.html. Default: verified Hyperframe runtime. */
+  /** Scripts injected into <head> of index.html. Default: verified ShiftCut runtime. */
   headScripts?: string[];
   /** Scripts injected before </body> of index.html. Default: render mode extension. */
   bodyScripts?: string[];
@@ -708,11 +708,11 @@ export function createFileServer(options: FileServerOptions): Promise<FileServer
   // to window.__hf during page-script execution (e.g. shader-transitions
   // populating __hf.transitions) find it already defined. The full bridge in
   // bodyScripts later upgrades this stub with `seek` / `duration` once the
-  // Hyperframe runtime's __player is ready, while preserving any fields
+  // ShiftCut runtime's __player is ready, while preserving any fields
   // already written.
   const preHeadScripts = [HF_EARLY_STUB, ...(options.preHeadScripts ?? [])];
-  // Default scripts: Hyperframe runtime in <head>, render mode in </body>
-  const headScripts = options.headScripts ?? [getVerifiedHyperframeRuntimeSource()];
+  // Default scripts: ShiftCut runtime in <head>, render mode in </body>
+  const headScripts = options.headScripts ?? [getVerifiedShiftCutRuntimeSource()];
   const bodyScripts = options.bodyScripts ?? [buildRenderModeScript(options.fps), HF_BRIDGE_SCRIPT];
 
   const app = new Hono();

@@ -25,7 +25,7 @@ export function runtimeCdnUrlForVersion(version: string): string {
   if (!/^\d+\.\d+\.\d+(?:-[0-9A-Za-z.-]+)?(?:\+[0-9A-Za-z.-]+)?$/.test(version)) {
     throw new Error(`Invalid ShiftCut runtime version: ${version}`);
   }
-  return `https://cdn.jsdelivr.net/npm/@shiftcut/core@${version}/dist/hyperframe.runtime.iife.js`;
+  return `https://cdn.jsdelivr.net/npm/@shiftcut/core@${version}/dist/shiftcut.runtime.iife.js`;
 }
 
 const RUNTIME_CDN_URL =

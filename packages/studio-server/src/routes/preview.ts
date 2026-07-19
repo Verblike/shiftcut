@@ -380,10 +380,7 @@ export function registerPreviewRoutes(api: Hono, adapter: PreviewApiAdapter): vo
       }
 
       // Inject runtime if not already present (check URL pattern and bundler attribute)
-      if (
-        !bundled.includes("hyperframe.runtime") &&
-        !bundled.includes("shiftcut-preview-runtime")
-      ) {
+      if (!bundled.includes("shiftcut.runtime") && !bundled.includes("shiftcut-preview-runtime")) {
         const runtimeTag = `<script src="${adapter.runtimeUrl}"></script>`;
         bundled = bundled.includes("</body>")
           ? bundled.replace("</body>", `${runtimeTag}\n</body>`)

@@ -1,4 +1,4 @@
-# HyperFrame Schema Compliance Review
+# ShiftCut Schema Compliance Review
 
 ## Executive Summary
 
@@ -8,7 +8,7 @@
 
 ## Critical Issues
 
-None. The composition follows the HyperFrame schema correctly.
+None. The composition follows the ShiftCut schema correctly.
 
 ## Compliance Checklist
 

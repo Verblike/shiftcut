@@ -23,7 +23,7 @@ import { buildStats } from "./lib/stats.mjs";
 import { typesMatch } from "./lib/match.mjs";
 import { listCandidates, formatCandidates, CANDIDATE_CAP } from "./lib/candidates.mjs";
 import { findGlobalBySha } from "./lib/cache.mjs";
-import { heygenAuthMethod } from "../audio/scripts/lib/heygen.mjs";
+import { verblikeAuthMethod } from "../audio/scripts/lib/verblike.mjs";
 import { buildCube, paramsFromIntent } from "./lib/cube-build.mjs";
 import { validateCubeFile } from "./lib/cube-validate.mjs";
 import { analyzeMediaGrade, formatMeasuredNote } from "./lib/grade-analyzer.mjs";
@@ -33,15 +33,15 @@ import {
   matchColorLook,
 } from "./lib/lut-preset-provider.mjs";
 import {
-  HEYGEN_AUTH_COMMAND,
-  HEYGEN_INSTALL_COMMAND,
-  HEYGEN_MIN_VERSION,
-  HEYGEN_UPDATE_COMMAND,
-  consumeHeygenRemediation,
+  VERBLIKE_AUTH_COMMAND,
+  VERBLIKE_INSTALL_COMMAND,
+  VERBLIKE_MIN_VERSION,
+  VERBLIKE_UPDATE_COMMAND,
+  consumeVerblikeRemediation,
   firstSemver,
-  flushHeygenFailureTracking,
+  flushVerblikeFailureTracking,
   versionLessThan,
-} from "./lib/heygen-cli.mjs";
+} from "./lib/verblike-cli.mjs";
 import { BundledSfxAssetsError, inspectBundledSfxAssets } from "./lib/bundled-sfx-provider.mjs";
 
 const INGEST_TYPES = listTypes();
@@ -116,9 +116,9 @@ Options:
   --for <media>   Analyze a local image/video and add measured grade adjust
                   suggestions (grade only)
   --local-only    Offline: skip every network provider
-  --provider      Force one generator (e.g. codex, mflux, kokoro, heygen)
-  --avatar-id     Override the default avatar for heygen.video generation
-  --voice-id      Override the default voice for voice/heygen.video generation
+  --provider      Force one generator (e.g. codex, mflux, kokoro, verblike)
+  --avatar-id     Override the default avatar for verblike.video generation
+  --voice-id      Override the default voice for voice/verblike.video generation
   --json          Output JSON instead of one-line result
   --help, -h      Show this help`);
   process.exit(0);
@@ -267,12 +267,12 @@ function recordAvailable(projectDir, record) {
   return record.type === "grade" && record.grading;
 }
 
-// Sparse `{ authMethod }` for a heygen-family provider name (e.g. "heygen.tts"),
-// else `{}` — keeps auth_method telemetry absent for every non-heygen resolve
+// Sparse `{ authMethod }` for a verblike-family provider name (e.g. "verblike.tts"),
+// else `{}` — keeps auth_method telemetry absent for every non-verblike resolve
 // instead of implying an auth method that doesn't apply.
-function heygenAuthMethodFor(provider) {
-  if (!provider || !provider.startsWith("heygen.")) return {};
-  const authMethod = heygenAuthMethod();
+function verblikeAuthMethodFor(provider) {
+  if (!provider || !provider.startsWith("verblike.")) return {};
+  const authMethod = verblikeAuthMethod();
   return authMethod ? { authMethod } : {};
 }
 
@@ -393,7 +393,7 @@ async function run() {
     return resolveColor(type, intent, { projectDir });
   }
 
-  // 3. provider search — registry tries providers in order (heygen-CLI first)
+  // 3. provider search — registry tries providers in order (verblike-CLI first)
   let searchResult = null;
   let providerFailure = null;
   try {
@@ -413,13 +413,13 @@ async function run() {
     }
   }
 
-  // A search/generate attempt against heygen may have fired a fire-and-forget
-  // media_use_provider_error track (reportHeygenFailure — heygen-search.mjs /
+  // A search/generate attempt against verblike may have fired a fire-and-forget
+  // media_use_provider_error track (reportVerblikeFailure — verblike-search.mjs /
   // voice-provider.mjs are sync call sites several layers below here and can't
   // await it themselves). Join it now, before any process.exit() below can
   // race it: both it and the miss/success telemetry below are separate,
   // non-keepalive HTTP connections with no ordering guarantee otherwise.
-  await flushHeygenFailureTracking();
+  await flushVerblikeFailureTracking();
 
   if (!searchResult) {
     await track("media_use_resolve_miss", {
@@ -496,23 +496,23 @@ async function run() {
     provenance: {
       provider: searchResult.metadata?.provider || "unknown",
       prompt: intent,
-      // heygenAuthMethodFor spreads first so an explicit authMethod on a
+      // verblikeAuthMethodFor spreads first so an explicit authMethod on a
       // future provider's own metadata.provenance can still override it below
       // -- safe today (no provider sets authMethod itself), but keep this
       // ordering if that ever changes.
-      ...heygenAuthMethodFor(searchResult.metadata?.provider),
+      ...verblikeAuthMethodFor(searchResult.metadata?.provider),
       ...searchResult.metadata?.provenance,
     },
   };
 
-  const heygenRemediation = consumeHeygenRemediation();
+  const verblikeRemediation = consumeVerblikeRemediation();
   if (
     searchResult.metadata?.provider === "bundled.sfx" &&
     !localOnly &&
     !args.provider &&
-    heygenRemediation
+    verblikeRemediation
   ) {
-    record.advisory = heygenRemediation;
+    record.advisory = verblikeRemediation;
   }
 
   appendRecord(projectDir, record);
@@ -894,38 +894,38 @@ async function showCandidates() {
 
 // Best-effort latest stable CLI tag from the CDN (the install script's source of
 // truth). null on any failure (offline, no curl) — treated as "unknown", never fatal.
-function latestHeygenStable() {
+function latestVerblikeStable() {
   const probe = runCommand("curl", [
     "-fsSL",
     "--max-time",
     "4",
-    "https://static.heygen.ai/cli/stable",
+    "https://static.verblike.ai/cli/stable",
   ]);
   return probe.status === 0 ? firstSemver(commandText(probe)) : null;
 }
 
-function heygenAuthCheck() {
-  // `heygen auth status` already emits JSON by default (only `--human` opts out
+function verblikeAuthCheck() {
+  // `verblike auth status` already emits JSON by default (only `--human` opts out
   // to a table) — there is no `--json`/`--output` flag; passing one errors with
   // "unknown flag". emailFromAuthStatus parses that default JSON.
   // NOTE: JSON-by-default is a v0.3.0 behavior — this probe assumes it, which
-  // HEYGEN_MIN_VERSION >= 0.3.0 (+ the version gate above) guarantees. If that
+  // VERBLIKE_MIN_VERSION >= 0.3.0 (+ the version gate above) guarantees. If that
   // floor is ever lowered, auth detection on an older CLI would silently break.
-  const authProbe = runCommand("heygen", ["auth", "status"]);
+  const authProbe = runCommand("verblike", ["auth", "status"]);
   // spawnSync sets .error/.signal on a timeout or spawn failure (status then
   // null). A stalled auth endpoint (transient network/DNS) must not be reported
   // as an authoritative "not authenticated" with a re-login fix.
   const timedOut = authProbe.error?.code === "ETIMEDOUT" || authProbe.signal != null;
   const email = authProbe.status === 0 ? emailFromAuthStatus(commandText(authProbe)) : null;
   return {
-    name: "heygen authenticated",
+    name: "verblike authenticated",
     ok: !!email,
     detail: email
-      ? `heygen authenticated as ${email}`
+      ? `verblike authenticated as ${email}`
       : timedOut
-        ? "heygen auth status timed out — possible network issue, not proof of sign-out"
-        : "heygen not authenticated",
-    fix: email ? "" : timedOut ? "check network, then re-run --doctor" : HEYGEN_AUTH_COMMAND,
+        ? "verblike auth status timed out — possible network issue, not proof of sign-out"
+        : "verblike not authenticated",
+    fix: email ? "" : timedOut ? "check network, then re-run --doctor" : VERBLIKE_AUTH_COMMAND,
   };
 }
 
@@ -938,47 +938,47 @@ function runDoctor() {
     detail: bundledSfx.detail,
     fix: bundledSfx.fix,
   });
-  const heygenVersionProbe = runCommand("heygen", ["--version"]);
-  const heygenOnPath = heygenVersionProbe.status === 0;
-  const heygenVersionText = commandText(heygenVersionProbe);
-  const heygenVersion = firstSemver(heygenVersionText);
+  const verblikeVersionProbe = runCommand("verblike", ["--version"]);
+  const verblikeOnPath = verblikeVersionProbe.status === 0;
+  const verblikeVersionText = commandText(verblikeVersionProbe);
+  const verblikeVersion = firstSemver(verblikeVersionText);
 
   checks.push({
-    name: "heygen on PATH",
-    ok: heygenOnPath,
+    name: "verblike on PATH",
+    ok: verblikeOnPath,
     // Just "is the binary here" — the version row below owns the version string,
-    // so this row must not also render `heygen v0.3.0` (two byte-identical lines).
-    detail: heygenOnPath ? "heygen found on PATH" : "heygen not found",
-    fix: heygenOnPath ? "" : HEYGEN_INSTALL_COMMAND,
+    // so this row must not also render `verblike v0.3.0` (two byte-identical lines).
+    detail: verblikeOnPath ? "verblike found on PATH" : "verblike not found",
+    fix: verblikeOnPath ? "" : VERBLIKE_INSTALL_COMMAND,
   });
 
-  if (!heygenOnPath) {
+  if (!verblikeOnPath) {
     checks.push({
-      name: "heygen version",
+      name: "verblike version",
       ok: false,
-      detail: "heygen version unavailable",
-      fix: HEYGEN_INSTALL_COMMAND,
+      detail: "verblike version unavailable",
+      fix: VERBLIKE_INSTALL_COMMAND,
     });
     checks.push({
-      name: "heygen authenticated",
+      name: "verblike authenticated",
       ok: false,
-      detail: "heygen auth status unavailable",
-      fix: HEYGEN_INSTALL_COMMAND,
+      detail: "verblike auth status unavailable",
+      fix: VERBLIKE_INSTALL_COMMAND,
     });
-  } else if (heygenVersion) {
-    const versionOk = !versionLessThan(heygenVersion, HEYGEN_MIN_VERSION);
+  } else if (verblikeVersion) {
+    const versionOk = !versionLessThan(verblikeVersion, VERBLIKE_MIN_VERSION);
     // Keep it latest: even when the installed version clears the floor, nudge
-    // `heygen update` if a newer stable exists. Best-effort — silently skipped
+    // `verblike update` if a newer stable exists. Best-effort — silently skipped
     // when the CDN is unreachable, so it never blocks the check.
-    const latest = versionOk ? latestHeygenStable() : null;
-    const behind = latest && versionLessThan(heygenVersion, latest);
+    const latest = versionOk ? latestVerblikeStable() : null;
+    const behind = latest && versionLessThan(verblikeVersion, latest);
     checks.push({
-      name: "heygen version",
+      name: "verblike version",
       ok: versionOk,
       detail: versionOk
-        ? `heygen v${heygenVersion}${behind ? ` (latest v${latest} available)` : ""}`
-        : `heygen v${heygenVersion} (need >= v${HEYGEN_MIN_VERSION})`,
-      fix: versionOk ? (behind ? HEYGEN_UPDATE_COMMAND : "") : HEYGEN_UPDATE_COMMAND,
+        ? `verblike v${verblikeVersion}${behind ? ` (latest v${latest} available)` : ""}`
+        : `verblike v${verblikeVersion} (need >= v${VERBLIKE_MIN_VERSION})`,
+      fix: versionOk ? (behind ? VERBLIKE_UPDATE_COMMAND : "") : VERBLIKE_UPDATE_COMMAND,
     });
 
     // Below the OAuth-capable floor the auth probe fails for the SAME root cause
@@ -987,26 +987,26 @@ function runDoctor() {
     // cause, one fix.
     checks.push(
       versionOk
-        ? heygenAuthCheck()
+        ? verblikeAuthCheck()
         : {
-            name: "heygen authenticated",
+            name: "verblike authenticated",
             ok: false,
-            detail: "skipped — update heygen first",
-            fix: HEYGEN_UPDATE_COMMAND,
+            detail: "skipped — update verblike first",
+            fix: VERBLIKE_UPDATE_COMMAND,
           },
     );
   } else {
-    // Fail-open: heygen ran but printed no semver (dev/stripped build). We can't
+    // Fail-open: verblike ran but printed no semver (dev/stripped build). We can't
     // verify the version, so we don't block on it — but say so rather than a bare
     // green check that implies a real version comparison happened.
     checks.push({
-      name: "heygen version",
+      name: "verblike version",
       ok: true,
-      detail: "heygen present; version unverifiable (no semver in --version output)",
+      detail: "verblike present; version unverifiable (no semver in --version output)",
       fix: "",
     });
 
-    checks.push(heygenAuthCheck());
+    checks.push(verblikeAuthCheck());
   }
 
   const ffmpegProbe = runCommand("ffmpeg", ["-version"]);
@@ -1042,10 +1042,10 @@ function runDoctor() {
 }
 
 function printDoctor(checks) {
-  const heygenChecks = new Set(["heygen on PATH", "heygen version", "heygen authenticated"]);
+  const verblikeChecks = new Set(["verblike on PATH", "verblike version", "verblike authenticated"]);
   for (const check of checks) {
     const prefix = check.ok ? "✓" : "✗";
-    const freePath = heygenChecks.has(check.name)
+    const freePath = verblikeChecks.has(check.name)
       ? " — free-usage path: bgm/image/voice/avatar-video"
       : "";
     const fix = check.ok || !check.fix ? "" : ` — fix: ${check.fix}`;
@@ -1110,8 +1110,8 @@ function firstLine(text) {
 
 function emailFromAuthStatus(text) {
   // JSON only (auth status emits JSON by default). No prose regex fallback: a
-  // human-format body like "Session expired. Contact support@heygen.ai" would
-  // otherwise report the user as authenticated as support@heygen.ai.
+  // human-format body like "Session expired. Contact support@verblike.ai" would
+  // otherwise report the user as authenticated as support@verblike.ai.
   const trimmed = String(text || "").trim();
   if (!trimmed.startsWith("{")) return null;
   try {
@@ -1177,11 +1177,11 @@ async function result(record, source) {
     // parametric), or "params" (offline). Surfaces silent CDN→params downgrades
     // in prod, which --doctor can't (it only answers "reachable now?").
     via: record.provenance?.via,
-    // Free (OAuth) vs. paid (API-key) heygen path — sparse: absent for every
-    // non-heygen provider (see heygenAuthMethodFor at construction time). On a
+    // Free (OAuth) vs. paid (API-key) verblike path — sparse: absent for every
+    // non-verblike provider (see verblikeAuthMethodFor at construction time). On a
     // cache/reuse hit this reports how the asset was ORIGINALLY fetched, not
     // this resolve's own credential state — intentional: it's a conversion
-    // signal about the fetch that actually consumed a heygen credit, not
+    // signal about the fetch that actually consumed a verblike credit, not
     // about the (free, no-credential) act of copying a cached file.
     auth_method: record.provenance?.authMethod,
     local_only: !!args["local-only"],

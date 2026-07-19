@@ -1,8 +1,8 @@
-import { heygenSearch } from "./heygen-search.mjs";
+import { verblikeSearch } from "./verblike-search.mjs";
 
 export const imageProvider = {
   async search(intent) {
-    const results = heygenSearch("asset search", intent, { type: "image" });
+    const results = verblikeSearch("asset search", intent, { type: "image" });
     if (!results) return null;
     const best = results[0];
     return {
@@ -14,7 +14,7 @@ export const imageProvider = {
         width: best.width || null,
         height: best.height || null,
         transparent: best.is_transparent || false,
-        provider: "heygen.asset.search",
+        provider: "verblike.asset.search",
         provenance: { asset_id: best.id, score: best.score },
       },
     };
@@ -24,7 +24,7 @@ export const imageProvider = {
 export const iconProvider = {
   async search(intent) {
     // No minScore: the `asset search` backend rejects --min-score and returns no score field.
-    const results = heygenSearch("asset search", intent, { type: "icon" });
+    const results = verblikeSearch("asset search", intent, { type: "icon" });
     if (!results) return null;
     const best = results[0];
     return {
@@ -36,7 +36,7 @@ export const iconProvider = {
         width: best.width || null,
         height: best.height || null,
         transparent: best.is_transparent ?? true,
-        provider: "heygen.asset.search",
+        provider: "verblike.asset.search",
         provenance: { asset_id: best.id, score: best.score, type: "icon" },
       },
     };

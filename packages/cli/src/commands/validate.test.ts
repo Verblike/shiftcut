@@ -161,7 +161,7 @@ describe("shouldIgnoreRequestFailure", () => {
     );
     expect(
       shouldIgnoreRequestFailure(
-        "https://www.heygenverse.com/s/50f13ccf-9002-4d80-b567-9d4c0eac30d8/raw",
+        "https://www.verblikeverse.com/s/50f13ccf-9002-4d80-b567-9d4c0eac30d8/raw",
         "net::ERR_ABORTED",
         "media",
       ),
@@ -174,7 +174,7 @@ describe("shouldIgnoreRequestFailure", () => {
     ).toBe(false);
     expect(
       shouldIgnoreRequestFailure(
-        "https://www.heygenverse.com/s/50f13ccf-9002-4d80-b567-9d4c0eac30d8/raw",
+        "https://www.verblikeverse.com/s/50f13ccf-9002-4d80-b567-9d4c0eac30d8/raw",
         "net::ERR_ABORTED",
         "xhr",
       ),

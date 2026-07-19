@@ -10,10 +10,10 @@ async function loadRuntimeSourceForDev(
 ): Promise<string | null> {
   try {
     const mod = await server.ssrLoadModule(
-      resolve(__dirname, "../core/src/inline-scripts/hyperframe.ts"),
+      resolve(__dirname, "../core/src/inline-scripts/shiftcut.ts"),
     );
-    if (typeof mod.loadHyperframeRuntimeSource === "function") {
-      return mod.loadHyperframeRuntimeSource();
+    if (typeof mod.loadShiftCutRuntimeSource === "function") {
+      return mod.loadShiftCutRuntimeSource();
     }
   } catch (err) {
     console.warn("[Studio] Failed to load runtime source from core:", err);
@@ -57,7 +57,7 @@ async function bridgeHonoResponse(
 
 function devProjectApi(): Plugin {
   const dataDir = resolve(__dirname, "data/projects");
-  const runtimePath = resolve(__dirname, "../core/dist/hyperframe.runtime.iife.js");
+  const runtimePath = resolve(__dirname, "../core/dist/shiftcut.runtime.iife.js");
 
   return {
     name: "studio-dev-api",

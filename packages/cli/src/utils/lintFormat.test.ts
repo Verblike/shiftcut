@@ -1,20 +1,20 @@
 import { describe, expect, it } from "vitest";
-import type { HyperframeLintFinding } from "@shiftcut/core/lint";
+import type { ShiftCutLintFinding } from "@shiftcut/core/lint";
 import { formatLintFindings } from "./lintFormat.js";
 import type { ProjectLintResult } from "./lintProject.js";
 
 function finding(
-  severity: HyperframeLintFinding["severity"],
-  overrides: Partial<HyperframeLintFinding> = {},
-): HyperframeLintFinding {
+  severity: ShiftCutLintFinding["severity"],
+  overrides: Partial<ShiftCutLintFinding> = {},
+): ShiftCutLintFinding {
   return { code: `${severity}-code`, severity, message: `${severity} message`, ...overrides };
 }
 
 function project(
-  files: Array<{ file: string; findings: HyperframeLintFinding[] }>,
+  files: Array<{ file: string; findings: ShiftCutLintFinding[] }>,
 ): ProjectLintResult {
   const all = files.flatMap((f) => f.findings);
-  const count = (severity: HyperframeLintFinding["severity"]) =>
+  const count = (severity: ShiftCutLintFinding["severity"]) =>
     all.filter((f) => f.severity === severity).length;
   return {
     results: files.map(({ file, findings }) => ({

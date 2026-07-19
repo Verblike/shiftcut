@@ -218,9 +218,9 @@ export interface EngineConfig {
   pageNavigationTimeout: number;
 
   // ── Runtime ──────────────────────────────────────────────────────────
-  /** Verify Hyperframe runtime SHA256 checksums. */
+  /** Verify ShiftCut runtime SHA256 checksums. */
   verifyRuntime: boolean;
-  /** Custom manifest path for Hyperframe runtime. */
+  /** Custom manifest path for ShiftCut runtime. */
   runtimeManifestPath?: string;
 
   // ── Cache ────────────────────────────────────────────────────────────
@@ -685,8 +685,7 @@ function resolveExtractCacheDirFromEnv(
   env: (key: string) => string | undefined,
 ): string | undefined {
   const raw = env("SHIFTCUT_EXTRACT_CACHE_DIR");
-  return resolveExtractCacheDir(raw === undefined ? {} : { SHIFTCUT_EXTRACT_CACHE_DIR: raw })
-    .dir;
+  return resolveExtractCacheDir(raw === undefined ? {} : { SHIFTCUT_EXTRACT_CACHE_DIR: raw }).dir;
 }
 
 function memoryAdaptiveCacheLimit(): number {
@@ -838,8 +837,8 @@ export function resolveConfig(overrides?: Partial<EngineConfig>): EngineConfig {
       DEFAULT_CONFIG.pageNavigationTimeout,
     ),
 
-    verifyRuntime: env("PRODUCER_VERIFY_HYPERFRAME_RUNTIME") !== "false",
-    runtimeManifestPath: env("PRODUCER_HYPERFRAME_MANIFEST_PATH"),
+    verifyRuntime: env("PRODUCER_VERIFY_SHIFTCUT_RUNTIME") !== "false",
+    runtimeManifestPath: env("PRODUCER_SHIFTCUT_MANIFEST_PATH"),
 
     extractCacheDir: resolveExtractCacheDirFromEnv(env),
     extractCacheMaxBytes:

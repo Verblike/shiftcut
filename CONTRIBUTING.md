@@ -25,7 +25,7 @@ bun run format:check   # Check formatting
 ```bash
 bun run --filter @shiftcut/core test          # Core unit tests (vitest)
 bun run --filter @shiftcut/engine test        # Engine unit tests (vitest)
-bun run --filter @shiftcut/core test:hyperframe-runtime-ci  # Runtime contract tests
+bun run --filter @shiftcut/core test:shiftcut-runtime-ci  # Runtime contract tests
 ```
 
 ### Linting & Formatting
@@ -124,8 +124,8 @@ The script wipes `docs/catalog/` before regenerating, so deleted items are autom
 
 ## Packages
 
-| Package                 | Description                                 |
-| ----------------------- | ------------------------------------------- |
+| Package              | Description                                 |
+| -------------------- | ------------------------------------------- |
 | `@shiftcut/core`     | Types, HTML generation, runtime, linter     |
 | `@shiftcut/engine`   | Seekable page-to-video capture engine       |
 | `@shiftcut/producer` | Full rendering pipeline (capture + encode)  |

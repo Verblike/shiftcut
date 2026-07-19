@@ -247,15 +247,15 @@ const styles = getStageStyles('portrait');
 The composition linter checks for structural issues that would cause rendering failures or unexpected behavior. You can run it from the CLI with `npx shiftcut lint`, or call it programmatically:
 
 ```typescript
-import { lintHyperframeHtml, lintMediaUrls } from '@shiftcut/core/lint';
+import { lintShiftCutHtml, lintMediaUrls } from '@shiftcut/core/lint';
 import type {
-  HyperframeLintResult,
-  HyperframeLintFinding,
-  HyperframeLintSeverity,     // "error" | "warning" | "info"
-  HyperframeLinterOptions,
+  ShiftCutLintResult,
+  ShiftCutLintFinding,
+  ShiftCutLintSeverity,     // "error" | "warning" | "info"
+  ShiftCutLinterOptions,
 } from '@shiftcut/core/lint';
 
-const result: HyperframeLintResult = lintHyperframeHtml(html, { filePath: 'index.html' });
+const result: ShiftCutLintResult = lintShiftCutHtml(html, { filePath: 'index.html' });
 // result.ok, result.errorCount, result.warningCount, result.findings
 
 for (const finding of result.findings) {
@@ -328,17 +328,17 @@ const bundled = await bundleToSingleHtml({ entryPath: './index.html', inline: tr
 
 ```typescript
 // Static guard — validate HTML contract
-import { validateHyperframeHtmlContract } from '@shiftcut/core/compiler';
+import { validateShiftCutHtmlContract } from '@shiftcut/core/compiler';
 import type {
-  HyperframeStaticGuardResult,
-  HyperframeStaticFailureReason,
+  ShiftCutStaticGuardResult,
+  ShiftCutStaticFailureReason,
 } from '@shiftcut/core/compiler';
 
-const guard: HyperframeStaticGuardResult = validateHyperframeHtmlContract(html);
+const guard: ShiftCutStaticGuardResult = validateShiftCutHtmlContract(html);
 // guard.ok, guard.failures[]
 // Failure reasons: "missing_composition_id" | "missing_composition_dimensions"
 //   | "missing_timeline_registry" | "invalid_script_syntax"
-//   | "invalid_static_hyperframe_contract"
+//   | "invalid_static_shiftcut_contract"
 ```
 
 ## Runtime
@@ -347,21 +347,21 @@ The Shiftcut runtime manages playback, seeking, and clip lifecycle in the browse
 
 ```typescript
 import {
-  loadHyperframeRuntimeSource,
+  loadShiftCutRuntimeSource,
   buildShiftcutRuntimeScript,
-  HYPERFRAME_RUNTIME_ARTIFACTS,
-  HYPERFRAME_RUNTIME_CONTRACT,
-  HYPERFRAME_RUNTIME_GLOBALS,
-  HYPERFRAME_BRIDGE_SOURCES,
-  HYPERFRAME_CONTROL_ACTIONS,
+  SHIFTCUT_RUNTIME_ARTIFACTS,
+  SHIFTCUT_RUNTIME_CONTRACT,
+  SHIFTCUT_RUNTIME_GLOBALS,
+  SHIFTCUT_BRIDGE_SOURCES,
+  SHIFTCUT_CONTROL_ACTIONS,
 } from '@shiftcut/core';
 import type {
-  HyperframeControlAction,
+  ShiftCutControlAction,
   ShiftcutRuntimeBuildOptions,
 } from '@shiftcut/core';
 
 // Load the pre-built runtime IIFE
-const runtimeSource = loadHyperframeRuntimeSource();
+const runtimeSource = loadShiftCutRuntimeSource();
 
 // Build a custom runtime script
 const script = buildShiftcutRuntimeScript(options);
@@ -423,9 +423,9 @@ For element selection in editor UIs:
 
 ```typescript
 import type {
-  HyperframePickerApi,
-  HyperframePickerBoundingBox,
-  HyperframePickerElementInfo,
+  ShiftCutPickerApi,
+  ShiftCutPickerBoundingBox,
+  ShiftCutPickerElementInfo,
 } from '@shiftcut/core';
 ```
 

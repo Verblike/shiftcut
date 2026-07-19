@@ -167,7 +167,7 @@ A 1920×1080, 8s, 5-scene launch/stat reel — hard cuts with one shader at the 
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=1920, height=1080" />
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@shiftcut/core/dist/hyperframe.runtime.iife.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@shiftcut/core/dist/shiftcut.runtime.iife.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@shiftcut/shader-transitions/dist/index.global.js"></script>
     <style>
       /* === FILL: inline your brand font(s) as base64 — one @font-face per weight you use (do NOT use a Google Fonts link) === */
