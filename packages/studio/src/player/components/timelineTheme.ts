@@ -37,8 +37,8 @@ export interface TimelineTheme {
 
 const TRACK_STYLE: TimelineTrackStyle = {
   clip: "rgba(255,255,255,0.055)",
-  clipActive: "rgba(60,230,172,0.16)",
-  accent: "#3CE6AC",
+  clipActive: "rgba(255,122,26,0.16)",
+  accent: "#ff7a1a",
   label: "rgba(255,255,255,0.5)",
 };
 
@@ -46,22 +46,22 @@ export const defaultTimelineTheme: TimelineTheme = {
   // Near-black card surfaces: the panels sit dark while the shell canvas
   // between them is a step LIGHTER (#18181B), so the gaps read as visible
   // seams around dark cards (CapCut-style).
-  shellBackground: "#0A0A0B",
-  shellBorder: "rgba(255,255,255,0.05)",
-  rulerBorder: "rgba(255,255,255,0.16)",
+  shellBackground: "#1a1714",
+  shellBorder: "rgba(255,235,215,0.07)",
+  rulerBorder: "rgba(255,235,215,0.15)",
   // All track lanes use a single uniform color — one step lighter than the panel
   // surface (#0A0A0B) so lanes are visibly distinct from the ruler/shell.
-  rowBackground: "#101014",
-  rowBorder: "rgba(255,255,255,0.06)",
-  gutterBackground: "#0E0F12",
-  gutterBorder: "rgba(255,255,255,0.10)",
+  rowBackground: "#211d19",
+  rowBorder: "rgba(255,235,215,0.07)",
+  gutterBackground: "#1d1916",
+  gutterBorder: "rgba(255,235,215,0.12)",
   textPrimary: "rgba(255,255,255,0.92)",
   textSecondary: "rgba(255,255,255,0.62)",
   tickText: "rgba(255,255,255,0.34)",
   tickMajor: "rgba(255,255,255,0.10)",
   tickMinor: "rgba(255,255,255,0.06)",
-  clipBackground: "#141922",
-  clipBackgroundActive: "#181e28",
+  clipBackground: "#2b241f",
+  clipBackgroundActive: "#352a22",
   clipBorder: "rgba(255,255,255,0.10)",
   clipBorderHover: "rgba(255,255,255,0.18)",
   clipBorderActive: "rgba(255,255,255,0.24)",
