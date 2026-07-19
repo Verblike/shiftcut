@@ -93,6 +93,10 @@ jobs:
           registry-url: "https://registry.npmjs.org"
       - run: bun install --frozen-lockfile
       - run: bun run build
+      # bun does not fold publishConfig.main/types/exports into the top-level
+      # fields the way pnpm does, so apply it before packing or publishing —
+      # otherwise the published manifests point at src/*.ts that is not shipped.
+      - run: node scripts/apply-publish-config.mjs
       - run: bun run verify:packed-manifests
 
       - name: Publish packages
