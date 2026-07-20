@@ -1,5 +1,5 @@
 {
-  "source": "Verblike/shiftcut",
+  "source": "Vadagon/shiftcut",
   "skills": {
     "embedded-captions": {
       "hash": "415940ee42d25e7f",
@@ -34,11 +34,11 @@
       "files": 24
     },
     "remotion-to-shiftcut": {
-      "hash": "2fd2586d85065e42",
+      "hash": "2b0cd11f1261584f",
       "files": 70
     },
     "shiftcut": {
-      "hash": "054941cf29ba5774",
+      "hash": "fa68ee525ade3b13",
       "files": 6
     },
     "shiftcut-animation": {
@@ -57,13 +57,29 @@
       "hash": "6c158870e92b5453",
       "files": 78
     },
+    "shiftcut-ingest": {
+      "hash": "582a8e3c9815798a",
+      "files": 1
+    },
     "shiftcut-keyframes": {
       "hash": "12cd860342197b9f",
       "files": 3
     },
+    "shiftcut-reframe": {
+      "hash": "4caab3578cbec0b3",
+      "files": 1
+    },
     "shiftcut-registry": {
-      "hash": "17f3f99ea36be31b",
+      "hash": "b83b7346c8b39f22",
       "files": 10
+    },
+    "shiftcut-remove-silences": {
+      "hash": "b86946fe3e910a0f",
+      "files": 1
+    },
+    "shiftcut-shorts": {
+      "hash": "c36994241b09e05f",
+      "files": 1
     },
     "slideshow": {
       "hash": "90c69b41a48204f5",

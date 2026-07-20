@@ -539,7 +539,7 @@ export async function renderChunk(
     // on worker 0 only (gated on `cfg.browserGpuMode === "software"`), so
     // the safety contract holds without the eager pre-probe and without
     // every worker concurrently navigating to the GL probe page. See
-    // `Verblike/shiftcut#955` for the worst-case wall regression that
+    // `Vadagon/shiftcut#955` for the worst-case wall regression that
     // motivated gating the probe to worker 0.
     //
     // Capture-cost calibration based on shader transitions / renderModeHints

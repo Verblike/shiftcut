@@ -45,13 +45,7 @@ import {
 } from "fs";
 import { tmpdir } from "node:os";
 import { parseHTML } from "linkedom";
-import {
-  type CanvasResolution,
-  type Fps,
-  type FpsInput,
-  fpsToNumber,
-  toFps,
-} from "@shiftcut/core";
+import { type CanvasResolution, type Fps, type FpsInput, fpsToNumber, toFps } from "@shiftcut/core";
 import {
   type EngineConfig,
   resolveConfig,
@@ -1886,7 +1880,7 @@ async function executeRenderPipeline(input: {
     // shape (probe Chrome + a throwaway calibration Chrome + N capture
     // workers) thrashes — concurrent Chrome instances drive memory pressure
     // that slows every CDP call and spikes V8 GC, surfacing as the slow/stuck
-    // renders in Verblike/shiftcut#1218 / #1219. Collapse to the cheapest
+    // renders in Vadagon/shiftcut#1218 / #1219. Collapse to the cheapest
     // shape: skip auto-worker calibration (the gate below), pin to a single
     // worker (resolved below), and prefer screenshot capture over BeginFrame
     // (which avoids the BeginFrame protocol-timeout → relaunch churn on slow

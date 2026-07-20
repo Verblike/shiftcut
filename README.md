@@ -35,7 +35,7 @@ ShiftCut is an AI-native, agent-first video editor by [Verblike](https://verblik
 Install the ShiftCut skills, then describe the video you want:
 
 ```bash
-npx skills add Verblike/shiftcut --full-depth
+npx skills add Vadagon/shiftcut --full-depth
 ```
 
 > The picker opens with nothing pre-selected — the **Core Skills** group is all you need: the `/shiftcut` router installs each creation workflow on demand. Agents and non-interactive runs should use `npx shiftcut skills update` instead — it installs exactly the core set, whereas a non-interactive `skills add` without `--skill` installs all 18.
@@ -52,7 +52,7 @@ The skills teach agents the ShiftCut production loop: plan the video, write vali
 
 ShiftCut ships 18 skills agents load on demand. Read `/shiftcut` first — it's the router: point it at a video and say what you want (cut into shorts, add captions, reframe vertical), and it routes to the right editing flow. It also handles creation-from-scratch when you ask. The domain skills below are the layers it composes against.
 
-Default to the **core set** — the router installs each flow on demand. `npx shiftcut skills update` installs exactly that from anywhere; the interactive picker (`npx skills add Verblike/shiftcut --full-depth`) lists it as the "Core Skills" group, nothing pre-selected. The picker is interactive-only — a non-interactive or agent run without `--skill` installs all 18. Use `npx skills add Verblike/shiftcut --all --full-depth` to install all 18 deliberately (skips the picker), or `npx skills add Verblike/shiftcut --skill <name> --full-depth` for just one (bare name, no leading `/`). Keep `--full-depth` — it installs the current `main`; without it `skills add` fetches the skills.sh blob, which lags by hours.
+Default to the **core set** — the router installs each flow on demand. `npx shiftcut skills update` installs exactly that from anywhere; the interactive picker (`npx skills add Vadagon/shiftcut --full-depth`) lists it as the "Core Skills" group, nothing pre-selected. The picker is interactive-only — a non-interactive or agent run without `--skill` installs all 18. Use `npx skills add Vadagon/shiftcut --all --full-depth` to install all 18 deliberately (skips the picker), or `npx skills add Vadagon/shiftcut --skill <name> --full-depth` for just one (bare name, no leading `/`). Keep `--full-depth` — it installs the current `main`; without it `skills add` fetches the skills.sh blob, which lags by hours.
 
 Installs stay lean after that: `npx shiftcut init` keeps the **core set** fresh (the router, the `shiftcut-*` domain skills, and `media-use` — plus whatever is already installed) and never expands a partial install; the workflow skills install **on demand** — the router runs `npx shiftcut skills update <workflow>` before entering one. Nothing re-pulls the full set behind your back.
 
@@ -250,7 +250,7 @@ Full documentation: [shiftcut.verblike.com/introduction](https://shiftcut.verbli
 ShiftCut is an independent, open-source project by [Verblike LLC](https://verblike.com), early and building in public. Open a PR if your team is using ShiftCut — see [ADOPTERS.md](ADOPTERS.md).
 
 - Questions and ideas: [Discord](https://discord.gg/EbK98HBPdk)
-- Bugs and feature requests: [GitHub Issues](https://github.com/Verblike/shiftcut/issues)
+- Bugs and feature requests: [GitHub Issues](https://github.com/Vadagon/shiftcut/issues)
 - Security reports: [SECURITY.md](SECURITY.md)
 - Contributions: [CONTRIBUTING.md](CONTRIBUTING.md)
 
@@ -275,7 +275,7 @@ git lfs install
 If you only need source files, you can skip LFS content:
 
 ```bash
-GIT_LFS_SKIP_SMUDGE=1 git clone https://github.com/Verblike/shiftcut.git
+GIT_LFS_SKIP_SMUDGE=1 git clone https://github.com/Vadagon/shiftcut.git
 ```
 
 ## License

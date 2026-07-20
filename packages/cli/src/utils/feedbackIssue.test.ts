@@ -51,7 +51,7 @@ describe("buildIssueUrl", () => {
   it("strips a trailing .git from the repo url", () => {
     const url = buildIssueUrl({
       ...base,
-      repoUrl: "https://github.com/Verblike/shiftcut.git",
+      repoUrl: "https://github.com/Vadagon/shiftcut.git",
     });
     expect(url.startsWith(`${SHIFTCUT_REPO_URL}/issues/new?`)).toBe(true);
   });

@@ -6,7 +6,7 @@ body:
     attributes:
       value: |
         Thanks for taking the time to report a bug! Before filing, please:
-        - Search [existing issues](https://github.com/Verblike/shiftcut/issues) to avoid duplicates
+        - Search [existing issues](https://github.com/Vadagon/shiftcut/issues) to avoid duplicates
         - Make sure the issue reproduces without custom extensions or plugins
         - Test on the latest version (`npx shiftcut upgrade`)
 

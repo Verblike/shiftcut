@@ -15,7 +15,7 @@ import {
 } from "./draft-changelog.ts";
 
 const ROOT = join(import.meta.dirname, "..");
-const REPO_URL = "https://github.com/Verblike/shiftcut";
+const REPO_URL = "https://github.com/Vadagon/shiftcut";
 const DOCS_MARKER =
   "{/* New weekly digest entries are prepended by `bun run changelog:weekly --from YYYY-MM-DD --to YYYY-MM-DD --write`. */}";
 const WEEKLY_REVIEW_TODO = "<!-- TODO: review and rewrite before publishing. -->";

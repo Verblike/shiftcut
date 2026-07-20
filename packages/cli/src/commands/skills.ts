@@ -162,7 +162,7 @@ function runSkillsRemove(names: string[], opts: { global: boolean }): Promise<vo
 // freshness comes from --full-depth (see GLOBAL_INSTALL_ARGS_TAIL), which clones the
 // repo at latest `main`; the URL just names what to clone. Our freshness check
 // resolves "latest" straight from GitHub too, so install and check agree.
-const SOURCES = [{ name: "ShiftCut", url: "https://github.com/Verblike/shiftcut" }];
+const SOURCES = [{ name: "ShiftCut", url: "https://github.com/Vadagon/shiftcut" }];
 
 // Fan ShiftCut' own skills out to every other installed agent. Scope by the
 // lock's source attribution (the same definition prune uses) — NOT by listing
@@ -691,7 +691,7 @@ const updateCommand = defineCommand({
     // triggered. This is where `init` and the stale-skills nudge both lead;
     // pulling the complete skill set here is exactly what users complained
     // about. Explicit full set: `shiftcut skills` or `npx skills add
-    // Verblike/shiftcut --all`.
+    // Vadagon/shiftcut --all`.
     //
     // Note: the upstream `skills add` CLI has no `--dir` flag (it installs into
     // the resolved agent dirs), so `--dir` here scopes only the *prune* detection

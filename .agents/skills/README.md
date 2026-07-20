@@ -11,7 +11,7 @@ separate namespaces, on purpose:
   project-local skill dir.
 - `skills/` — **marketplace-distributable**, installed into other
   projects via `npx shiftcut skills` or `npx skills add
-Verblike/shiftcut`.
+Vadagon/shiftcut`.
 
 ## Weekly changelog video
 

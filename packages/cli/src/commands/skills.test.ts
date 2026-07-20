@@ -229,27 +229,13 @@ describe("shiftcut skills", () => {
       "linux",
       "npx",
       ["--version"],
-      [
-        "skills",
-        "add",
-        "https://github.com/Verblike/shiftcut",
-        "--skill",
-        "*",
-        ...GLOBAL_ARGS_TAIL,
-      ],
+      ["skills", "add", "https://github.com/Vadagon/shiftcut", "--skill", "*", ...GLOBAL_ARGS_TAIL],
     ],
     [
       "darwin",
       "npx",
       ["--version"],
-      [
-        "skills",
-        "add",
-        "https://github.com/Verblike/shiftcut",
-        "--skill",
-        "*",
-        ...GLOBAL_ARGS_TAIL,
-      ],
+      ["skills", "add", "https://github.com/Vadagon/shiftcut", "--skill", "*", ...GLOBAL_ARGS_TAIL],
     ],
     [
       "win32",
@@ -262,7 +248,7 @@ describe("shiftcut skills", () => {
         "npx.cmd",
         "skills",
         "add",
-        "https://github.com/Verblike/shiftcut",
+        "https://github.com/Vadagon/shiftcut",
         "--skill",
         "*",
         ...GLOBAL_ARGS_TAIL,
@@ -299,7 +285,7 @@ describe("shiftcut skills", () => {
     expect(process.exitCode).toBe(0);
     const args = state.spawnCalls[0]?.args ?? [];
     // straight from GitHub, globally, as a faithful clone
-    expect(args).toContain("https://github.com/Verblike/shiftcut");
+    expect(args).toContain("https://github.com/Vadagon/shiftcut");
     expect(args).toContain("--global");
     expect(args).toContain("--copy");
     expect(args).toContain("--full-depth");
@@ -690,11 +676,7 @@ describe("shiftcut skills update <names>", () => {
     expect(args).toContain("add");
     // requested workflow (missing) + the stale core skills; embedded-captions
     // (installed + current) and the full-set wildcard must not appear.
-    expect(skillFlagValues(args).sort()).toEqual([
-      "shiftcut",
-      "shiftcut-core",
-      "pr-to-video",
-    ]);
+    expect(skillFlagValues(args).sort()).toEqual(["shiftcut", "shiftcut-core", "pr-to-video"]);
   });
 
   it("is a fast no-op (no install spawn) when everything is already current", async () => {

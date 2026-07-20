@@ -37,7 +37,7 @@ od:
 > as a one-shot.**
 
 This skill teaches Open Design to emit a **valid first draft** of a
-[ShiftCut](https://github.com/Verblike/shiftcut) composition — plain
+[ShiftCut](https://github.com/Vadagon/shiftcut) composition — plain
 HTML + CSS + a paused GSAP timeline. The CLI (`npx shiftcut render`, run
 from the project directory) turns the HTML into an MP4. You author the HTML;
 the user runs the render locally.
@@ -45,7 +45,7 @@ the user runs the render locally.
 **ShiftCut replaces the default video-artifact workflow.** Do NOT emit a
 React/Babel composition, do NOT call other prototype skills, do NOT use the
 sandboxed iframe's wall-clock playback for timing decisions. Plain HTML +
-GSAP only. Treat the [`claude-design-shiftcut.md`](https://github.com/Verblike/shiftcut/blob/main/docs/guides/claude-design-shiftcut.md)
+GSAP only. Treat the [`claude-design-shiftcut.md`](https://github.com/Vadagon/shiftcut/blob/main/docs/guides/claude-design-shiftcut.md)
 companion document as the **upstream spec for ShiftCut structural rules** —
 the rules below condense it to what Open Design needs at emission time, but
 that file is the source of truth for shader catalogs, skeleton variants, and
@@ -406,7 +406,7 @@ npx shiftcut render      # writes MP4
 ## When to defer to the Claude Design instructions
 
 For these advanced areas, treat
-[`claude-design-shiftcut.md`](https://github.com/Verblike/shiftcut/blob/main/docs/guides/claude-design-shiftcut.md)
+[`claude-design-shiftcut.md`](https://github.com/Vadagon/shiftcut/blob/main/docs/guides/claude-design-shiftcut.md)
 as the canonical reference and follow its patterns verbatim:
 
 - The full skeleton catalog (Skeletons A–D)

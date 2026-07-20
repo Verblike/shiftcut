@@ -440,17 +440,13 @@ describe("skillsAttributedToSource", () => {
   it("matches by slug or git clone URL and ignores other sources", () => {
     const lock = {
       skills: {
-        a: { source: "Verblike/shiftcut" },
-        b: { sourceUrl: "https://github.com/Verblike/shiftcut.git" },
-        c: { source: "https://github.com/Verblike/shiftcut" },
+        a: { source: "Vadagon/shiftcut" },
+        b: { sourceUrl: "https://github.com/Vadagon/shiftcut.git" },
+        c: { source: "https://github.com/Vadagon/shiftcut" },
         d: { source: "greensock/gsap-skills" },
       },
     };
-    expect(skillsAttributedToSource(lock, "Verblike/shiftcut").sort()).toEqual([
-      "a",
-      "b",
-      "c",
-    ]);
+    expect(skillsAttributedToSource(lock, "Vadagon/shiftcut").sort()).toEqual(["a", "b", "c"]);
   });
 
   it("returns [] for a null/empty lock or empty source", () => {
@@ -658,7 +654,7 @@ describe("checkSkills canonical bypass of the in-repo manifest shortcut", () => 
     writeFileSync(
       join(project, MANIFEST_FILE),
       JSON.stringify({
-        source: "Verblike/shiftcut",
+        source: "Vadagon/shiftcut",
         skills: { "retired-skill": { hash: "x", files: 1 } },
       }),
     );
@@ -675,13 +671,13 @@ describe("checkSkills canonical bypass of the in-repo manifest shortcut", () => 
     writeFileSync(
       join(project, MANIFEST_FILE),
       JSON.stringify({
-        source: "Verblike/shiftcut",
+        source: "Vadagon/shiftcut",
         skills: { "retired-skill": { hash: "x", files: 1 }, kept: { hash: "y", files: 1 } },
       }),
     );
     // The canonical (fetched) manifest no longer ships `retired-skill`.
     stubFetchedManifest({
-      source: "Verblike/shiftcut",
+      source: "Vadagon/shiftcut",
       skills: { kept: { hash: "y", files: 1 } },
     });
 
@@ -725,9 +721,9 @@ describe("pruneOrphanedLockEntries", () => {
     mkdirSync(join(home, ".agents"), { recursive: true });
     const lockPath = join(home, ".agents", ".skill-lock.json");
     writeLock(lockPath, {
-      a: { source: "Verblike/shiftcut" },
-      b: { source: "Verblike/shiftcut" },
-      c: { source: "Verblike/shiftcut" },
+      a: { source: "Vadagon/shiftcut" },
+      b: { source: "Vadagon/shiftcut" },
+      c: { source: "Vadagon/shiftcut" },
     });
 
     const pruned = pruneOrphanedLockEntries(["a", "b"], "global", { home });
@@ -742,7 +738,7 @@ describe("pruneOrphanedLockEntries", () => {
     const home = join(root, "home");
     mkdirSync(join(home, ".agents"), { recursive: true });
     const lockPath = join(home, ".agents", ".skill-lock.json");
-    writeLock(lockPath, { a: { source: "Verblike/shiftcut" } });
+    writeLock(lockPath, { a: { source: "Vadagon/shiftcut" } });
 
     const first = pruneOrphanedLockEntries(["a"], "global", { home });
     expect(first).toEqual(["a"]);
@@ -759,8 +755,8 @@ describe("pruneOrphanedLockEntries", () => {
     mkdirSync(join(home, ".agents"), { recursive: true });
     const lockPath = join(home, ".agents", ".skill-lock.json");
     writeLock(lockPath, {
-      a: { source: "Verblike/shiftcut" },
-      b: { source: "Verblike/shiftcut" },
+      a: { source: "Vadagon/shiftcut" },
+      b: { source: "Vadagon/shiftcut" },
     });
     chmodSync(lockPath, 0o640);
 
@@ -769,7 +765,7 @@ describe("pruneOrphanedLockEntries", () => {
     expect(pruned).toEqual(["a"]);
     const raw = readFileSync(lockPath, "utf8");
     expect(raw.endsWith("\n")).toBe(false);
-    expect(JSON.parse(raw).skills).toEqual({ b: { source: "Verblike/shiftcut" } });
+    expect(JSON.parse(raw).skills).toEqual({ b: { source: "Vadagon/shiftcut" } });
     // No `.tmp` sibling left behind by the temp-file + rename.
     expect(readdirSync(join(home, ".agents"))).toEqual([".skill-lock.json"]);
     // Original permissions survive the rewrite (POSIX only — Windows's fs
@@ -790,8 +786,8 @@ describe("pruneOrphanedLockEntries", () => {
     const project = join(root, "project");
     mkdirSync(project, { recursive: true });
     writeLock(join(project, "skills-lock.json"), {
-      a: { source: "Verblike/shiftcut" },
-      b: { source: "Verblike/shiftcut" },
+      a: { source: "Vadagon/shiftcut" },
+      b: { source: "Vadagon/shiftcut" },
     });
 
     const pruned = pruneOrphanedLockEntries(["a"], "project", { cwd: project });

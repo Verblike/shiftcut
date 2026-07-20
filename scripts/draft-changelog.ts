@@ -13,7 +13,7 @@ import {
 } from "./cli-options.ts";
 
 const ROOT = join(import.meta.dirname, "..");
-const REPO_URL = "https://github.com/Verblike/shiftcut";
+const REPO_URL = "https://github.com/Vadagon/shiftcut";
 const DOCS_MARKER =
   "{/* New release entries are prepended by `bun run changelog:draft <version> --write`. */}";
 

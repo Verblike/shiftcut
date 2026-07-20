@@ -8,9 +8,9 @@ This repo ships 18 AI agent skills via [vercel-labs/skills](https://github.com/v
 
 ```bash
 npx shiftcut skills update                                   # default: installs/refreshes the core set — workflows install on demand
-npx skills add Verblike/shiftcut --full-depth              # interactive picker (terminal only — non-interactive without --skill installs all 18)
-npx skills add Verblike/shiftcut --all --full-depth        # all 18 at once — only on explicit request
-npx skills add Verblike/shiftcut --skill <name> --full-depth  # just one (bare name, no leading slash)
+npx skills add Vadagon/shiftcut --full-depth              # interactive picker (terminal only — non-interactive without --skill installs all 18)
+npx skills add Vadagon/shiftcut --all --full-depth        # all 18 at once — only on explicit request
+npx skills add Vadagon/shiftcut --skill <name> --full-depth  # just one (bare name, no leading slash)
 ```
 
 Keep `--full-depth`: it installs the current `main`. Without it, `skills add` fetches the skills.sh registry blob, which lags `main` by hours (you'd get a stale skill). `shiftcut skills update` already uses full-depth.

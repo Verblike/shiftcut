@@ -19,7 +19,7 @@
 
 **Facts locked:** company **Verblike LLC**; site **shiftcut.verblike.com** (under verblike.com);
 contact **shiftcut@verblike.com**; npm scope **@shiftcut**; bin **shiftcut**; router **/shiftcut**;
-install **`npx skills add Verblike/shiftcut`**. **Git remote still points at `Verblike/shiftcut`
+install **`npx skills add Vadagon/shiftcut`**. **Git remote still points at `Vadagon/shiftcut`
 — repoint before any push.** `LICENSE` left intact (Apache-2.0 requires retaining Verblike's
 copyright notice); our own copyright goes on new/modified files and brand surfaces.
 
@@ -95,7 +95,7 @@ Do this as a scripted, reviewed pass — not by hand.
 | `shiftcut.verblike.com`                                        | `shiftcut.verblike.com` | all homepage/doc URLs                                                                                 |
 | `www.shiftcut.dev` → `shiftcut.dev` (stray)                    | `shiftcut.verblike.com` | old playground domain; also normalized                                                                |
 | `*.verblike.com` API hosts (`api2`, `app`, `files`, `api.dev`) | **left as-is for now**  | cloud endpoints — **deleted** in §4, not renamed (a bare `verblike`→`shiftcut` would mint fake hosts) |
-| `Verblike/shiftcut`                                            | `Verblike/shiftcut`     | install path `npx skills add …`, git remote                                                           |
+| `Vadagon/shiftcut`                                             | `Vadagon/shiftcut`      | install path `npx skills add …`, git remote                                                           |
 
 **Do NOT rename (keep verbatim):**
 
@@ -113,7 +113,7 @@ untouched. File list = tracked, regular (non-symlink) text files, excluding `LIC
 # over the filtered file list:
 sed -i '' \
  -e 's#shiftcut\.verblike\.com#shiftcut.verblike.com#g' \
- -e 's#Verblike/shiftcut#Verblike/shiftcut#g' \
+ -e 's#Vadagon/shiftcut#Vadagon/shiftcut#g' \
  -e 's#shiftcut@verblike\.com#shiftcut@verblike.com#g' \
  -e 's#@shiftcut/#@shiftcut/#g' \
  -e 's#ShiftCut#ShiftCut#g' \
@@ -228,7 +228,7 @@ skill list), and regenerate `releases/` from a clean ShiftCut v0 (don't hand-edi
   (mirror `shiftcut-site/src/app/globals.css`: `--accent: #ff7a1a`, charcoal surfaces, grain).
 - **`assets/`:** replace `logo.png`, `icon.png` with the ShiftCut mark (the offset-frames
   logo from `shiftcut-site/src/components/logo.tsx`). Keep `claude-code-icon-*` (Anthropic's).
-- **`README.md`:** rewrite around "CapCut on autopilot," `npx skills add Verblike/shiftcut`,
+- **`README.md`:** rewrite around "CapCut on autopilot," `npx skills add Vadagon/shiftcut`,
   100% local, Apache-2.0.
 - **`AGENTS.md` / `CLAUDE.md` (root):** rebrand build/architecture guidance to ShiftCut.
 - **Templates** (`packages/cli/src/templates/_shared/AGENTS.md|CLAUDE.md`): rebrand + strip
@@ -242,7 +242,7 @@ skill list), and regenerate `releases/` from a clean ShiftCut v0 (don't hand-edi
 
 1. ✅ **Phase 2 — Mechanical rebrand (§2).** Done: scripted token replace + dir/file renames +
    `bin` rename, §3 contract names preserved. **Still owed:** repoint git remote off
-   `Verblike/shiftcut`; `bun install` to regenerate `bun.lock`; `bun run build`/`test`;
+   `Vadagon/shiftcut`; `bun install` to regenerate `bun.lock`; `bun run build`/`test`;
    refresh snapshots.
 2. ⬜ **Phase 1 — Strip cloud (§4).** Delete cloud packages/commands/auth/telemetry/publish;
    green the build. (Do this next — files are rebranded but still present.)
@@ -253,17 +253,17 @@ skill list), and regenerate `releases/` from a clean ShiftCut v0 (don't hand-edi
 5. 🟨 **Phase 5 — Brand + docs (§7).** README/CLAUDE/manifests done; docs body, `DESIGN.md`
    tokens, and logo assets (`docs/logo/*.svg`, `assets/*.png`) still pending.
 6. ⬜ **Phase 6 — Release plumbing.** Fresh `releases/` from v0, publish `@shiftcut/*` to npm,
-   verify `npx skills add Verblike/shiftcut` installs against the public repo.
+   verify `npx skills add Vadagon/shiftcut` installs against the public repo.
 
 ---
 
 ## 9. Gotchas / decisions to confirm
 
-- **Git remote (do first):** still `Verblike/shiftcut`. Repoint before any push:
+- **Git remote (do first):** still `Vadagon/shiftcut`. Repoint before any push:
   `git remote set-url origin <your ShiftCut repo>`.
 - **npm scope:** claim `@shiftcut` before Phase 6. If taken, pick an alt scope now.
-- **`npx skills add Verblike/shiftcut`** resolves a public GitHub repo — the framework must
-  live at `github.com/Verblike/shiftcut` (or update the install path everywhere if it's
+- **`npx skills add Vadagon/shiftcut`** resolves a public GitHub repo — the framework must
+  live at `github.com/Vadagon/shiftcut` (or update the install path everywhere if it's
   `Vadagon/shiftcut`). Keep this consistent with `shiftcut-site`.
 - **Build not yet verified** — the rebrand machine had no `bun`. Snapshot tests _will_ fail
   until refreshed (they embed old brand output); that's expected, not a regression.

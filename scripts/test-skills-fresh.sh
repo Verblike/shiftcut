@@ -4,7 +4,7 @@
 # Generic sandbox for the `test/skills-fresh` branch — fully simulates a real
 # user's `npx` install, with BOTH channels coming from the working tree:
 #   • skills → installed from skills/ via `npx skills add <repo>` (exactly what
-#             `npx skills add Verblike/shiftcut` does for a real user)
+#             `npx skills add Vadagon/shiftcut` does for a real user)
 #   • CLI    → wired via a `file:` dep so `npx shiftcut` resolves to the LOCAL
 #             build, which carries this branch's packages/cli/src/capture changes.
 # It adds NO CLAUDE.md / AGENTS.md — it mirrors the plain install, nothing more.
@@ -17,7 +17,7 @@
 #                   ← both launch fully auto (no approval prompts); codex stays
 #                   project-local and does NOT touch your global ~/.codex/skills.
 #
-# Why a sandbox (and not `npx skills add Verblike/shiftcut#test/skills-fresh`):
+# Why a sandbox (and not `npx skills add Vadagon/shiftcut#test/skills-fresh`):
 #   `skills add` only copies skills/. The capture tool you changed lives in
 #   packages/cli (the @shiftcut/cli package), so an online skills-only install
 #   would pull this branch's skills but the PUBLISHED CLI's old capture. This

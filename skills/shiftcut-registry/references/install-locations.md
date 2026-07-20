@@ -2,8 +2,8 @@
 
 ## Default paths
 
-| Item type | Default install path                  | Configured by                       |
-| --------- | ------------------------------------- | ----------------------------------- |
+| Item type | Default install path                  | Configured by                    |
+| --------- | ------------------------------------- | -------------------------------- |
 | Block     | `compositions/<name>.html`            | `shiftcut.json#paths.blocks`     |
 | Component | `compositions/components/<name>.html` | `shiftcut.json#paths.components` |
 
@@ -21,7 +21,7 @@ Created automatically by `shiftcut init`. If it doesn't exist when you run `add`
 ```json
 {
   "$schema": "https://shiftcut.verblike.com/schema/shiftcut.json",
-  "registry": "https://raw.githubusercontent.com/Verblike/shiftcut/main/registry",
+  "registry": "https://raw.githubusercontent.com/Vadagon/shiftcut/main/registry",
   "paths": {
     "blocks": "compositions",
     "components": "compositions/components",

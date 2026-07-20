@@ -11,7 +11,7 @@ description: 'Port an existing Remotion (React) composition''s source to ShiftCu
 
 ## Overview
 
-Translate Remotion (React-based) video compositions into ShiftCut (HTML + GSAP) compositions. Most Remotion idioms have direct ShiftCut equivalents — the translation is mechanical for ~80% of typical compositions. This skill encodes the mapping and guards against the lossy 20% by refusing to translate patterns that don't fit HF's seek-driven model and recommending the runtime interop pattern from [PR #214](https://github.com/Verblike/shiftcut/pull/214) instead.
+Translate Remotion (React-based) video compositions into ShiftCut (HTML + GSAP) compositions. Most Remotion idioms have direct ShiftCut equivalents — the translation is mechanical for ~80% of typical compositions. This skill encodes the mapping and guards against the lossy 20% by refusing to translate patterns that don't fit HF's seek-driven model and recommending the runtime interop pattern from [PR #214](https://github.com/Vadagon/shiftcut/pull/214) instead.
 
 The skill ships with a **tiered test corpus** (T1–T4, 4 fixtures total) that grades translations against measured SSIM thresholds. Don't translate without running the eval — a translation that "looks right" but renders 0.05 SSIM lower than the validated baseline is silently wrong.
 
@@ -105,7 +105,7 @@ Anything that didn't translate cleanly (volume ramps dropped, custom presentatio
 ## What this skill explicitly does NOT do
 
 - **Translate React state machines.** Compositions that drive animation via `useState` + `useEffect` are not deterministic frame-capture targets in ShiftCut' seek-driven model. Recommend the runtime interop pattern.
-- **Run Remotion's render pipeline alongside ShiftCut.** That's the runtime interop pattern from [PR #214](https://github.com/Verblike/shiftcut/pull/214) — a separate solution for compositions that fail this skill's lint.
+- **Run Remotion's render pipeline alongside ShiftCut.** That's the runtime interop pattern from [PR #214](https://github.com/Vadagon/shiftcut/pull/214) — a separate solution for compositions that fail this skill's lint.
 
 (`@remotion/lambda` is _not_ a blocker — Lambda config is deployment, not animation. The skill drops it as a warning and translates the rest. See [`references/escape-hatch.md`](references/escape-hatch.md).)
 

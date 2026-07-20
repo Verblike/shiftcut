@@ -40,7 +40,7 @@
         "description": "Report a bug or request a feature",
         "icon": "github",
         "iconType": "brands",
-        "href": "https://github.com/Verblike/shiftcut/issues/new"
+        "href": "https://github.com/Vadagon/shiftcut/issues/new"
       }
     ]
   },
@@ -408,7 +408,7 @@
   },
   "footer": {
     "socials": {
-      "github": "https://github.com/Verblike/shiftcut"
+      "github": "https://github.com/Vadagon/shiftcut"
     }
   }
 }

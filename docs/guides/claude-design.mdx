@@ -6,14 +6,14 @@ description: "Create ShiftCut video drafts in Claude Design, then refine in any 
 Claude Design produces a **valid first draft** of a ShiftCut video — brand identity, scene content, layout, animations, and transitions. You then download the ZIP and refine in any AI coding agent (Claude Code, Cursor, Codex, Windsurf, etc.) with linting and live preview.
 
 <Note>
-  **Sending your design to Verblike as a URL ("Send to ShiftCut"), rather than downloading a ZIP?** Use the [Send to ShiftCut guide](https://raw.githubusercontent.com/Verblike/shiftcut/main/docs/guides/claude-design-send-to-shiftcut.md) instead. That flow has different authoring rules; this page covers the Download-ZIP flow.
+  **Sending your design to Verblike as a URL ("Send to ShiftCut"), rather than downloading a ZIP?** Use the [Send to ShiftCut guide](https://raw.githubusercontent.com/Vadagon/shiftcut/main/docs/guides/claude-design-send-to-shiftcut.md) instead. That flow has different authoring rules; this page covers the Download-ZIP flow.
 </Note>
 
 ## Get started
 
 <Steps>
   <Step title="Download the instruction file">
-    Open [`claude-design-shiftcut.md`](https://github.com/Verblike/shiftcut/blob/main/docs/guides/claude-design-shiftcut.md) on GitHub and click the download button (↓) to save it.
+    Open [`claude-design-shiftcut.md`](https://github.com/Vadagon/shiftcut/blob/main/docs/guides/claude-design-shiftcut.md) on GitHub and click the download button (↓) to save it.
   </Step>
   <Step title="Open Claude Design">
     Start a new chat at [claude.ai/design](https://claude.ai/design).
@@ -27,7 +27,7 @@ Claude Design produces a **valid first draft** of a ShiftCut video — brand ide
   <Step title="Refine in any AI coding agent">
     Open the project in Claude Code, Cursor, Codex, or any agent with terminal access for animation polish, timing, and production QA.
     ```bash
-    npx skills add Verblike/shiftcut   # install skills (one-time)
+    npx skills add Vadagon/shiftcut   # install skills (one-time)
     npx shiftcut lint                     # should pass with zero errors
     npx shiftcut preview                  # open the studio
     ```
@@ -42,9 +42,9 @@ Claude Design produces a **valid first draft** of a ShiftCut video — brand ide
 
 | Surface                     | Recommended setup                                                                                                             |
 | --------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
-| Claude Design               | Download [`claude-design-shiftcut.md`](https://github.com/Verblike/shiftcut/blob/main/docs/guides/claude-design-shiftcut.md) from GitHub and attach to your chat |
-| Claude Code                 | `npx skills add Verblike/shiftcut`, then use `/shiftcut`                                                              |
-| Cursor / Codex / Gemini CLI | `npx skills add Verblike/shiftcut`                                                                                       |
+| Claude Design               | Download [`claude-design-shiftcut.md`](https://github.com/Vadagon/shiftcut/blob/main/docs/guides/claude-design-shiftcut.md) from GitHub and attach to your chat |
+| Claude Code                 | `npx skills add Vadagon/shiftcut`, then use `/shiftcut`                                                              |
+| Cursor / Codex / Gemini CLI | `npx skills add Vadagon/shiftcut`                                                                                       |
 
 ## How it works
 
@@ -128,7 +128,7 @@ The more specific your prompt, the better the output. Include palette, fonts, du
 Claude Design's output is a valid first draft. Open it in Claude Code, Cursor, Codex, or any AI coding agent with terminal access:
 
 ```bash
-npx skills add Verblike/shiftcut   # one-time setup
+npx skills add Vadagon/shiftcut   # one-time setup
 npx shiftcut lint                     # verify structure
 npx shiftcut preview                  # open the studio
 ```

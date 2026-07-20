@@ -10,7 +10,7 @@ import {
   type RawCommit,
 } from "./draft-changelog.ts";
 
-const REPO_URL = "https://github.com/Verblike/shiftcut";
+const REPO_URL = "https://github.com/Vadagon/shiftcut";
 
 function commit(subject: string): RawCommit {
   return {

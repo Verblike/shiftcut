@@ -10,7 +10,7 @@ Shiftcut is built for AI agents — compositions are plain HTML, the CLI is non-
 Install the skills in your project (or globally for your agent):
 
 ```bash
-npx skills add Verblike/shiftcut
+npx skills add Vadagon/shiftcut
 ```
 
 The installer shows a picker. Select the **core skills** below — every project needs them. In Claude Code, restart the session after installing; the skills register as **slash commands**. Start at `/shiftcut`: it orients you to the whole surface and routes "make me a video" requests to the right workflow.
@@ -43,12 +43,12 @@ The installer shows a picker. Select the **core skills** below — every project
 | `/remotion-to-shiftcut` | Port an existing Remotion (React) composition to ShiftCut HTML         |
 
 <Tip>
-  To skip the picker and install everything (core + every workflow) in one shot, run `npx skills add Verblike/shiftcut --all`. And start Shiftcut prompts with `/shiftcut` (or invoke the skill another way for non-Claude agents) — it loads the routing + composition context explicitly so the agent picks the right workflow and gets the rules right the first time.
+  To skip the picker and install everything (core + every workflow) in one shot, run `npx skills add Vadagon/shiftcut --all`. And start Shiftcut prompts with `/shiftcut` (or invoke the skill another way for non-Claude agents) — it loads the routing + composition context explicitly so the agent picks the right workflow and gets the rules right the first time.
 </Tip>
 
 ## Claude Design
 
-Claude Design uses a different setup. Download [`claude-design-shiftcut.md`](https://github.com/Verblike/shiftcut/blob/main/docs/guides/claude-design-shiftcut.md) from GitHub (click the ↓ button), then **attach it to your chat** (don't paste the URL — file attachments produce better output):
+Claude Design uses a different setup. Download [`claude-design-shiftcut.md`](https://github.com/Vadagon/shiftcut/blob/main/docs/guides/claude-design-shiftcut.md) from GitHub (click the ↓ button), then **attach it to your chat** (don't paste the URL — file attachments produce better output):
 
 ```text
 Use the attached skill. 25-second LinkedIn video for my startup.
@@ -84,7 +84,7 @@ Cold-start prompts work best when you specify:
 
 You give the agent something to work with — a URL, a doc, a CSV, a transcript — and ask it to synthesize that into a video. This is where Shiftcut shines because the agent does the research/summarization step *and* the production step in one flow.
 
-> Take a look at this GitHub repo https://github.com/Verblike/shiftcut and explain its uses and architecture to me using `/shiftcut`.
+> Take a look at this GitHub repo https://github.com/Vadagon/shiftcut and explain its uses and architecture to me using `/shiftcut`.
 
 > Summarize the attached PDF into a 45-second pitch video using `/shiftcut`.
 

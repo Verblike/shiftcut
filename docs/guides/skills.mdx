@@ -23,21 +23,21 @@ The skills split into three groups:
   </Step>
   <Step title="Or pick what to install (interactive picker)">
     ```bash
-    npx skills add Verblike/shiftcut --full-depth
+    npx skills add Vadagon/shiftcut --full-depth
     ```
 
     In a terminal this opens a picker — the core set under the "Core Skills" group, the on-demand creation workflows under "Other", nothing pre-selected. Keep `--full-depth`: it installs the current `main`; without it `skills add` fetches the skills.sh registry blob, which lags `main` by hours. The picker is interactive-only: a non-interactive or agent run without `--skill` installs all 19, so agents should use `npx shiftcut skills update` above.
   </Step>
   <Step title="Or install everything at once (skip the picker)">
     ```bash
-    npx skills add Verblike/shiftcut --all --full-depth
+    npx skills add Vadagon/shiftcut --all --full-depth
     ```
 
     Writes every skill to your project in one shot. Use this only when you explicitly want the full set up front — the router installs workflows on demand otherwise.
   </Step>
   <Step title="Or install one skill at a time">
     ```bash
-    npx skills add Verblike/shiftcut --skill <name> --full-depth
+    npx skills add Vadagon/shiftcut --skill <name> --full-depth
     ```
 
     Pass the bare skill name (no leading `/`) — e.g. `--skill shiftcut-animation`. Useful when you want a single capability without the full set.
@@ -110,7 +110,7 @@ Atomic capabilities the creation workflows compose against — pull one when you
 
 ## Source of truth
 
-The one-line "use when" for each skill comes from its own `SKILL.md` frontmatter `description:` field in the [shiftcut repo](https://github.com/Verblike/shiftcut/tree/main/skills). The same catalog lives in the [README's `## Skills` section](https://github.com/Verblike/shiftcut#skills) and the repo `CLAUDE.md`; all three surfaces are kept in sync when a skill is added or renamed.
+The one-line "use when" for each skill comes from its own `SKILL.md` frontmatter `description:` field in the [shiftcut repo](https://github.com/Vadagon/shiftcut/tree/main/skills). The same catalog lives in the [README's `## Skills` section](https://github.com/Vadagon/shiftcut#skills) and the repo `CLAUDE.md`; all three surfaces are kept in sync when a skill is added or renamed.
 
 ## Next steps
 

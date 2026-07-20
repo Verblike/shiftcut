@@ -322,7 +322,7 @@ export function distributeFramesInterleaved(
  * Decide whether a parallel worker should run the per-worker SwiftShader
  * assertion. Gated to worker 0 only: workers within a chunk share the same
  * Chrome binary, flags, and OS/driver state, so one verification per chunk
- * is sufficient. See `Verblike/shiftcut#955`.
+ * is sufficient. See `Vadagon/shiftcut#955`.
  */
 export function shouldVerifyWorkerGpu(workerId: number, config?: Partial<EngineConfig>): boolean {
   return config?.browserGpuMode === "software" && workerId === 0;

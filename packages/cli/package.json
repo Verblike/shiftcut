@@ -5,7 +5,7 @@
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Verblike/shiftcut",
+    "url": "https://github.com/Vadagon/shiftcut",
     "directory": "packages/cli"
   },
   "bin": {

@@ -59,7 +59,7 @@ export interface SkillEntry {
 }
 
 export interface SkillsManifest {
-  /** Source repo, e.g. "Verblike/shiftcut". */
+  /** Source repo, e.g. "Vadagon/shiftcut". */
   source: string;
   /** Per-skill fingerprint, keyed by skill name. */
   skills: Record<string, SkillEntry>;
@@ -109,7 +109,7 @@ export interface SkillsCheckResult {
   lockMissing: boolean;
 }
 
-const DEFAULT_REPO_SLUG = "Verblike/shiftcut";
+const DEFAULT_REPO_SLUG = "Vadagon/shiftcut";
 /** Manifest filename, published at the repo root. */
 export const MANIFEST_FILE = "skills-manifest.json";
 const FETCH_TIMEOUT_MS = 4000;

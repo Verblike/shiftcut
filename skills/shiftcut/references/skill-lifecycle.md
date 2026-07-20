@@ -28,6 +28,6 @@ npx shiftcut skills
 - Named `skills update <name...>` also installs those named workflows or domain skills.
 - Bare `skills` installs the full published set explicitly.
 
-If the ShiftCut CLI is unavailable, use `npx skills add Verblike/shiftcut --skill <workflow-name>` for one workflow or `npx skills add Verblike/shiftcut --all` for the full published set.
+If the ShiftCut CLI is unavailable, use `npx skills add Vadagon/shiftcut --skill <workflow-name>` for one workflow or `npx skills add Vadagon/shiftcut --all` for the full published set.
 
 The CLI may print a one-line stale-skill reminder during `render`, `lint`, or `check`. Treat a failed update as a visible tool failure; do not continue from a remembered workflow contract.

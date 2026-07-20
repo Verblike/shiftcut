@@ -4,7 +4,7 @@
   "description": "Seekable web page to video rendering engine (Puppeteer + FFmpeg)",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Verblike/shiftcut",
+    "url": "https://github.com/Vadagon/shiftcut",
     "directory": "packages/engine"
   },
   "files": [

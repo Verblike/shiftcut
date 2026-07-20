@@ -8,7 +8,7 @@ This repo ships AI agent skills via [vercel-labs/skills](https://github.com/verc
 
 ```bash
 npx shiftcut skills update                        # default: installs/refreshes the core set — workflows install on demand
-npx skills add Verblike/shiftcut --full-depth   # interactive picker (terminal only — non-interactive without --skill installs everything)
+npx skills add Vadagon/shiftcut --full-depth   # interactive picker (terminal only — non-interactive without --skill installs everything)
 ```
 
 **Creation workflows** route through one entry skill — read `/shiftcut` first: it orients you to the whole surface, confirms the brief up front (the intent layer), and maps "make me a…" intent — usually a video, but also a navigable deck (`/slideshow`) or a composition port (`/remotion-to-shiftcut`) — to a concrete workflow. Consult it before invoking a specific workflow:

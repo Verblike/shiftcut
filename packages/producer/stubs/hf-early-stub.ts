@@ -15,7 +15,7 @@
  *
  *   2. Intercept `window.gsap` assignment and batch `timeline.to/from/fromTo/set`
  *      calls via requestAnimationFrame to prevent the main-thread hang described
- *      in https://github.com/Verblike/shiftcut/issues/1231.
+ *      in https://github.com/Vadagon/shiftcut/issues/1231.
  *
  * GSAP batching background
  * ─────────────────────────────────────────────────────────────────────────────

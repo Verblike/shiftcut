@@ -979,13 +979,13 @@ Word-level transcripts (whisper output) are grouped into readable caption cues o
 
     **Using `shiftcut skills` is already fine** — as of v0.4.5 the CLI sets `GIT_CLONE_PROTECTION_ACTIVE=0` on the child environment, which is the opt-in knob Git provides for exactly this case. You don't need to do anything.
 
-    **If you ran `npx skills add Verblike/shiftcut` directly** (bypassing the ShiftCut CLI), set the env var yourself:
+    **If you ran `npx skills add Vadagon/shiftcut` directly** (bypassing the ShiftCut CLI), set the env var yourself:
 
     ```bash
-    GIT_CLONE_PROTECTION_ACTIVE=0 npx skills add Verblike/shiftcut
+    GIT_CLONE_PROTECTION_ACTIVE=0 npx skills add Vadagon/shiftcut
     ```
 
-    This is tracked in [GH #316](https://github.com/Verblike/shiftcut/issues/316). An upstream fix in the `skills` CLI itself is the right long-term answer; until that lands, the env var is the correct workaround.
+    This is tracked in [GH #316](https://github.com/Vadagon/shiftcut/issues/316). An upstream fix in the `skills` CLI itself is the right long-term answer; until that lands, the env var is the correct workaround.
   </Tab>
 </Tabs>
 
@@ -1373,7 +1373,7 @@ Same trade-off as `lambda`, on Google Cloud instead of AWS. Pick `cloudrun` when
 ```json
 {
   "$schema": "https://shiftcut.verblike.com/schema/shiftcut.json",
-  "registry": "https://raw.githubusercontent.com/Verblike/shiftcut/main/registry",
+  "registry": "https://raw.githubusercontent.com/Vadagon/shiftcut/main/registry",
   "paths": {
     "blocks": "compositions",
     "components": "compositions/components",

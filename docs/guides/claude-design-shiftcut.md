@@ -1,7 +1,7 @@
 # Claude Design + ShiftCut (Template-First)
 
 > ⚠️ **Doing a "Send to ShiftCut" import (sending your design to Verblike as a URL, not a downloaded ZIP)?**
-> **Use the Send-to guide instead:** https://raw.githubusercontent.com/Verblike/shiftcut/main/docs/guides/claude-design-send-to-shiftcut.md
+> **Use the Send-to guide instead:** https://raw.githubusercontent.com/Vadagon/shiftcut/main/docs/guides/claude-design-send-to-shiftcut.md
 >
 > This Template-First guide is for the **Download-ZIP** flow. Its authoring rules differ from Send-to, and following it for a Send-to import yields a low-fidelity result.
 
@@ -501,7 +501,7 @@ Opens the ShiftCut Studio at `http://localhost:3002` with frame-accurate scrubbi
 This project was drafted in Claude Design. To polish animations, timing, and pacing:
 
 ```bash
-npx skills add Verblike/shiftcut   # install ShiftCut skills (one-time)
+npx skills add Vadagon/shiftcut   # install ShiftCut skills (one-time)
 npx shiftcut lint                     # verify structure (should pass with zero errors)
 npx shiftcut preview                  # open the studio for live feedback
 ```
@@ -1230,9 +1230,9 @@ tl.to("#s5-headline", { backgroundSize: "100% 30%", duration: 0.6, ease: "power2
 
 Everything critical is inlined above. These are for edge cases:
 
-- Core composition contract (data attributes, sub-comp wiring): https://github.com/Verblike/shiftcut/blob/main/skills/shiftcut/SKILL.md
-- Motion theory (easing as emotion, direction rules): https://github.com/Verblike/shiftcut/blob/main/skills/shiftcut/references/motion-principles.md
-- Typography (full banned list, weight contrast, OpenType): https://github.com/Verblike/shiftcut/blob/main/skills/shiftcut/references/typography.md
-- Transitions (shader catalog, CSS transition patterns): https://github.com/Verblike/shiftcut/blob/main/skills/shiftcut/references/transitions.md
-- Captions synced to audio: https://github.com/Verblike/shiftcut/blob/main/skills/shiftcut/references/captions.md
+- Core composition contract (data attributes, sub-comp wiring): https://github.com/Vadagon/shiftcut/blob/main/skills/shiftcut/SKILL.md
+- Motion theory (easing as emotion, direction rules): https://github.com/Vadagon/shiftcut/blob/main/skills/shiftcut/references/motion-principles.md
+- Typography (full banned list, weight contrast, OpenType): https://github.com/Vadagon/shiftcut/blob/main/skills/shiftcut/references/typography.md
+- Transitions (shader catalog, CSS transition patterns): https://github.com/Vadagon/shiftcut/blob/main/skills/shiftcut/references/transitions.md
+- Captions synced to audio: https://github.com/Vadagon/shiftcut/blob/main/skills/shiftcut/references/captions.md
 - Full docs: https://shiftcut.verblike.com/

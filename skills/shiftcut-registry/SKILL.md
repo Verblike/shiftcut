@@ -33,7 +33,7 @@ These paths are configurable in `shiftcut.json`:
 
 ```json
 {
-  "registry": "https://raw.githubusercontent.com/Verblike/shiftcut/main/registry",
+  "registry": "https://raw.githubusercontent.com/Vadagon/shiftcut/main/registry",
   "paths": {
     "blocks": "compositions",
     "components": "compositions/components",
@@ -101,7 +101,7 @@ The normal table and `--json` modes only list matches; install a selected name w
 If the CLI cannot reach the configured registry, inspect the raw manifest as a fallback:
 
 ```bash
-curl -s https://raw.githubusercontent.com/Verblike/shiftcut/main/registry/registry.json
+curl -s https://raw.githubusercontent.com/Vadagon/shiftcut/main/registry/registry.json
 ```
 
 Each item's `registry-item.json` contains: name, type, title, description, tags, dimensions (blocks only), duration (blocks only), and file list.
